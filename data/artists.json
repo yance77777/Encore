@@ -28,7 +28,8 @@
     {"name":"莱芙","year":2017},{"name":"克制凶猛","year":2018},{"name":"大娱乐家","year":2020},{"name":"十万伏特","year":2024}
   ]},
   {"id":"zhoushen","name":"周深","en":"Zhou Shen","debut":2017,"color":"#3a2e7a","color2":"#7c8cff","initial":"深","albums":[
-    {"name":"深的深","year":2017},{"name":"反深代词","year":2024}
+    {"name":"深的深","year":2017,"trackCount":10},
+    {"name":"反深代词","year":2024,"trackCount":14,"tracks":["Intro","蜃楼","重启","记忆商店","警报","少管我","缝补","Trait","黄昏","风起时"]}
   ]},
   {"id":"gem","name":"邓紫棋","en":"G.E.M.","debut":2009,"color":"#7a1f4a","color2":"#ff5c8a","initial":"紫","albums":[
     {"name":"18…","year":2009},{"name":"My Secret","year":2010},{"name":"Xposed","year":2012},{"name":"新的心跳","year":2015},

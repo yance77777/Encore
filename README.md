@@ -1,4 +1,4 @@
-# 余响 Encore v0.2.0
+# 余响 Encore v0.3.0
 
 > 演唱会足迹追踪 App · 前端 GitHub Pages + 后端 HF Space
 
