@@ -1,0 +1,37 @@
+[
+  {"id":"jay","name":"周杰伦","en":"Jay Chou","debut":2000,"color":"#5b2c8b","color2":"#9d6cff","initial":"杰","albums":[
+    {"name":"Jay","year":2000},{"name":"范特西","year":2001},{"name":"八度空间","year":2002},{"name":"叶惠美","year":2003},
+    {"name":"七里香","year":2004},{"name":"十一月的萧邦","year":2005},{"name":"依然范特西","year":2006},{"name":"我很忙","year":2007},
+    {"name":"魔杰座","year":2008},{"name":"跨时代","year":2010},{"name":"周杰伦的床边故事","year":2016},{"name":"最伟大的作品","year":2022},{"name":"太阳之子","year":2026}
+  ]},
+  {"id":"jj","name":"林俊杰","en":"JJ Lin","debut":2003,"color":"#0a4d68","color2":"#3eb8d0","initial":"杰","albums":[
+    {"name":"乐行者","year":2003},{"name":"第二天堂","year":2004},{"name":"编号89757","year":2005},{"name":"曹操","year":2006},
+    {"name":"西界","year":2007},{"name":"JJ陆","year":2008},{"name":"100天","year":2009},{"name":"她说","year":2010},
+    {"name":"学不会","year":2011},{"name":"因你而在","year":2013},{"name":"新地球","year":2014},{"name":"和自己对话","year":2015},{"name":"伟大的渺小","year":2017},{"name":"幸存者","year":2020}
+  ]},
+  {"id":"mayday","name":"五月天","en":"Mayday","debut":1999,"color":"#b8336a","color2":"#ff6b9d","initial":"五","albums":[
+    {"name":"第一张创作专辑","year":1999},{"name":"爱情万岁","year":2000},{"name":"人生海海","year":2001},{"name":"时光机","year":2003},
+    {"name":"神的孩子都在跳舞","year":2004},{"name":"为爱而生","year":2006},{"name":"后青春期的诗","year":2008},{"name":"第二人生","year":2011},{"name":"自传","year":2016}
+  ]},
+  {"id":"zhangjie","name":"张杰","en":"Jason Zhang","debut":2005,"color":"#2d5a3d","color2":"#5bbf8a","initial":"杰","albums":[
+    {"name":"第一张","year":2005},{"name":"再爱我一回","year":2006},{"name":"明天过后","year":2008},{"name":"穿越三部曲","year":2009},
+    {"name":"这，就是爱","year":2010},{"name":"最接近天堂的地方","year":2011},{"name":"爱，不解释","year":2013},{"name":"拾","year":2015},
+    {"name":"越爱越强","year":2016},{"name":"值得更好的","year":2021},{"name":"外南街1982","year":2022},{"name":"冬月初七","year":2023}
+  ]},
+  {"id":"joker","name":"薛之谦","en":"Joker Xue","debut":2006,"color":"#4a3a8c","color2":"#8b7fd4","initial":"薛","albums":[
+    {"name":"薛之谦","year":2006},{"name":"你过得好吗","year":2007},{"name":"深深爱过你","year":2008},{"name":"未完成的歌","year":2009},
+    {"name":"几个薛之谦","year":2012},{"name":"意外","year":2013},{"name":"初学者","year":2016},{"name":"渡","year":2017},
+    {"name":"怪咖","year":2018},{"name":"尘","year":2019},{"name":"天外来物","year":2020},{"name":"无数","year":2022},{"name":"守村人","year":2024}
+  ]},
+  {"id":"silence","name":"汪苏泷","en":"Silence Wang","debut":2010,"color":"#1a5c7a","color2":"#5bd0f0","initial":"汪","albums":[
+    {"name":"弗斯特","year":2010},{"name":"万有引力","year":2012},{"name":"传世乐章","year":2014},{"name":"登陆计划","year":2015},
+    {"name":"莱芙","year":2017},{"name":"克制凶猛","year":2018},{"name":"大娱乐家","year":2020},{"name":"十万伏特","year":2024}
+  ]},
+  {"id":"zhoushen","name":"周深","en":"Zhou Shen","debut":2017,"color":"#3a2e7a","color2":"#7c8cff","initial":"深","albums":[
+    {"name":"深的深","year":2017},{"name":"反深代词","year":2024}
+  ]},
+  {"id":"gem","name":"邓紫棋","en":"G.E.M.","debut":2009,"color":"#7a1f4a","color2":"#ff5c8a","initial":"紫","albums":[
+    {"name":"18…","year":2009},{"name":"My Secret","year":2010},{"name":"Xposed","year":2012},{"name":"新的心跳","year":2015},
+    {"name":"摩天动物园","year":2019},{"name":"童话的休止符","year":2019},{"name":"启示录","year":2022},{"name":"I AM GLORIA","year":2025}
+  ]}
+]

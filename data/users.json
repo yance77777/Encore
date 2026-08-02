@@ -1,0 +1,112 @@
+{
+  "demo": {
+    "id": "demo",
+    "nickname": "追光者",
+    "since": "2021",
+    "bias": {
+      "type": 1,
+      "list": [
+        "jay"
+      ]
+    },
+    "skin": "jay",
+    "checkins": [
+      {
+        "venueId": "bj-niaocao",
+        "artistId": "jay",
+        "date": "2024-08-10",
+        "note": "嘉年华"
+      },
+      {
+        "venueId": "sh-stadium",
+        "artistId": "jj",
+        "date": "2023-08-19",
+        "note": "JJ20"
+      },
+      {
+        "venueId": "hz-lotus",
+        "artistId": "mayday",
+        "date": "2025-05-24",
+        "note": "#5525"
+      },
+      {
+        "venueId": "nj-aoti",
+        "artistId": "jay",
+        "date": "2024-09-27",
+        "note": "嘉年华"
+      },
+      {
+        "venueId": "sz-dayun",
+        "artistId": "zhoushen",
+        "date": "2024-06-01",
+        "note": "9.29Hz"
+      },
+      {
+        "venueId": "cd-donganhu",
+        "artistId": "gem",
+        "date": "2024-06-02",
+        "note": "I AM GLORIA"
+      },
+      {
+        "venueId": "sh-mercedes",
+        "artistId": "zhoushen",
+        "date": "2024-05-18",
+        "note": "首站"
+      },
+      {
+        "venueId": "bj-wukesong",
+        "artistId": "jj",
+        "date": "2023-09-22",
+        "note": "JJ20"
+      },
+      {
+        "venueId": "bj-gongti",
+        "artistId": "jay",
+        "date": "2026-07-31",
+        "note": ""
+      }
+    ],
+    "collections": {
+      "album": [
+        {
+          "artistId": "jay",
+          "name": "范特西",
+          "year": 2001
+        },
+        {
+          "artistId": "jay",
+          "name": "七里香",
+          "year": 2004
+        },
+        {
+          "artistId": "jay",
+          "name": "最伟大的作品",
+          "year": 2022
+        },
+        {
+          "artistId": "jj",
+          "name": "伟大的渺小",
+          "year": 2017
+        },
+        {
+          "artistId": "mayday",
+          "name": "自传",
+          "year": 2016
+        }
+      ],
+      "single": [],
+      "merch": [
+        {
+          "artistId": "jay",
+          "name": "嘉年华应援棒",
+          "year": 2024
+        },
+        {
+          "artistId": "mayday",
+          "name": "#5525场刊",
+          "year": 2025
+        }
+      ]
+    }
+  }
+}

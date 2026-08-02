@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>余响 Encore · 你的演唱会足迹</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,700;1,500&family=Noto+Serif+SC:wght@500;700;900&family=Noto+Sans+SC:wght@300;400;500;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a href="index.html" class="logo"><span class="dot"></span>余响 <span class="logo-en">Encore</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">首页</a></li>
+      <li><a href="map.html">场馆地图</a></li>
+      <li><a href="tours.html">巡演档案</a></li>
+      <li><a href="gallery.html">收藏展览</a></li>
+      <li><a href="identity.html">粉丝身份</a></li>
+      <li><a href="member.html">会员</a></li>
+    </ul>
+    <button class="member-btn" onclick="location.href='member.html'">开通会员</button>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="reveal">
+      <div class="hero-eyebrow">v0.2.0 · 演唱会足迹追踪</div>
+      <h1>点亮你走过的<br>每一座<span class="accent">舞台</span></h1>
+      <p class="lead">记录场馆、收藏专辑、追踪巡演、定制属于你的追星足迹。基于真实巡演数据，从第一场演唱会开始，把每一次心动变成地图上的一束光。</p>
+      <div class="hero-stats" id="heroStats"></div>
+    </div>
+    <div class="ticket reveal">
+      <div class="ticket-card" id="heroTicket">
+        <div class="t-stamp">CHECKED IN</div>
+        <div class="t-artist">周杰伦</div>
+        <div class="t-tour">嘉年华世界巡回演唱会</div>
+        <div class="t-venue"><strong>国家体育场 · 鸟巢</strong></div>
+        <div class="t-venue" style="color:var(--ink-mute)">北京 · 2024.08.10</div>
+        <div class="t-row"><span>SEAT 区 A12</span><span>ROW 7</span></div>
+        <div class="ticket-stub"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 模块导航 -->
+  <section style="padding:30px 0 70px">
+    <div class="sec-head reveal">
+      <div>
+        <div class="tag">Explore</div>
+        <h2>开启你的<em>足迹</em></h2>
+        <p>从场馆点亮到收藏展览，五个模块拼出你的追星故事。</p>
+      </div>
+    </div>
+    <div class="member-cards reveal" id="moduleNav"></div>
+  </section>
+
+</div>
+
+<footer>
+  <div>余响 Encore · 演唱会足迹追踪 <span class="ver">v0.2.0</span></div>
+  <div class="footer-sub">数据来源：百科/票务/媒体公开信息 · 仅供产品演示</div>
+</footer>
+
+<div class="toast" id="toast"><span class="ico"></span><span id="toastText"></span></div>
+<script>
+// 首页模块导航卡片
+const modules = [
+  {href:'map.html', tag:'01', name:'场馆地图', en:'Light Up', desc:'点亮你走过的每一座舞台'},
+  {href:'tours.html', tag:'02', name:'巡演档案', en:'Archive', desc:'基于真实数据的演唱会场次记录'},
+  {href:'gallery.html', tag:'03', name:'收藏展览', en:'Collection', desc:'拍下你的实体专辑与周边'},
+  {href:'identity.html', tag:'04', name:'粉丝身份', en:'Identity', desc:'单担双担三担，定义你是谁'},
+  {href:'member.html', tag:'05', name:'会员体系', en:'Pro', desc:'解锁全国省份集卡与无限收藏'}
+];
+document.getElementById('moduleNav').innerHTML = modules.map(m=>`
+  <div class="plan" style="cursor:pointer" onclick="location.href='${m.href}'">
+    <div class="plan-name">${m.en}</div>
+    <div class="plan-cn">${m.name}</div>
+    <p style="color:var(--ink-soft);font-size:13px;margin-bottom:20px">${m.desc}</p>
+    <button class="plan-cta">进入 →</button>
+  </div>`).join('');
+</script>
+<script src="app.js"></script>
+</body>
+</html>
