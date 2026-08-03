@@ -2,3 +2,6 @@ node_modules/
 *.log
 .DS_Store
 Thumbs.db
+
+# 本地用户数据（可选：如不想将用户数据推送到仓库则取消注释）
+# frontend/data/users.json

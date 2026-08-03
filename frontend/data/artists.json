@@ -2,12 +2,12 @@
   {"id":"jay","name":"周杰伦","en":"Jay Chou","debut":2000,"color":"#5b2c8b","color2":"#9d6cff","initial":"杰","albums":[
     {"name":"Jay","year":2000},{"name":"范特西","year":2001},{"name":"八度空间","year":2002},{"name":"叶惠美","year":2003},
     {"name":"七里香","year":2004},{"name":"十一月的萧邦","year":2005},{"name":"依然范特西","year":2006},{"name":"我很忙","year":2007},
-    {"name":"魔杰座","year":2008},{"name":"跨时代","year":2010},{"name":"周杰伦的床边故事","year":2016},{"name":"最伟大的作品","year":2022},{"name":"太阳之子","year":2026}
+    {"name":"魔杰座","year":2008},{"name":"跨时代","year":2010},{"name":"周杰伦的床边故事","year":2016},{"name":"最伟大的作品","year":2022}
   ]},
   {"id":"jj","name":"林俊杰","en":"JJ Lin","debut":2003,"color":"#0a4d68","color2":"#3eb8d0","initial":"杰","albums":[
     {"name":"乐行者","year":2003},{"name":"第二天堂","year":2004},{"name":"编号89757","year":2005},{"name":"曹操","year":2006},
     {"name":"西界","year":2007},{"name":"JJ陆","year":2008},{"name":"100天","year":2009},{"name":"她说","year":2010},
-    {"name":"学不会","year":2011},{"name":"因你而在","year":2013},{"name":"新地球","year":2014},{"name":"和自己对话","year":2015},{"name":"伟大的渺小","year":2017},{"name":"幸存者","year":2020}
+    {"name":"学不会","year":2011},{"name":"因你而在","year":2013},{"name":"新地球","year":2014},{"name":"和自己对话","year":2015},{"name":"伟大的渺小","year":2017},{"name":"幸存者","year":2020},{"name":"重拾快乐","year":2023}
   ]},
   {"id":"mayday","name":"五月天","en":"Mayday","debut":1999,"color":"#b8336a","color2":"#ff6b9d","initial":"五","albums":[
     {"name":"第一张创作专辑","year":1999},{"name":"爱情万岁","year":2000},{"name":"人生海海","year":2001},{"name":"时光机","year":2003},
@@ -33,6 +33,6 @@
   ]},
   {"id":"gem","name":"邓紫棋","en":"G.E.M.","debut":2009,"color":"#7a1f4a","color2":"#ff5c8a","initial":"紫","albums":[
     {"name":"18…","year":2009},{"name":"My Secret","year":2010},{"name":"Xposed","year":2012},{"name":"新的心跳","year":2015},
-    {"name":"摩天动物园","year":2019},{"name":"童话的休止符","year":2019},{"name":"启示录","year":2022},{"name":"I AM GLORIA","year":2025}
+    {"name":"摩天动物园","year":2019},{"name":"童话的休止符","year":2019},{"name":"启示录","year":2022}
   ]}
 ]

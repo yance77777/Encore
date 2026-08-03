@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>巡演档案 · 余响 Encore</title>
+<title>场馆地图 · 余响 Encore</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,700;1,500&family=Noto+Serif+SC:wght@500;700;900&family=Noto+Sans+SC:wght@300;400;500;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -16,8 +16,8 @@
     <a href="index.html" class="logo"><span class="dot"></span>余响 <span class="logo-en">Encore</span></a>
     <ul class="nav-links">
       <li><a href="index.html">首页</a></li>
-      <li><a href="map.html">场馆地图</a></li>
-      <li><a href="tours.html" class="active">巡演档案</a></li>
+      <li><a href="map.html" class="active">场馆地图</a></li>
+      <li><a href="tours.html">巡演档案</a></li>
       <li><a href="gallery.html">收藏展览</a></li>
       <li><a href="identity.html">粉丝身份</a></li>
       <li><a href="member.html">会员</a></li>
@@ -28,27 +28,31 @@
 
 <div class="wrap">
 
-  <section id="tours">
+  <section id="map">
     <div class="sec-head reveal">
       <div>
-        <div class="tag">02 / Tour Archive</div>
-        <h2>巡演档案 <em>Archive</em></h2>
-        <p>基于真实数据整理的演唱会场次记录，选择歌手查看其巡演足迹。</p>
+        <div class="tag">01 / Venue Map</div>
+        <h2>场馆地图 <em>Light Up</em></h2>
+        <p>点击场馆卡片即可点亮，以省份集卡，把你的足迹变成一张专属地图。</p>
       </div>
-      <div class="artist-filter" id="artistFilter"></div>
     </div>
-    <div class="tour-table-wrap reveal">
-      <table class="tour-table" id="tourTable">
-        <thead><tr><th>歌手</th><th>巡演</th><th>城市</th><th>场馆</th><th>日期</th><th>备注</th></tr></thead>
-        <tbody id="tourBody"></tbody>
-      </table>
+    <div class="map-layout reveal">
+      <div class="province-list" id="provList"></div>
+      <div class="map-canvas">
+        <div class="map-prov-title">
+          <h3 id="mapProvName">北京市</h3>
+          <span class="lit-badge" id="mapLitBadge">0 / 0 已点亮</span>
+        </div>
+        <div class="map-prov-sub" id="mapProvSub">华北 · 巡演重镇</div>
+        <div class="venue-grid" id="venueGrid"></div>
+      </div>
     </div>
   </section>
 
 </div>
 
 <footer>
-  <div>余响 Encore · 演唱会足迹追踪 <span class="ver">v0.3.0</span></div>
+  <div>余响 Encore · 演唱会足迹追踪 <span class="ver">v0.3.1</span></div>
   <div class="footer-sub">数据来源：百科/票务/媒体公开信息 · 仅供产品演示</div>
 </footer>
 

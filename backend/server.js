@@ -1,9 +1,9 @@
 /**
- * 余响 Encore · 后端服务 v0.3.0
+ * 余响 Encore · 后端服务 v0.3.1
  * 技术栈：Node.js + Express + JSON 文件存储
- * 数据存储：../data/*.json（种子数据只读）+ ../data/users.json（用户数据读写）
- * 本地运行：cd backend && npm start（前端从项目根目录提供）
- * 部署 HF Space：将 backend/ 内容上传，data/ 目录同步上传
+ * 数据存储：../frontend/data/*.json（种子数据只读）+ ../frontend/data/users.json（用户数据读写）
+ * 本地运行：cd backend && npm start（前端从 frontend/ 目录提供）
+ * 部署 HF Space：将 backend/ + frontend/data/ 上传，数据目录同步
  */
 const express = require('express');
 const fs = require('fs');
@@ -11,13 +11,15 @@ const path = require('path');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-// 项目根目录（backend/ 的上一级），用于访问前端静态文件和 data/
+// 项目根目录（backend/ 的上一级）
 const ROOT_DIR = path.join(__dirname, '..');
-const DATA_DIR = path.join(ROOT_DIR, 'data');
+// 前端部署目录（HTML/CSS/JS/data/assets 均在此）
+const FRONTEND_DIR = path.join(ROOT_DIR, 'frontend');
+const DATA_DIR = path.join(FRONTEND_DIR, 'data');
 const USERS_FILE = path.join(DATA_DIR, 'users.json');
 
 app.use(express.json());
-app.use(express.static(ROOT_DIR));
+app.use(express.static(FRONTEND_DIR));
 
 /* ============ CORS（GitHub Pages 前端跨域调用）============ */
 app.use((req, res, next) => {
@@ -204,7 +206,7 @@ app.get('/api/stats', (req, res) => {
 });
 
 app.listen(PORT, '0.0.0.0', () => {
-  console.log(`\n  余响 Encore v0.3.0 已启动`);
+  console.log(`\n  余响 Encore v0.3.1 已启动`);
   console.log(`  本地访问:  http://localhost:${PORT}`);
   console.log(`  数据存储:  ${DATA_DIR}`);
   console.log(`  用户数据:  ${USERS_FILE}\n`);
