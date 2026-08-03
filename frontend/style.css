@@ -1,8 +1,6 @@
 /* ============================================
-   余响 Encore v0.3.1 · 舞台灯光设计系统
-   设计语言：暖白基调 + 聚光灯光影 + 暖金强调
-   重构要点：告别暗色调，明亮现代、层次清晰、
-   响应式适配、细腻动效反馈
+   余响 Encore v0.4 · 舞台灯光设计系统
+   设计语言：明暗双模 + 聚光灯光影 + 暖金强调
    ============================================ */
 :root{
   /* 基底 */
@@ -37,6 +35,29 @@
   --radius:16px;
 }
 
+/* ============ 暗色主题 ============ */
+html.dark{
+  --bg:#13131f;
+  --bg-2:#1c1c2e;
+  --surface:#21212f;
+  --surface-2:#2a2a3c;
+  --ink:#e8e6f0;
+  --ink-soft:#a8a4b8;
+  --ink-mute:#6e6880;
+
+  --gold:#e8b855;
+  --gold-soft:#3a3220;
+  --neon:#ff6bb5;
+  --neon-2:#9d7cff;
+  --teal:#3dd9c0;
+
+  --border:rgba(255,255,255,.10);
+  --border-strong:rgba(255,255,255,.18);
+  --shadow-sm:0 2px 8px -2px rgba(0,0,0,.30);
+  --shadow:0 16px 40px -18px rgba(0,0,0,.50);
+  --shadow-lg:0 30px 70px -28px rgba(0,0,0,.60);
+}
+
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{
@@ -56,10 +77,17 @@ body::before{
     radial-gradient(900px 600px at 8% 0%,rgba(124,92,255,.06),transparent 55%),
     radial-gradient(900px 600px at 96% 6%,rgba(232,67,147,.05),transparent 55%);
 }
+html.dark body::before{
+  background:
+    radial-gradient(1100px 700px at 50% -18%,rgba(232,184,85,.10),transparent 62%),
+    radial-gradient(900px 600px at 8% 0%,rgba(157,124,255,.08),transparent 55%),
+    radial-gradient(900px 600px at 96% 6%,rgba(255,107,181,.06),transparent 55%);
+}
 body::after{
-  content:'';position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.5;
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.4;
   background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.25'/%3E%3C/svg%3E");
 }
+html.dark body::after{opacity:.25}
 .wrap{position:relative;z-index:1;max-width:1180px;margin:0 auto;padding:0 24px}
 
 /* ============ 顶部导航 ============ */
@@ -69,6 +97,7 @@ header{
   background:rgba(250,248,244,.82);
   border-bottom:1px solid var(--border);
 }
+html.dark header{background:rgba(19,19,31,.85)}
 .nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
 .logo{
   display:flex;align-items:center;gap:10px;
@@ -496,13 +525,14 @@ section{padding:72px 0;position:relative}
 /* ============ Toast ============ */
 .toast{
   position:fixed;bottom:32px;left:50%;
-  transform:translateX(-50%) translateY(120%);
+  transform:translateX(-50%) translateY(300%);
   background:var(--ink);color:#fff;border-radius:12px;
   padding:14px 24px;font-size:13px;box-shadow:var(--shadow-lg);
   z-index:100;transition:transform .35s cubic-bezier(.2,.8,.2,1);
   display:flex;align-items:center;gap:10px;
+  opacity:0;pointer-events:none;
 }
-.toast.show{transform:translateX(-50%) translateY(0)}
+.toast.show{transform:translateX(-50%) translateY(0);opacity:1;pointer-events:auto}
 .toast .ico{width:8px;height:8px;border-radius:50%;background:var(--gold);box-shadow:0 0 10px var(--gold)}
 
 /* ============ Footer ============ */
@@ -719,4 +749,106 @@ footer .ver{font-family:var(--mono);color:var(--gold)}
   .fl-badge{width:92px;height:92px}
   .fl-lv{font-size:25px}
   .fl-card{padding:24px 20px}
+}
+
+/* ============ v0.4 品牌ICON + 主题切换 ============ */
+/* Logo ICON */
+.logo-icon{
+  width:28px;height:28px;border-radius:50%;flex-shrink:0;
+  object-fit:cover;display:inline-block;
+  box-shadow:0 0 0 2px rgba(200,147,58,.25),0 2px 8px -2px rgba(200,147,58,.4);
+  transition:box-shadow .3s;
+}
+.logo:hover .logo-icon{box-shadow:0 0 0 3px rgba(200,147,58,.35),0 4px 12px -2px rgba(200,147,58,.5)}
+html.dark .logo-icon{box-shadow:0 0 0 2px rgba(232,184,85,.30),0 2px 8px -2px rgba(232,184,85,.5)}
+html.dark .logo-icon.light-only{display:none}
+html:not(.dark) .logo-icon.dark-only{display:none}
+
+/* 主题切换按钮 */
+.theme-toggle{
+  display:flex;align-items:center;justify-content:center;
+  width:38px;height:38px;border-radius:50%;
+  border:1px solid var(--border-strong);background:var(--surface);
+  cursor:pointer;transition:all .25s;flex-shrink:0;
+  color:var(--ink-soft);font-size:16px;
+}
+.theme-toggle:hover{border-color:var(--gold);color:var(--gold);transform:rotate(15deg)}
+.theme-toggle .icon-sun{display:none}
+.theme-toggle .icon-moon{display:block}
+html.dark .theme-toggle .icon-sun{display:block}
+html.dark .theme-toggle .icon-moon{display:none}
+
+/* 导航栏右侧操作区 */
+.nav-actions{display:flex;align-items:center;gap:10px}
+
+/* 暗色模式适配 */
+html.dark .venue-card:not(.lit){opacity:.7}
+html.dark .venue-art img.unlit{filter:brightness(.55) saturate(.4)}
+html.dark .cmp-prov{fill:rgba(255,255,255,.10);stroke:rgba(255,255,255,.20)}
+html.dark .cmp-prov.no-venues{fill:rgba(255,255,255,.04);stroke:rgba(255,255,255,.12)}
+html.dark .cmp-tip{background:var(--surface);color:var(--ink);border:1px solid var(--border)}
+html.dark .cmp-tip span{color:var(--gold)}
+html.dark .lg-off i{background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.25)}
+
+/* 场馆卡片点亮/熄灭切换动效 */
+.venue-card{position:relative}
+.venue-card .toggle-hint{
+  position:absolute;top:8px;left:8px;
+  font-size:9px;font-family:var(--mono);
+  padding:2px 8px;border-radius:4px;z-index:2;
+  background:rgba(34,28,48,.08);color:var(--ink-mute);
+  transition:all .25s;
+}
+.venue-card.lit .toggle-hint{display:none}
+html.dark .venue-card .toggle-hint{background:rgba(255,255,255,.08)}
+
+/* 点亮动画 */
+@keyframes lightUp{
+  0%{transform:scale(1);filter:brightness(1)}
+  40%{transform:scale(1.05);filter:brightness(1.3)}
+  100%{transform:scale(1);filter:brightness(1)}
+}
+.venue-card.lighting{animation:lightUp .5s ease}
+@keyframes lightOff{
+  0%{transform:scale(1);opacity:1}
+  40%{transform:scale(.95);opacity:.6}
+  100%{transform:scale(1);opacity:1}
+}
+.venue-card.unlighting{animation:lightOff .4s ease}
+
+/* 专辑展览馆增强 */
+.album-card{
+  background:var(--surface);border:1px solid var(--border);border-radius:14px;
+  overflow:hidden;cursor:pointer;transition:all .25s;box-shadow:var(--shadow-sm);
+  position:relative;
+}
+.album-card:hover{transform:translateY(-4px);border-color:var(--gold);box-shadow:var(--shadow)}
+.album-cover{
+  aspect-ratio:1;background:var(--bg-2);
+  display:flex;align-items:center;justify-content:center;position:relative;
+  overflow:hidden;
+}
+.album-cover img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
+.album-card:hover .album-cover img{transform:scale(1.06)}
+.album-cover svg{width:80%;height:80%}
+.album-info{padding:10px 12px}
+.album-title{font-size:12px;font-weight:600;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.album-meta{font-size:10px;color:var(--ink-mute);font-family:var(--mono)}
+.album-year-badge{
+  position:absolute;top:8px;right:8px;
+  font-size:9px;font-family:var(--mono);color:#fff;
+  background:linear-gradient(100deg,var(--gold),var(--neon-2));
+  padding:2px 8px;border-radius:4px;z-index:2;
+}
+
+/* 移动端导航适配 */
+@media(max-width:880px){
+  .theme-toggle{width:34px;height:34px;font-size:14px}
+  .member-btn{padding:7px 14px;font-size:12px}
+}
+@media(max-width:520px){
+  .logo{font-size:18px;gap:6px}
+  .logo-icon{width:22px;height:22px}
+  .logo-en{display:none}
+  .nav-actions{gap:6px}
 }

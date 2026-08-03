@@ -1,6 +1,7 @@
-/* 余响 Encore · 前端逻辑 v0.3.1
+/* 余响 Encore · 前端逻辑 v0.4
  * 多页面版本：按页面元素按需渲染
  * 数据源：后端 API（优先）→ 静态 JSON 文件（GitHub Pages 回退，只读）
+ * V0.4 新增：明暗主题切换 + 场馆点亮/熄灭双向交互 + localStorage 持久化
  */
 
 // 后端地址：本地开发留空；GitHub Pages 部署时填 HF Space URL
@@ -8,7 +9,7 @@
 const API_BASE = '';
 
 let VENUES = [], ARTISTS = [], CONCERTS = [], USER = {}, STATS = {};
-let curProv = null, curType = 'album', curArtistFilter = 'all', curDan = 1;
+let curProv = null, curType = 'all-albums', curArtistFilter = 'all', curDan = 1;
 
 // Q版场馆SVG（无生成图的场馆用此占位，保持统一萌系画风）
 const venueSVG = {
@@ -79,8 +80,55 @@ function computeStats(){
   };
 }
 
+/* ===== 明暗主题切换 ===== */
+function toggleTheme(){
+  const isDark = document.documentElement.classList.toggle('dark');
+  localStorage.setItem('encore-theme', isDark ? 'dark' : 'light');
+  toast(isDark ? '已切换至暗色模式' : '已切换至亮色模式');
+}
+function initTheme(){
+  const saved = localStorage.getItem('encore-theme');
+  if(saved === 'dark') document.documentElement.classList.add('dark');
+}
+
+/* ===== localStorage 场馆打卡持久化 ===== */
+function loadLocalCheckins(){
+  try{
+    const local = JSON.parse(localStorage.getItem('encore-checkins') || '[]');
+    // 合并本地打卡记录到 USER.checkins（去重）
+    if(!USER.checkins) USER.checkins = [];
+    const existing = new Set(USER.checkins.map(c=>c.venueId));
+    local.forEach(c=>{ if(!existing.has(c.venueId)) USER.checkins.push(c); });
+  }catch(e){}
+}
+function loadLocalCollections(){
+  try{
+    const local = JSON.parse(localStorage.getItem('encore-collections') || 'null');
+    if(local && USER.collections){
+      // 合并本地收藏到 USER.collections
+      ['album','single','merch'].forEach(type=>{
+        if(local[type]){
+          local[type].forEach(item=>{
+            if(!USER.collections[type].some(x=>x.artistId===item.artistId && x.name===item.name)){
+              USER.collections[type].push(item);
+            }
+          });
+        }
+      });
+    }
+  }catch(e){}
+}
+function saveLocalCheckins(){
+  try{
+    // 只保存本地新增的打卡（标记来源）
+    const local = (USER.checkins||[]).filter(c=>c._local);
+    localStorage.setItem('encore-checkins', JSON.stringify(local));
+  }catch(e){}
+}
+
 /* ===== 初始化（按页面元素按需渲染）===== */
 async function init(){
+  initTheme();
   try{
     await loadData();
   }catch(e){
@@ -88,6 +136,8 @@ async function init(){
     toast('数据加载失败，请确认数据文件可访问');
     return;
   }
+  loadLocalCheckins();
+  loadLocalCollections();
   curProv = VENUES[0] ? VENUES[0].provinceShort : null;
   curDan = USER.bias ? USER.bias.type : 1;
   if(document.getElementById('heroStats')) renderHeroStats();
@@ -187,6 +237,7 @@ function renderVenues(){
     const checkin = (USER.checkins||[]).find(c=>c.venueId===v.id);
     const artist = checkin ? ARTISTS.find(a=>a.id===checkin.artistId) : null;
     return `<div class="venue-card ${isLit?'lit':''}" data-id="${v.id}">
+      ${!isLit?'<div class="toggle-hint">点击点亮</div>':''}
       <div class="venue-art">${art}</div>
       <div class="venue-name">${v.name}</div>
       <div class="venue-alias">${v.alias}</div>
@@ -267,28 +318,55 @@ function renderChinaMap(){
 
 async function toggleCheckin(venueId){
   const lit = getLitVenueIds();
-  if(lit.has(venueId)){
-    toast('该场馆已点亮');
-    return;
-  }
   const venue = VENUES.find(v=>v.id===venueId);
-  const concerts = CONCERTS.filter(c=>c.venueId===venueId);
-  const artistId = concerts.length ? concerts[0].artistId : (USER.bias.list[0]||'jay');
-  const date = concerts.length ? concerts[0].date : new Date().toISOString().slice(0,10);
-  const note = concerts.length ? concerts[0].tour : '';
-  try{
-    const r = await fetch(API_BASE+'/api/user/checkin',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({venueId,artistId,date,note})});
-    const d = await r.json();
-    if(!r.ok){ toast(d.error||'点亮失败'); return; }
-    USER = d.user;
-    STATS.litVenues = new Set(USER.checkins.map(c=>c.venueId)).size;
-    const provs = getProvinces();
-    STATS.litProvinces = provs.filter(x=>x.lit>0).length;
+  if(!venue) return;
+
+  // 已点亮 → 熄灭（移除打卡）
+  if(lit.has(venueId)){
+    USER.checkins = (USER.checkins||[]).filter(c=>c.venueId!==venueId);
+    saveLocalCheckins();
+    STATS = computeStats();
     if(document.getElementById('heroStats')) renderHeroStats();
     if(document.getElementById('heroTicket')) renderHeroTicket();
     renderProvinces(); renderVenues();
-    toast(`已点亮「${venue.name}」`);
-  }catch(e){ toast('在线写入需后端支持，本地预览仅只读'); }
+    toast(`已熄灭「${venue.name}」`);
+    // 尝试同步到后端
+    fetch(API_BASE+'/api/user/checkin',{method:'DELETE',headers:{'Content-Type':'application/json'},body:JSON.stringify({venueId})}).catch(()=>{});
+    return;
+  }
+
+  // 未点亮 → 点亮
+  const concerts = CONCERTS.filter(c=>c.venueId===venueId);
+  const artistId = concerts.length ? concerts[0].artistId : ((USER.bias&&USER.bias.list[0])||'jay');
+  const date = concerts.length ? concerts[0].date : new Date().toISOString().slice(0,10);
+  const note = concerts.length ? concerts[0].tour : '';
+  const checkin = {venueId,artistId,date,note,_local:true};
+
+  // 先尝试后端 API
+  try{
+    const r = await fetch(API_BASE+'/api/user/checkin',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({venueId,artistId,date,note})});
+    if(r.ok){
+      const d = await r.json();
+      if(d.user) USER = d.user;
+      else USER.checkins.push(checkin);
+    } else {
+      USER.checkins.push(checkin);
+    }
+  }catch(e){
+    // 后端不可用，使用本地存储
+    USER.checkins.push(checkin);
+  }
+  saveLocalCheckins();
+  STATS = computeStats();
+
+  // 点亮动画
+  const card = document.querySelector(`.venue-card[data-id="${venueId}"]`);
+  if(card){ card.classList.add('lighting'); setTimeout(()=>card.classList.remove('lighting'),500); }
+
+  if(document.getElementById('heroStats')) renderHeroStats();
+  if(document.getElementById('heroTicket')) renderHeroTicket();
+  renderProvinces(); renderVenues();
+  toast(`已点亮「${venue.name}」`);
 }
 
 /* ===== 巡演档案 ===== */
@@ -323,6 +401,30 @@ function renderTours(){
 /* ===== 收藏展览 ===== */
 function renderShelf(){
   const s = document.getElementById('shelf');
+  if(curType === 'all-albums'){
+    // 全部专辑模式：展示所有歌手的全部专辑
+    const collected = new Set((USER.collections&&USER.collections.album||[]).map(a=>a.artistId+'-'+a.name));
+    const allAlbums = [];
+    ARTISTS.forEach(a=>{
+      (a.albums||[]).forEach(al=>{
+        allAlbums.push({...al, artistId:a.id, artistName:a.name, artistInitial:a.initial, artistColor:a.color, artistColor2:a.color2, collected:collected.has(a.id+'-'+al.name)});
+      });
+    });
+    s.innerHTML = allAlbums.map(al=>`
+      <div class="album-card ${al.collected?'collected':''}" onclick="toggleAlbum('${al.artistId}','${al.name.replace(/'/g,"\\'")}',${al.year})">
+        <div class="album-cover">
+          <svg viewBox="0 0 100 100"><rect x="15" y="15" width="70" height="70" rx="6" fill="${al.artistColor}"/><text x="50" y="58" text-anchor="middle" font-family="serif" font-weight="900" font-size="22" fill="${al.artistColor2}">${al.artistInitial}</text></svg>
+          <div class="album-year-badge">${al.year}</div>
+          ${al.collected?'<div class="album-collected-badge" style="position:absolute;top:8px;left:8px;font-size:9px;font-family:var(--mono);color:#fff;background:linear-gradient(100deg,var(--gold),var(--neon-2));padding:2px 8px;border-radius:4px;z-index:2">已收藏</div>':''}
+        </div>
+        <div class="album-info">
+          <div class="album-title">${al.name}</div>
+          <div class="album-meta">${al.artistName} · ${al.year}</div>
+        </div>
+      </div>`).join('');
+    return;
+  }
+  // 个人收藏模式
   const items = (USER.collections && USER.collections[curType]) || [];
   s.innerHTML = items.map(it=>{
     const a = ARTISTS.find(x=>x.id===it.artistId);
@@ -331,6 +433,23 @@ function renderShelf(){
       <div class="item-info"><div class="item-title">${it.name}</div><div class="item-sub">${a?a.name:''} · ${it.year||''}</div></div>
     </div>`;
   }).join('') + `<div class="item item-add" onclick="addCollection()"><div class="item-cover"><div class="plus">+</div></div><div class="item-info"><div class="item-title">添加</div><div class="item-sub">拍下你的收藏</div></div></div>`;
+}
+function toggleAlbum(artistId, name, year){
+  if(!USER.collections) USER.collections = {album:[],single:[],merch:[]};
+  if(!USER.collections.album) USER.collections.album = [];
+  const idx = USER.collections.album.findIndex(a=>a.artistId===artistId && a.name===name);
+  if(idx >= 0){
+    USER.collections.album.splice(idx, 1);
+    toast(`已移除「${name}」`);
+  } else {
+    USER.collections.album.push({artistId, name, year});
+    toast(`已收藏「${name}」`);
+  }
+  // 本地持久化
+  try{ localStorage.setItem('encore-collections', JSON.stringify(USER.collections)); }catch(e){}
+  STATS = computeStats();
+  if(document.getElementById('heroStats')) renderHeroStats();
+  renderShelf();
 }
 document.addEventListener('click',e=>{
   if(e.target.classList.contains('gtab')){
@@ -576,4 +695,6 @@ function observeReveal(){
   document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 }
 window.venueSVG = venueSVG;
+window.toggleTheme = toggleTheme;
+window.toggleAlbum = toggleAlbum;
 init();
