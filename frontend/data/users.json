@@ -88,6 +88,18 @@
         "artistId": "gem",
         "date": "2024-01-06",
         "note": "I AM GLORIA世界巡回演唱会"
+      },
+      {
+        "venueId": "sh-hongkou",
+        "artistId": "zhangjie",
+        "date": "2024-03-22",
+        "note": "未·LIVE 开往1982 巡回演唱会"
+      },
+      {
+        "venueId": "hz-xiaolianhua",
+        "artistId": "jay",
+        "date": "2026-08-03",
+        "note": ""
       }
     ],
     "collections": {

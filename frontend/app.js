@@ -27,42 +27,7 @@ function collSVG(artist){
 
 /* ===== 中国省份 SVG path 数据（34 个省级行政区，简化版，按真实地理位置排布）
  * 省份简称 short 与 venues.json 的 provinceShort 字段一一对应 */
-const CHINA_PROVINCES = [
-  {short:'新疆',name:'新疆维吾尔自治区',d:'M50,210 L185,180 L285,200 L320,258 L295,328 L210,358 L120,348 L68,295 Z'},
-  {short:'西藏',name:'西藏自治区',d:'M80,378 L260,358 L340,378 L360,458 L285,520 L160,510 L88,458 Z'},
-  {short:'青海',name:'青海省',d:'M300,358 L400,348 L428,415 L378,455 L318,438 Z'},
-  {short:'甘肃',name:'甘肃省',d:'M368,295 L430,288 L468,300 L458,338 L420,358 L400,398 L378,418 L358,388 L378,348 Z'},
-  {short:'内蒙古',name:'内蒙古自治区',d:'M285,185 L300,148 L420,128 L545,132 L620,150 L605,185 L590,215 L500,218 L400,215 L320,212 L295,205 Z'},
-  {short:'宁夏',name:'宁夏回族自治区',d:'M432,290 L462,285 L467,330 L437,335 Z'},
-  {short:'陕西',name:'陕西省',d:'M470,305 L508,300 L518,360 L512,420 L490,438 L470,400 L462,345 Z'},
-  {short:'山西',name:'山西省',d:'M528,265 L555,258 L565,320 L548,355 L530,350 L522,300 Z'},
-  {short:'河北',name:'河北省',d:'M555,232 L625,228 L628,265 L615,300 L580,318 L560,300 L552,265 Z'},
-  {short:'北京',name:'北京市',d:'M572,250 L598,247 L602,268 L578,272 Z'},
-  {short:'天津',name:'天津市',d:'M602,272 L622,270 L624,290 L606,292 Z'},
-  {short:'辽宁',name:'辽宁省',d:'M628,228 L690,210 L715,235 L712,270 L668,290 L635,275 Z'},
-  {short:'吉林',name:'吉林省',d:'M688,178 L745,175 L772,200 L755,222 L710,222 L685,200 Z'},
-  {short:'黑龙江',name:'黑龙江省',d:'M655,108 L765,98 L815,128 L800,165 L740,175 L690,158 L660,135 Z'},
-  {short:'山东',name:'山东省',d:'M598,300 L660,292 L700,308 L708,335 L670,348 L628,340 L610,322 Z'},
-  {short:'河南',name:'河南省',d:'M508,355 L568,348 L580,388 L545,402 L515,392 Z'},
-  {short:'江苏',name:'江苏省',d:'M580,355 L648,345 L662,385 L622,398 L588,388 Z'},
-  {short:'上海',name:'上海市',d:'M660,388 L680,386 L682,405 L662,407 Z'},
-  {short:'安徽',name:'安徽省',d:'M545,360 L580,355 L588,398 L560,415 L540,400 Z'},
-  {short:'浙江',name:'浙江省',d:'M625,400 L662,398 L672,442 L635,448 Z'},
-  {short:'江西',name:'江西省',d:'M560,415 L600,412 L608,458 L572,470 L552,442 Z'},
-  {short:'湖北',name:'湖北省',d:'M488,402 L548,398 L558,438 L518,448 L492,432 Z'},
-  {short:'湖南',name:'湖南省',d:'M512,440 L558,438 L562,488 L528,498 L508,478 Z'},
-  {short:'四川',name:'四川省',d:'M358,418 L458,408 L475,458 L420,485 L368,470 Z'},
-  {short:'重庆',name:'重庆市',d:'M468,438 L492,432 L498,468 L472,475 Z'},
-  {short:'贵州',name:'贵州省',d:'M435,475 L488,470 L495,510 L455,520 L432,502 Z'},
-  {short:'云南',name:'云南省',d:'M338,470 L415,464 L425,518 L388,550 L345,530 Z'},
-  {short:'广西',name:'广西壮族自治区',d:'M478,510 L545,505 L555,545 L510,562 L478,548 Z'},
-  {short:'广东',name:'广东省',d:'M545,500 L622,495 L638,540 L602,565 L555,560 Z'},
-  {short:'福建',name:'福建省',d:'M622,455 L665,450 L672,498 L635,508 Z'},
-  {short:'海南',name:'海南省',d:'M545,592 L582,588 L588,615 L555,622 Z'},
-  {short:'台湾',name:'台湾省',d:'M692,470 L715,464 L720,520 L698,526 Z'},
-  {short:'香港',name:'香港特别行政区',d:'M612,558 L624,555 L627,568 L614,571 Z'},
-  {short:'澳门',name:'澳门特别行政区',d:'M598,560 L608,558 L610,570 L600,572 Z'}
-];
+/* CHINA_PROVINCES 由 data/china-map.js 提供（真实国土形状） */
 
 /* ===== 数据加载（API 优先，静态 JSON 回退）===== */
 async function fetchJSON(apiPath, staticPath){
@@ -235,7 +200,7 @@ function renderVenues(){
 /* ===== 中国省份点亮地图 ===== */
 function renderChinaMap(){
   const el = document.getElementById('chinaMap');
-  if(!el) return;
+  if(!el || typeof CHINA_PROVINCES === 'undefined') return;
   const lit = getLitVenueIds();
   const litProvs = new Set(VENUES.filter(v=>lit.has(v.id)).map(v=>v.provinceShort));
   const totalProvCount = new Set(VENUES.map(v=>v.provinceShort)).size;
@@ -258,7 +223,7 @@ function renderChinaMap(){
         <span class="cmp-stats">${litProvs.size} / ${totalProvCount} 省份已点亮</span>
       </div>
       <div class="china-map-stage">
-        <svg class="china-svg" viewBox="30 80 800 560" preserveAspectRatio="xMidYMid meet" role="img" aria-label="中国省份点亮地图">
+        <svg class="china-svg" viewBox="0 0 800 620" preserveAspectRatio="xMidYMid meet" role="img" aria-label="中国省份点亮地图">
           <defs>
             <linearGradient id="cmpGoldGrad" x1="0" y1="0" x2="0" y2="1">
               <stop offset="0%" stop-color="#f5c45e"/>
