@@ -64,6 +64,24 @@
         "artistId": "jay",
         "date": "2026-07-31",
         "note": ""
+      },
+      {
+        "venueId": "xa-aoti",
+        "artistId": "jj",
+        "date": "2023-10-28",
+        "note": "JJ20世界巡回演唱会"
+      },
+      {
+        "venueId": "sy-aoti",
+        "artistId": "zhangjie",
+        "date": "2025-09-19",
+        "note": "未·LIVE 开往1982 巡回演唱会"
+      },
+      {
+        "venueId": "fz-haixia",
+        "artistId": "jay",
+        "date": "2024-05-16",
+        "note": "嘉年华世界巡回演唱会"
       }
     ],
     "collections": {

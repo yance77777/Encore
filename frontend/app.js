@@ -87,6 +87,7 @@ async function init(){
   curProv = VENUES[0] ? VENUES[0].provinceShort : null;
   curDan = USER.bias ? USER.bias.type : 1;
   if(document.getElementById('heroStats')) renderHeroStats();
+  if(document.getElementById('heroTicket')) renderHeroTicket();
   if(document.getElementById('provList')){ renderProvinces(); renderVenues(); }
   if(document.getElementById('artistFilter')){ renderArtistFilter(); renderTours(); }
   if(document.getElementById('shelf')) renderShelf();
@@ -94,6 +95,7 @@ async function init(){
   if(document.getElementById('skinRow')) renderSkinRow();
   applySkin(USER.skin || 'jay');
   observeReveal();
+  initNavToggle();
 }
 
 /* ===== Hero 统计 ===== */
@@ -103,6 +105,35 @@ function renderHeroStats(){
     <div class="stat"><div class="num">${STATS.litProvinces}<span class="unit">省</span></div><div class="label">解锁省份</div></div>
     <div class="stat"><div class="num">${STATS.totalCollections}<span class="unit">件</span></div><div class="label">收藏总数</div></div>
     <div class="stat"><div class="num">${STATS.totalConcerts}<span class="unit">场</span></div><div class="label">巡演档案</div></div>`;
+}
+
+/* ===== Hero 票卡（动态渲染最近一次打卡）===== */
+function renderHeroTicket(){
+  const card = document.getElementById('heroTicket');
+  if(!card) return;
+  const checkins = USER.checkins || [];
+  if(checkins.length === 0){
+    card.querySelector('.t-artist').textContent = '尚未点亮';
+    card.querySelector('.t-tour').textContent = '去场馆地图点亮第一座舞台';
+    card.querySelector('.t-venue').innerHTML = '<strong>等待你的第一场</strong>';
+    card.querySelector('.t-venue:nth-of-type(4)').textContent = '余响 Encore';
+    card.querySelector('.t-row').innerHTML = '<span>SEAT -</span><span>ROW -</span>';
+    return;
+  }
+  // 取最近一次打卡（按日期排序）
+  const latest = [...checkins].sort((a,b)=>b.date.localeCompare(a.date))[0];
+  const artist = ARTISTS.find(a=>a.id===latest.artistId) || {name:'-'};
+  const venue = VENUES.find(v=>v.id===latest.venueId) || {name:'-',city:'-'};
+  const concert = CONCERTS.find(c=>c.venueId===latest.venueId && c.artistId===latest.artistId);
+  const tour = concert ? concert.tour : (latest.note || '');
+  const seat = String.fromCharCode(65 + Math.floor(Math.random()*6)) + (10+Math.floor(Math.random()*15));
+  const row = 1 + Math.floor(Math.random()*20);
+  card.querySelector('.t-artist').textContent = artist.name;
+  card.querySelector('.t-tour').textContent = tour;
+  card.querySelector('.t-venue').innerHTML = `<strong>${venue.name}${venue.alias?' · '+venue.alias:''}</strong>`;
+  const subLine = card.querySelectorAll('.t-venue')[1];
+  if(subLine) subLine.textContent = `${venue.city} · ${latest.date}`;
+  card.querySelector('.t-row').innerHTML = `<span>SEAT 区 ${seat}</span><span>ROW ${row}</span>`;
 }
 
 /* ===== 省份列表 ===== */
@@ -177,6 +208,7 @@ async function toggleCheckin(venueId){
     const provs = getProvinces();
     STATS.litProvinces = provs.filter(x=>x.lit>0).length;
     if(document.getElementById('heroStats')) renderHeroStats();
+    if(document.getElementById('heroTicket')) renderHeroTicket();
     renderProvinces(); renderVenues();
     toast(`已点亮「${venue.name}」`);
   }catch(e){ toast('在线写入需后端支持，本地预览仅只读'); }
@@ -295,6 +327,22 @@ function applySkin(id){
     fetch(API_BASE+'/api/user/skin',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({skin:id})}).catch(()=>{});
     toast(`已切换至「${a.name}」主题`);
   }
+}
+
+/* ===== 移动端汉堡菜单 ===== */
+function initNavToggle(){
+  const toggle = document.querySelector('.nav-toggle');
+  const links = document.querySelector('.nav-links');
+  if(!toggle || !links) return;
+  toggle.addEventListener('click',()=>{
+    toggle.classList.toggle('open');
+    links.classList.toggle('open');
+  });
+  // 点击导航链接后自动收起
+  links.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{
+    toggle.classList.remove('open');
+    links.classList.remove('open');
+  }));
 }
 
 /* ===== 工具 ===== */

@@ -22,8 +22,19 @@ app.use(express.json());
 app.use(express.static(FRONTEND_DIR));
 
 /* ============ CORS（GitHub Pages 前端跨域调用）============ */
+const ALLOWED_ORIGINS = [
+  'https://yance77777.github.io',  // GitHub Pages
+  'http://localhost:3000',          // 本地开发
+  'http://127.0.0.1:3000'
+];
 app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
+  const origin = req.headers.origin;
+  if (origin && ALLOWED_ORIGINS.includes(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+  } else {
+    // 本地开发或未识别来源，放宽限制
+    res.setHeader('Access-Control-Allow-Origin', '*');
+  }
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
   if (req.method === 'OPTIONS') return res.sendStatus(204);

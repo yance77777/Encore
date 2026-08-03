@@ -1,10 +1,10 @@
 [
-  {"id":"jay","name":"周杰伦","en":"Jay Chou","debut":2000,"color":"#5b2c8b","color2":"#9d6cff","initial":"杰","albums":[
+  {"id":"jay","name":"周杰伦","en":"Jay Chou","debut":2000,"color":"#5b2c8b","color2":"#9d6cff","initial":"伦","albums":[
     {"name":"Jay","year":2000},{"name":"范特西","year":2001},{"name":"八度空间","year":2002},{"name":"叶惠美","year":2003},
     {"name":"七里香","year":2004},{"name":"十一月的萧邦","year":2005},{"name":"依然范特西","year":2006},{"name":"我很忙","year":2007},
     {"name":"魔杰座","year":2008},{"name":"跨时代","year":2010},{"name":"周杰伦的床边故事","year":2016},{"name":"最伟大的作品","year":2022}
   ]},
-  {"id":"jj","name":"林俊杰","en":"JJ Lin","debut":2003,"color":"#0a4d68","color2":"#3eb8d0","initial":"杰","albums":[
+  {"id":"jj","name":"林俊杰","en":"JJ Lin","debut":2003,"color":"#0a4d68","color2":"#3eb8d0","initial":"林","albums":[
     {"name":"乐行者","year":2003},{"name":"第二天堂","year":2004},{"name":"编号89757","year":2005},{"name":"曹操","year":2006},
     {"name":"西界","year":2007},{"name":"JJ陆","year":2008},{"name":"100天","year":2009},{"name":"她说","year":2010},
     {"name":"学不会","year":2011},{"name":"因你而在","year":2013},{"name":"新地球","year":2014},{"name":"和自己对话","year":2015},{"name":"伟大的渺小","year":2017},{"name":"幸存者","year":2020},{"name":"重拾快乐","year":2023}
@@ -13,7 +13,7 @@
     {"name":"第一张创作专辑","year":1999},{"name":"爱情万岁","year":2000},{"name":"人生海海","year":2001},{"name":"时光机","year":2003},
     {"name":"神的孩子都在跳舞","year":2004},{"name":"为爱而生","year":2006},{"name":"后青春期的诗","year":2008},{"name":"第二人生","year":2011},{"name":"自传","year":2016}
   ]},
-  {"id":"zhangjie","name":"张杰","en":"Jason Zhang","debut":2005,"color":"#2d5a3d","color2":"#5bbf8a","initial":"杰","albums":[
+  {"id":"zhangjie","name":"张杰","en":"Jason Zhang","debut":2005,"color":"#2d5a3d","color2":"#5bbf8a","initial":"张","albums":[
     {"name":"第一张","year":2005},{"name":"再爱我一回","year":2006},{"name":"明天过后","year":2008},{"name":"穿越三部曲","year":2009},
     {"name":"这，就是爱","year":2010},{"name":"最接近天堂的地方","year":2011},{"name":"爱，不解释","year":2013},{"name":"拾","year":2015},
     {"name":"越爱越强","year":2016},{"name":"值得更好的","year":2021},{"name":"外南街1982","year":2022},{"name":"冬月初七","year":2023}
