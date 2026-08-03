@@ -25,6 +25,45 @@ function collSVG(artist){
   return `<svg viewBox="0 0 100 100"><rect x="20" y="20" width="60" height="60" rx="6" fill="${a.color}"/><text x="50" y="58" text-anchor="middle" font-family="serif" font-weight="900" font-size="22" fill="#f5c45e">${a.initial}</text></svg>`;
 }
 
+/* ===== 中国省份 SVG path 数据（34 个省级行政区，简化版，按真实地理位置排布）
+ * 省份简称 short 与 venues.json 的 provinceShort 字段一一对应 */
+const CHINA_PROVINCES = [
+  {short:'新疆',name:'新疆维吾尔自治区',d:'M50,210 L185,180 L285,200 L320,258 L295,328 L210,358 L120,348 L68,295 Z'},
+  {short:'西藏',name:'西藏自治区',d:'M80,378 L260,358 L340,378 L360,458 L285,520 L160,510 L88,458 Z'},
+  {short:'青海',name:'青海省',d:'M300,358 L400,348 L428,415 L378,455 L318,438 Z'},
+  {short:'甘肃',name:'甘肃省',d:'M368,295 L430,288 L468,300 L458,338 L420,358 L400,398 L378,418 L358,388 L378,348 Z'},
+  {short:'内蒙古',name:'内蒙古自治区',d:'M285,185 L300,148 L420,128 L545,132 L620,150 L605,185 L590,215 L500,218 L400,215 L320,212 L295,205 Z'},
+  {short:'宁夏',name:'宁夏回族自治区',d:'M432,290 L462,285 L467,330 L437,335 Z'},
+  {short:'陕西',name:'陕西省',d:'M470,305 L508,300 L518,360 L512,420 L490,438 L470,400 L462,345 Z'},
+  {short:'山西',name:'山西省',d:'M528,265 L555,258 L565,320 L548,355 L530,350 L522,300 Z'},
+  {short:'河北',name:'河北省',d:'M555,232 L625,228 L628,265 L615,300 L580,318 L560,300 L552,265 Z'},
+  {short:'北京',name:'北京市',d:'M572,250 L598,247 L602,268 L578,272 Z'},
+  {short:'天津',name:'天津市',d:'M602,272 L622,270 L624,290 L606,292 Z'},
+  {short:'辽宁',name:'辽宁省',d:'M628,228 L690,210 L715,235 L712,270 L668,290 L635,275 Z'},
+  {short:'吉林',name:'吉林省',d:'M688,178 L745,175 L772,200 L755,222 L710,222 L685,200 Z'},
+  {short:'黑龙江',name:'黑龙江省',d:'M655,108 L765,98 L815,128 L800,165 L740,175 L690,158 L660,135 Z'},
+  {short:'山东',name:'山东省',d:'M598,300 L660,292 L700,308 L708,335 L670,348 L628,340 L610,322 Z'},
+  {short:'河南',name:'河南省',d:'M508,355 L568,348 L580,388 L545,402 L515,392 Z'},
+  {short:'江苏',name:'江苏省',d:'M580,355 L648,345 L662,385 L622,398 L588,388 Z'},
+  {short:'上海',name:'上海市',d:'M660,388 L680,386 L682,405 L662,407 Z'},
+  {short:'安徽',name:'安徽省',d:'M545,360 L580,355 L588,398 L560,415 L540,400 Z'},
+  {short:'浙江',name:'浙江省',d:'M625,400 L662,398 L672,442 L635,448 Z'},
+  {short:'江西',name:'江西省',d:'M560,415 L600,412 L608,458 L572,470 L552,442 Z'},
+  {short:'湖北',name:'湖北省',d:'M488,402 L548,398 L558,438 L518,448 L492,432 Z'},
+  {short:'湖南',name:'湖南省',d:'M512,440 L558,438 L562,488 L528,498 L508,478 Z'},
+  {short:'四川',name:'四川省',d:'M358,418 L458,408 L475,458 L420,485 L368,470 Z'},
+  {short:'重庆',name:'重庆市',d:'M468,438 L492,432 L498,468 L472,475 Z'},
+  {short:'贵州',name:'贵州省',d:'M435,475 L488,470 L495,510 L455,520 L432,502 Z'},
+  {short:'云南',name:'云南省',d:'M338,470 L415,464 L425,518 L388,550 L345,530 Z'},
+  {short:'广西',name:'广西壮族自治区',d:'M478,510 L545,505 L555,545 L510,562 L478,548 Z'},
+  {short:'广东',name:'广东省',d:'M545,500 L622,495 L638,540 L602,565 L555,560 Z'},
+  {short:'福建',name:'福建省',d:'M622,455 L665,450 L672,498 L635,508 Z'},
+  {short:'海南',name:'海南省',d:'M545,592 L582,588 L588,615 L555,622 Z'},
+  {short:'台湾',name:'台湾省',d:'M692,470 L715,464 L720,520 L698,526 Z'},
+  {short:'香港',name:'香港特别行政区',d:'M612,558 L624,555 L627,568 L614,571 Z'},
+  {short:'澳门',name:'澳门特别行政区',d:'M598,560 L608,558 L610,570 L600,572 Z'}
+];
+
 /* ===== 数据加载（API 优先，静态 JSON 回退）===== */
 async function fetchJSON(apiPath, staticPath){
   try {
@@ -93,6 +132,9 @@ async function init(){
   if(document.getElementById('shelf')) renderShelf();
   if(document.getElementById('biasList')) renderBias();
   if(document.getElementById('skinRow')) renderSkinRow();
+  if(document.getElementById('fanLevel')) renderFanLevel();
+  if(document.getElementById('fanStats')) renderFanStats();
+  if(document.getElementById('achGrid')) renderAchievements();
   applySkin(USER.skin || 'jay');
   observeReveal();
   initNavToggle();
@@ -161,6 +203,7 @@ function renderProvinces(){
     curProv = n.dataset.prov;
     renderProvinces(); renderVenues();
   });
+  if(document.getElementById('chinaMap')) renderChinaMap();
 }
 
 /* ===== 场馆卡片 ===== */
@@ -174,7 +217,8 @@ function renderVenues(){
   const g = document.getElementById('venueGrid');
   g.innerHTML = p.venues.map(v=>{
     const isLit = lit.has(v.id);
-    const art = v.img ? `<img src="${v.img}" alt="${v.name}" onerror="this.parentNode.innerHTML=venueSVG['${v.art}']||venueSVG.dome">` : (venueSVG[v.art]||venueSVG.dome);
+    const imgSrc = isLit ? v.img : (v.imgUnlit || v.img);
+    const art = imgSrc ? `<img src="${imgSrc}" alt="${v.name}" class="${isLit?'lit':'unlit'}" onerror="this.parentNode.innerHTML=venueSVG['${v.art}']||venueSVG.dome">` : (venueSVG[v.art]||venueSVG.dome);
     const checkin = (USER.checkins||[]).find(c=>c.venueId===v.id);
     const artist = checkin ? ARTISTS.find(a=>a.id===checkin.artistId) : null;
     return `<div class="venue-card ${isLit?'lit':''}" data-id="${v.id}">
@@ -186,6 +230,74 @@ function renderVenues(){
     </div>`;
   }).join('');
   g.querySelectorAll('.venue-card').forEach(c=>c.onclick=()=>toggleCheckin(c.dataset.id));
+}
+
+/* ===== 中国省份点亮地图 ===== */
+function renderChinaMap(){
+  const el = document.getElementById('chinaMap');
+  if(!el) return;
+  const lit = getLitVenueIds();
+  const litProvs = new Set(VENUES.filter(v=>lit.has(v.id)).map(v=>v.provinceShort));
+  const totalProvCount = new Set(VENUES.map(v=>v.provinceShort)).size;
+  const provMap = {};
+  getProvinces().forEach(p=>provMap[p.short]=p);
+  const paths = CHINA_PROVINCES.map(p=>{
+    const data = provMap[p.short];
+    const isLit = litProvs.has(p.short);
+    const hasVenues = !!data;
+    const cls = ['cmp-prov', isLit?'lit':'', hasVenues?'has-venues':'no-venues', p.short===curProv?'sel':''].filter(Boolean).join(' ');
+    return `<path class="${cls}" d="${p.d}" data-prov="${p.short}"><title>${p.name}${data?` · ${data.lit}/${data.total}`:''}</title></path>`;
+  }).join('');
+  el.innerHTML = `
+    <div class="china-map-wrap">
+      <div class="china-map-head">
+        <div>
+          <div class="tag">Footprint Map</div>
+          <h3>足迹版图 <em>Light Up China</em></h3>
+        </div>
+        <span class="cmp-stats">${litProvs.size} / ${totalProvCount} 省份已点亮</span>
+      </div>
+      <div class="china-map-stage">
+        <svg class="china-svg" viewBox="30 80 800 560" preserveAspectRatio="xMidYMid meet" role="img" aria-label="中国省份点亮地图">
+          <defs>
+            <linearGradient id="cmpGoldGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#f5c45e"/>
+              <stop offset="100%" stop-color="#c8933a"/>
+            </linearGradient>
+          </defs>
+          ${paths}
+        </svg>
+        <div class="cmp-tip"></div>
+      </div>
+      <div class="china-map-legend">
+        <span class="lg lg-off"><i></i>未点亮</span>
+        <span class="lg lg-on"><i></i>已点亮</span>
+        <span class="lg lg-na"><i></i>暂无场馆</span>
+      </div>
+    </div>`;
+  const stage = el.querySelector('.china-map-stage');
+  const tip = el.querySelector('.cmp-tip');
+  el.querySelectorAll('.cmp-prov').forEach(path=>{
+    const prov = path.dataset.prov;
+    const meta = CHINA_PROVINCES.find(c=>c.short===prov);
+    const data = provMap[prov];
+    path.addEventListener('mouseenter',()=>{
+      tip.innerHTML = `<strong>${meta?meta.name:prov}</strong><span>${data?`${data.lit}/${data.total} 座场馆已点亮`:'暂无收录场馆'}</span>`;
+      tip.classList.add('show');
+    });
+    path.addEventListener('mousemove',e=>{
+      const r = stage.getBoundingClientRect();
+      tip.style.left = (e.clientX - r.left + 14) + 'px';
+      tip.style.top = (e.clientY - r.top + 14) + 'px';
+    });
+    path.addEventListener('mouseleave',()=>tip.classList.remove('show'));
+    if(path.classList.contains('has-venues')){
+      path.addEventListener('click',()=>{
+        curProv = prov;
+        renderProvinces(); renderVenues();
+      });
+    }
+  });
 }
 
 async function toggleCheckin(venueId){
@@ -305,7 +417,8 @@ document.addEventListener('click',e=>{
 
 /* ===== 皮肤 ===== */
 const skinNames = {jay:'周杰伦 · 魔幻紫',jj:'林俊杰 · 深海蓝',mayday:'五月天 · 玫瑰红',zhangjie:'张杰 · 森林绿',
-  joker:'薛之谦 · 暗夜紫',silence:'汪苏泷 · 晴空蓝',zhoushen:'周深 · 星河紫',gem:'邓紫棋 · 玫粉红'};
+  joker:'薛之谦 · 暗夜紫',silence:'汪苏泷 · 晴空蓝',zhoushen:'周深 · 星河紫',gem:'邓紫棋 · 玫粉红',
+  leehom:'王力宏 · 深蓝海',davidtao:'陶喆 · 暖橙调',vae:'许嵩 · 茶汤绿',lironghao:'李荣浩 · 暗紫调',nic:'谢霆锋 · 烈焰红'};
 function renderSkinRow(){
   const el = document.getElementById('skinRow');
   el.innerHTML = ARTISTS.map(a=>`<div class="skin-chip ${a.id===(USER.skin||'jay')?'active':''}" data-id="${a.id}" style="background:linear-gradient(160deg,${a.color},${a.color}55)">${a.en.slice(0,6)}</div>`).join('');
@@ -324,9 +437,139 @@ function applySkin(id){
   }
   if(USER.skin!==id){
     USER.skin = id;
+    trackSkin(id);
     fetch(API_BASE+'/api/user/skin',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({skin:id})}).catch(()=>{});
     toast(`已切换至「${a.name}」主题`);
   }
+}
+
+/* ===== 粉丝等级 ===== */
+const FAN_LEVELS = [
+  {min:0,name:'路人粉',lv:0},
+  {min:1,name:'新手粉丝',lv:1},
+  {min:4,name:'进阶粉丝',lv:2},
+  {min:9,name:'资深粉丝',lv:3},
+  {min:16,name:'铁杆粉丝',lv:4},
+  {min:26,name:'殿堂级粉丝',lv:5}
+];
+function getFanLevel(count){
+  let idx = 0;
+  for(let i=FAN_LEVELS.length-1;i>=0;i--){ if(count>=FAN_LEVELS[i].min){ idx=i; break; } }
+  return { cur:FAN_LEVELS[idx], next:FAN_LEVELS[idx+1], idx };
+}
+function renderFanLevel(){
+  const el = document.getElementById('fanLevel');
+  if(!el) return;
+  const count = (USER.checkins||[]).length;
+  const {cur,next,idx} = getFanLevel(count);
+  const pct = next ? Math.min(100,Math.round((count-cur.min)/(next.min-cur.min)*100)) : 100;
+  el.innerHTML = `
+    <div class="fl-card">
+      <div class="fl-badge lv-${cur.lv}">
+        <div class="fl-lv">Lv.${cur.lv}</div>
+        <div class="fl-tier">${cur.name}</div>
+      </div>
+      <div class="fl-body">
+        <div class="fl-top">
+          <span class="fl-label">粉丝等级</span>
+          <span class="fl-count">已打卡 ${count} 场</span>
+        </div>
+        <div class="fl-bar"><div class="fl-bar-fill" style="width:${pct}%"></div></div>
+        <div class="fl-hint">${next?`距「${next.name}」还需 ${next.min-count} 场`:'已达最高等级 · 殿堂级粉丝'}</div>
+      </div>
+      <div class="fl-dots">
+        ${FAN_LEVELS.map((l,i)=>`<span class="fl-dot ${i<=idx?'on':''} ${i===idx?'cur':''}"></span>`).join('')}
+      </div>
+    </div>`;
+}
+
+/* ===== 粉丝数据统计 ===== */
+function renderFanStats(){
+  const el = document.getElementById('fanStats');
+  if(!el) return;
+  const checkins = USER.checkins || [];
+  const litVenues = new Set(checkins.map(c=>c.venueId));
+  const litProvSet = new Set(VENUES.filter(v=>litVenues.has(v.id)).map(v=>v.provinceShort));
+  const artistCount = {};
+  checkins.forEach(c=>artistCount[c.artistId]=(artistCount[c.artistId]||0)+1);
+  const topEntry = Object.entries(artistCount).sort((a,b)=>b[1]-a[1])[0];
+  const topArtist = topEntry ? ARTISTS.find(a=>a.id===topEntry[0]) : null;
+  const typeCount = {};
+  checkins.forEach(c=>{ const v=VENUES.find(x=>x.id===c.venueId); if(v) typeCount[v.type]=(typeCount[v.type]||0)+1; });
+  const topType = Object.entries(typeCount).sort((a,b)=>b[1]-a[1])[0];
+  const since = USER.since ? Math.max(0,new Date().getFullYear()-(+USER.since)) : 0;
+  const totalV = STATS.totalVenues||VENUES.length||31;
+  const totalP = STATS.totalProvinces||20;
+  const cards = [
+    {label:'总观演场次', value:checkins.length, suffix:'场', num:true},
+    {label:'点亮场馆', value:litVenues.size, suffix:' / '+totalV, num:true},
+    {label:'足迹省份', value:litProvSet.size, suffix:' / '+totalP, num:true},
+    {label:'追星年资', value:since, suffix:'年', num:true},
+    {label:'最常看歌手', value:topArtist?topArtist.name:'-', num:false},
+    {label:'最爱场馆类型', value:topType?topType[0]:'-', num:false}
+  ];
+  el.innerHTML = cards.map(c=>`
+    <div class="fs-card">
+      <div class="fs-value ${c.num?'':'text'}" ${c.num?`data-target="${c.value}"`:''}>${c.num?0:c.value}<span class="fs-suffix">${c.suffix||''}</span></div>
+      <div class="fs-label">${c.label}</div>
+    </div>`).join('');
+}
+function animateNum(el){
+  const target = +el.dataset.target;
+  if(!target){ el.firstChild.textContent = '0'; return; }
+  const dur = 1000, start = performance.now();
+  function tick(now){
+    const p = Math.min(1,(now-start)/dur);
+    el.firstChild.textContent = Math.round(target*(1-Math.pow(1-p,3)));
+    if(p<1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+
+/* ===== 成就徽章 ===== */
+function checkAchievements(){
+  const checkins = USER.checkins || [];
+  const litVenues = new Set(checkins.map(c=>c.venueId));
+  const litProvSet = new Set(VENUES.filter(v=>litVenues.has(v.id)).map(v=>v.provinceShort));
+  const artistCount = {};
+  checkins.forEach(c=>artistCount[c.artistId]=(artistCount[c.artistId]||0)+1);
+  const maxArtist = Math.max(0,...Object.values(artistCount));
+  let skinHistory = [];
+  try{ skinHistory = JSON.parse(localStorage.getItem('skinHistory')||'[]'); }catch(e){}
+  const biasType = (USER.bias && USER.bias.type) || 1;
+  return [
+    {name:'初出茅庐', desc:'首次打卡', icon:'★', got:checkins.length>=1},
+    {name:'集邮达人', desc:'点亮5座场馆', icon:'◉', got:litVenues.size>=5},
+    {name:'半壁江山', desc:'点亮15座场馆', icon:'◈', got:litVenues.size>=15},
+    {name:'全国巡礼', desc:'点亮10个不同省份', icon:'◇', got:litProvSet.size>=10},
+    {name:'鸟巢打卡', desc:'在鸟巢打卡过', icon:'⬢', got:checkins.some(c=>c.venueId==='bj-niaocao')},
+    {name:'连场追逐', desc:'同一歌手看3场以上', icon:'♪', got:maxArtist>=3},
+    {name:'多担玩家', desc:'设置双担或三担', icon:'❉', got:biasType>=2},
+    {name:'变色龙', desc:'切换过3种以上皮肤', icon:'◐', got:skinHistory.length>=3}
+  ];
+}
+function renderAchievements(){
+  const grid = document.getElementById('achGrid');
+  if(!grid) return;
+  const achs = checkAchievements();
+  const got = achs.filter(a=>a.got).length;
+  grid.innerHTML = achs.map(a=>`
+    <div class="ach-badge ${a.got?'got':'locked'}">
+      <div class="ach-icon">${a.icon}</div>
+      <div class="ach-name">${a.name}</div>
+      <div class="ach-desc">${a.desc}</div>
+      <div class="ach-state">${a.got?'已解锁':'未解锁'}</div>
+    </div>`).join('');
+  const count = document.querySelector('.ach-count');
+  if(count) count.textContent = `${got} / ${achs.length} 已解锁`;
+}
+
+/* ===== 皮肤切换记录（变色龙成就）===== */
+function trackSkin(id){
+  try{
+    let hist = JSON.parse(localStorage.getItem('skinHistory')||'[]');
+    if(!hist.includes(id)){ hist.push(id); localStorage.setItem('skinHistory',JSON.stringify(hist)); }
+  }catch(e){}
 }
 
 /* ===== 移动端汉堡菜单 ===== */
@@ -356,7 +599,15 @@ function toast(msg){
   toastTimer = setTimeout(()=>t.classList.remove('show'),2400);
 }
 function observeReveal(){
-  const io = new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')}),{threshold:.12});
+  const io = new IntersectionObserver(es=>es.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('in');
+      if(e.target.id==='fanStats' && !e.target.dataset.animated){
+        e.target.dataset.animated = '1';
+        e.target.querySelectorAll('.fs-value:not(.text)').forEach(animateNum);
+      }
+    }
+  }),{threshold:.12});
   document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 }
 window.venueSVG = venueSVG;

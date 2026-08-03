@@ -24,8 +24,9 @@
     {"name":"怪咖","year":2018},{"name":"尘","year":2019},{"name":"天外来物","year":2020},{"name":"无数","year":2022},{"name":"守村人","year":2024}
   ]},
   {"id":"silence","name":"汪苏泷","en":"Silence Wang","debut":2010,"color":"#1a5c7a","color2":"#5bd0f0","initial":"汪","albums":[
-    {"name":"弗斯特","year":2010},{"name":"万有引力","year":2012},{"name":"传世乐章","year":2014},{"name":"登陆计划","year":2015},
-    {"name":"莱芙","year":2017},{"name":"克制凶猛","year":2018},{"name":"大娱乐家","year":2020},{"name":"十万伏特","year":2024}
+    {"name":"慢慢懂","year":2010},{"name":"万有引力","year":2012},{"name":"传世乐章","year":2014},{"name":"登陆计划","year":2015},
+    {"name":"莱芙","year":2017},{"name":"克制凶猛","year":2018},{"name":"过去现在时","year":2019},{"name":"大娱乐家","year":2020},
+    {"name":"联名","year":2022},{"name":"21世纪罗曼史","year":2022},{"name":"十万伏特","year":2024}
   ]},
   {"id":"zhoushen","name":"周深","en":"Zhou Shen","debut":2017,"color":"#3a2e7a","color2":"#7c8cff","initial":"深","albums":[
     {"name":"深的深","year":2017,"trackCount":10},
@@ -33,6 +34,30 @@
   ]},
   {"id":"gem","name":"邓紫棋","en":"G.E.M.","debut":2009,"color":"#7a1f4a","color2":"#ff5c8a","initial":"紫","albums":[
     {"name":"18…","year":2009},{"name":"My Secret","year":2010},{"name":"Xposed","year":2012},{"name":"新的心跳","year":2015},
-    {"name":"摩天动物园","year":2019},{"name":"童话的休止符","year":2019},{"name":"启示录","year":2022}
+    {"name":"摩天动物园","year":2019},{"name":"童话的休止符","year":2019},{"name":"启示录","year":2022},{"name":"Revelación","year":2023}
+  ]},
+  {"id":"leehom","name":"王力宏","en":"Wang Leehom","debut":1995,"color":"#1a3a5c","color2":"#4d9fdb","initial":"王","albums":[
+    {"name":"情敌贝多芬","year":1995},{"name":"如果你听见我的歌","year":1996},{"name":"好想你","year":1996},{"name":"白纸","year":1997},
+    {"name":"公转自转","year":1998},{"name":"不可能错过你","year":1999},{"name":"永远的第一天","year":2000},{"name":"唯一","year":2001},
+    {"name":"不可思议","year":2003},{"name":"心中的日月","year":2004},{"name":"盖世英雄","year":2005},{"name":"改变自己","year":2007},
+    {"name":"心·跳","year":2008},{"name":"十八般武艺","year":2010},{"name":"你的爱。","year":2015},{"name":"A.I. 爱","year":2017}
+  ]},
+  {"id":"davidtao","name":"陶喆","en":"David Tao","debut":1997,"color":"#5c3a1a","color2":"#c97824","initial":"陶","albums":[
+    {"name":"David Tao","year":1997},{"name":"I'm OK","year":1999},{"name":"黑色柳丁","year":2002},{"name":"太平盛世","year":2005},
+    {"name":"太美丽","year":2006},{"name":"69乐章","year":2009},{"name":"再见你好吗","year":2013},{"name":"STUPID POP SONGS","year":2025}
+  ]},
+  {"id":"vae","name":"许嵩","en":"Vae","debut":2009,"color":"#2d4a2d","color2":"#6fbf6f","initial":"嵩","albums":[
+    {"name":"自定义","year":2009},{"name":"寻雾启示","year":2010},{"name":"苏格拉没有底","year":2011},{"name":"梦游计","year":2012},
+    {"name":"不如吃茶去","year":2014},{"name":"青年报晚","year":2016},{"name":"寻宝游戏","year":2018},{"name":"呼吸之野","year":2021},{"name":"安泊猜想","year":2026}
+  ]},
+  {"id":"lironghao","name":"李荣浩","en":"Ronghao Li","debut":2013,"color":"#3a1a3a","color2":"#8b4d8b","initial":"荣","albums":[
+    {"name":"模特","year":2013},{"name":"李荣浩","year":2014},{"name":"有理想","year":2016},{"name":"嗯","year":2017},
+    {"name":"耳朵","year":2018},{"name":"麻雀","year":2020},{"name":"纵横四海","year":2022},{"name":"黑马","year":2024}
+  ]},
+  {"id":"nic","name":"谢霆锋","en":"Nicholas Tse","debut":1997,"color":"#5c2d2d","color2":"#d05050","initial":"锋","albums":[
+    {"name":"My Attitude","year":1997},{"name":"Horizons","year":1998},{"name":"Believe","year":1999},{"name":"谢谢你的爱1999","year":1999},
+    {"name":"零距离","year":2000},{"name":"了解","year":2000},{"name":"VIVA","year":2000},{"name":"世纪预言","year":2001},
+    {"name":"玉蝴蝶","year":2001},{"name":"Me","year":2002},{"name":"Reborn","year":2003},{"name":"Listen Up","year":2004},
+    {"name":"释放","year":2005},{"name":"One Inch Closer","year":2005},{"name":"最后","year":2009},{"name":"锋味","year":2015}
   ]}
 ]

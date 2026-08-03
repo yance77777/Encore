@@ -4,12 +4,12 @@
     "nickname": "追光者",
     "since": "2021",
     "bias": {
-      "type": 1,
+      "type": 2,
       "list": [
         "jay"
       ]
     },
-    "skin": "jay",
+    "skin": "zhoushen",
     "checkins": [
       {
         "venueId": "bj-niaocao",
@@ -82,6 +82,12 @@
         "artistId": "jay",
         "date": "2024-05-16",
         "note": "嘉年华世界巡回演唱会"
+      },
+      {
+        "venueId": "sz-bay",
+        "artistId": "gem",
+        "date": "2024-01-06",
+        "note": "I AM GLORIA世界巡回演唱会"
       }
     ],
     "collections": {
