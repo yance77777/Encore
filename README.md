@@ -4,7 +4,7 @@
 
 **演唱会足迹追踪 · 点亮你的每一站**
 
-[![Version](https://img.shields.io/badge/version-v0.5.0-gold?style=flat-square)](https://yance77777.github.io/Encore/)
+[![Version](https://img.shields.io/badge/version-v0.6.0-gold?style=flat-square)](https://yance77777.github.io/Encore/)
 [![License](https://img.shields.io/badge/license-MIT-blue?style=flat-square)](#)
 [![Live Demo](https://img.shields.io/badge/Live-GitHub%20Pages-brightgreen?style=flat-square)](https://yance77777.github.io/Encore/)
 [![Frontend](https://img.shields.io/badge/frontend-vanilla%20JS-orange?style=flat-square)](#)
@@ -17,14 +17,14 @@
 ---
 
 > 一款记录演唱会足迹、点亮场馆地图、收藏专辑与周边的粉丝向 App。
-> V0.5.0 大版本重构：数据微博核验、UI 设计系统重构、见面/消费新页面、身份页功能落地、62 张场馆双版图标、地图性能优化。
+> V0.6.0：数据真实性核验 + 亮版 ICON 一致性 + 12 场馆图重生 + 6 港澳台青连新场馆 + 歌手选择重构 + 地图按本命联动 + 性能优化 + footer 规范化。
 
 ## ✨ 功能特性
 
 | 模块 | 能力 |
 |------|------|
-| 🏟️ 场馆地图 | 31 座场馆中国地图可视化 · 点亮/熄灭双向切换 · 省份统计联动 |
-| 🎤 巡演档案 | 139 场演唱会记录 · 13 位歌手筛选 · 时间线展示 |
+| 🏟️ 场馆地图 | 37 座场馆中国地图可视化 · 点亮/熄灭双向切换 · 省份统计联动 |
+| 🎤 巡演档案 | 146 场演唱会记录 · 13 位歌手筛选 · 时间线展示 |
 | 💿 收藏展览 | 139 张专辑全展示 · 一键收藏/取消 · localStorage 持久化 |
 | 🎭 粉丝身份 | 个人主页 · 偏好歌手 · 主题皮肤（13 种歌手主题色） |
 | 👑 会员体系 | 套餐展示 · 权益对比 |
@@ -75,14 +75,14 @@ Encore/
 │   ├── app.js                 # 前端逻辑（按页面按需渲染 + 静态 JSON 回退）
 │   ├── style.css              # 样式（舞台灯光设计系统 + 明暗双模）
 │   ├── data/                  # JSON 数据（前端只读回退 + 后端共享）
-│   │   ├── venues.json        # 场馆数据（31 座）
+│   │   ├── venues.json        # 场馆数据（37 座）
 │   │   ├── artists.json       # 歌手数据（13 位）
-│   │   ├── concerts.json      # 演唱会场次（139 场）
+│   │   ├── concerts.json      # 演唱会场次（146 场）
 │   │   ├── users.json         # 用户数据（打卡/收藏/担当/皮肤）
 │   │   └── china-map.js       # 中国地图 SVG 路径数据
 │   └── assets/
 │       ├── icons/             # 品牌 ICON（明/暗双版本）
-│       └── venues/            # 31 张场馆 Q 版图标 + unlit/ 未点亮版本
+│       └── venues/            # 37 张场馆 Q 版图标 + unlit/ 未点亮版本
 ├── backend/                   # 后端服务（部署到 HF Space 或本地运行）
 │   ├── server.js              # Express + JSON 文件存储
 │   └── package.json
@@ -136,6 +136,7 @@ Encore/
 
 | 版本 | 日期 | 核心更新 |
 |------|------|----------|
+| **v0.6.0** | 2026-08-04 | 数据真实性核验 + 亮版 ICON 一致性 + 12 场馆图重生 + 6 港澳台青连新场馆 + 歌手选择重构 + 地图按本命联动 + 性能优化 + footer 规范化 |
 | **v0.5.0** | 2026-08-04 | 大版本重构 · 数据微博核验 · UI 设计系统 · 见面/消费新页面 · 身份页落地 · 62 张场馆双版图标 · 地图 rAF 性能优化 |
 | **v0.4** | 2026-08-03 | 明暗双模 UI · 场馆点亮/熄灭交互 · 品牌 ICON · 全专辑展览 · localStorage 持久化 |
 | v0.3.1 | 2026-08-02 | 31 座场馆图标全覆盖 · 数据完善 · 杭州大小莲花拆分 |

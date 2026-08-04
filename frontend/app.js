@@ -1,8 +1,9 @@
-/* 余响 Encore · 前端逻辑 v0.5.0（Task 11 深度优化版）
+/* 余响 Encore · 前端逻辑 v0.6.0（Task 11 深度优化版）
  * 多页面版本：按页面元素按需渲染
  * 数据源：后端 API（优先）→ 静态 JSON 文件（GitHub Pages 回退，只读）
  * V0.4：明暗主题切换 + 场馆点亮/熄灭双向交互 + localStorage 持久化
  * V0.5.0：巡演日期区间格式 + identity 页功能落地 + Task 11 深度优化（冗余 DOM 合并、首屏渲染优化、交互反馈统一、代码结构整理）
+ * V0.6.0：数据真实性核验 + 亮版 ICON 一致性 + 12 场馆图重生 + 6 港澳台青连新场馆 + 歌手选择重构（不再默认周杰伦）+ 地图 tooltip 按本命联动 + 性能优化（GPU 加速/预加载/rAF 节流/省份缓存）+ footer 规范化
  *
  * 保留要点：rAF 合并渲染 / 事件委托 / 局部更新 / formatTourRange / renderIdCard
  *           openIdentityCard / copyIdentityText / sumExpenses / loadLocalMeetDates 等均原样保留
@@ -61,6 +62,18 @@ let _chinaMapRendered = false;
 let _rafScheduled = false;
 let _changedVenues = new Set();
 let _pendingToast = null;
+
+// V0.5.1 性能优化缓存
+// _provCache：getProvinces() 结果缓存，避免高频点击时反复遍历 VENUES
+let _provCache = null;
+// _tooltipRaf：tooltip mousemove 的 rAF 节流句柄（避免每像素移动都触发 reflow）
+let _tooltipRaf = 0;
+// _stageRect：中国地图舞台矩形缓存（mouseenter 时刷新，避免 mousemove 中重复读取 getBoundingClientRect）
+let _stageRect = null;
+// 场馆卡片 tooltip（Task 6 按本命联动）：rAF 节流句柄 / 网格矩形缓存 / 当前悬停卡片
+let _venueTipRaf = 0;
+let _venueGridRect = null;
+let _venueTipCard = null;
 
 /* ============================================================
    §3  工具函数
@@ -201,11 +214,15 @@ function loadLocalCollections(){
 function loadLocalBias(){
   try{
     const local = JSON.parse(localStorage.getItem('encore-bias') || 'null');
-    if(local && local.type && Array.isArray(local.list) && local.list.length){
+    if(local && local.type && Array.isArray(local.list)){
       USER.bias = local;
       curDan = local.type;
+      return;
     }
   }catch(e){}
+  // 未设置本命：默认空数组，引导用户自行选择（不再默认周杰伦）
+  USER.bias = {type:1, list:[]};
+  curDan = 1;
 }
 function saveLocalBias(){
   try{
@@ -318,7 +335,11 @@ function showHeroSkeleton(){
 
 function getLitVenueIds(){ return new Set((USER.checkins||[]).map(c=>c.venueId)); }
 
+/* V0.5.1:getProvinces() 增加结果缓存
+ * 高频点击时 updateProvinceInline 会多次调用 getProvinces()，每次遍历全部 VENUES
+ * 缓存命中后复杂度从 O(n) 降到 O(1)；applyCheckinToggle 中会清空缓存 */
 function getProvinces(){
+  if(_provCache) return _provCache;
   const map = {};
   VENUES.forEach(v=>{
     if(!map[v.provinceShort]) map[v.provinceShort]={province:v.province,short:v.provinceShort,region:v.region,total:0,lit:0,venues:[]};
@@ -327,7 +348,8 @@ function getProvinces(){
   });
   const lit = getLitVenueIds();
   VENUES.forEach(v=>{ if(lit.has(v.id)) map[v.provinceShort].lit++; });
-  return Object.values(map);
+  _provCache = Object.values(map);
+  return _provCache;
 }
 
 /* ============================================================
@@ -419,6 +441,78 @@ function renderVenues(){
     </div>`;
   }).join('');
   ensureVenueDelegation();
+  // 重渲染后隐藏残留 tooltip（防止卡片已销毁但 tooltip 仍显示）
+  const _vtip = document.getElementById('venueTip');
+  if(_vtip) _vtip.classList.remove('show');
+  _venueTipCard = null;
+}
+
+/* ===== 场馆卡片 tooltip（Task 6：按本命歌手联动显示演唱会记录）===== */
+// 根据 USER.bias 过滤 CONCERTS，生成 tooltip 内容
+// - 已选本命且该场馆有演出：显示「歌手名 + 年份 + 巡演主题」
+// - 已选本命但该场馆无演出：显示「该场馆暂无 {歌手名} 演唱会记录」
+// - 未选本命：fallback 显示该场馆全部演唱会记录（按歌手分组）
+// - 多担：分行显示每位本命在该场馆的记录
+function getVenueTooltipContent(venueId){
+  const v = VENUES.find(x=>x.id===venueId);
+  if(!v) return '';
+  const biasList = (USER.bias && Array.isArray(USER.bias.list) && USER.bias.list.length)
+    ? USER.bias.list : [];
+  const header = `<strong>${v.name}${v.alias?' · '+v.alias:''}</strong>`;
+  // 未选歌手：fallback 显示该场馆全部演唱会记录
+  if(biasList.length === 0){
+    const all = CONCERTS.filter(c=>c.venueId===venueId);
+    if(all.length === 0) return header + `<span>暂无演唱会记录</span>`;
+    const byArtist = {};
+    all.forEach(c=>{
+      if(!byArtist[c.artistId]) byArtist[c.artistId] = [];
+      byArtist[c.artistId].push(c);
+    });
+    const lines = Object.keys(byArtist).map(aid=>{
+      const a = ARTISTS.find(x=>x.id===aid);
+      const recs = byArtist[aid].sort((x,y)=>x.date.localeCompare(y.date))
+        .map(c=>`${c.date.slice(0,4)} ${c.tour}`).join(' / ');
+      return `<span style="display:block">${a?a.name:aid} ${recs}</span>`;
+    });
+    return header + lines.join('');
+  }
+  // 已选歌手：按本命过滤，多担分行显示
+  const lines = biasList.map(aid=>{
+    const a = ARTISTS.find(x=>x.id===aid);
+    const recs = CONCERTS.filter(c=>c.venueId===venueId && c.artistId===aid)
+      .sort((x,y)=>x.date.localeCompare(y.date));
+    if(recs.length === 0){
+      return `<span style="display:block">该场馆暂无 ${a?a.name:aid} 演唱会记录</span>`;
+    }
+    const recap = recs.map(c=>`${c.date.slice(0,4)} ${c.tour}`).join(' / ');
+    return `<span style="display:block">${a?a.name:aid} ${recap}</span>`;
+  });
+  return header + lines.join('');
+}
+
+// 创建场馆 tooltip 元素（复用 cmp-tip 样式，追加 venue-tip 类允许换行）
+function ensureVenueTooltip(){
+  let tip = document.getElementById('venueTip');
+  if(!tip){
+    const grid = document.getElementById('venueGrid');
+    if(!grid) return null;
+    tip = document.createElement('div');
+    tip.id = 'venueTip';
+    tip.className = 'cmp-tip venue-tip';
+    // 注入 venue-tip 样式覆盖（允许换行 + 限宽，因为 cmp-tip 默认 white-space:nowrap）
+    if(!document.getElementById('venue-tip-style')){
+      const s = document.createElement('style');
+      s.id = 'venue-tip-style';
+      s.textContent = '.venue-tip{white-space:normal;max-width:300px}.venue-tip span{display:block}';
+      document.head.appendChild(s);
+    }
+    const wrapper = grid.parentNode; // .map-canvas
+    if(getComputedStyle(wrapper).position === 'static'){
+      wrapper.style.position = 'relative';
+    }
+    wrapper.appendChild(tip);
+  }
+  return tip;
 }
 
 /* ===== 场馆点亮/熄灭（Task 3 高性能版保留：rAF 合并 + 局部更新）===== */
@@ -432,6 +526,42 @@ function ensureVenueDelegation(){
     if(!card) return;
     toggleCheckin(card.dataset.id);
   });
+  // 场馆卡片 hover tooltip（Task 6：按本命联动，rAF 节流 mousemove）
+  const tip = ensureVenueTooltip();
+  if(!tip) return;
+  // mouseover 冒泡：进入卡片或切换卡片时更新内容
+  g.addEventListener('mouseover', e=>{
+    const card = e.target.closest('.venue-card');
+    if(card === _venueTipCard) return;
+    _venueTipCard = card;
+    if(card){
+      tip.innerHTML = getVenueTooltipContent(card.dataset.id);
+      tip.classList.add('show');
+      _venueGridRect = g.parentNode.getBoundingClientRect();
+    }
+  });
+  // mouseout 冒泡：仅在离开整个 grid 时隐藏
+  g.addEventListener('mouseout', e=>{
+    const related = e.relatedTarget;
+    if(!related || !g.contains(related)){
+      tip.classList.remove('show');
+      if(_venueTipRaf){ cancelAnimationFrame(_venueTipRaf); _venueTipRaf = 0; }
+      _venueTipCard = null;
+    }
+  });
+  // mousemove：rAF 节流 + translate3d 定位（与中国地图 tooltip 同策略，避免 reflow）
+  g.addEventListener('mousemove', e=>{
+    if(_venueTipRaf) return;
+    const cx = e.clientX, cy = e.clientY;
+    _venueTipRaf = requestAnimationFrame(()=>{
+      _venueTipRaf = 0;
+      const r = _venueGridRect;
+      if(!r) return;
+      const x = cx - r.left + 14;
+      const y = cy - r.top + 14;
+      tip.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+    });
+  });
 }
 
 // 同步切换状态（不等待 fetch），返回 'lit' | 'unlit' | null
@@ -442,6 +572,7 @@ function applyCheckinToggle(venueId){
   if(lit.has(venueId)){
     USER.checkins = (USER.checkins||[]).filter(c=>c.venueId!==venueId);
     saveLocalCheckins();
+    _provCache = null; // V0.5.1：清空省份缓存，让下次 getProvinces() 重新计算
     STATS = computeStats();
     fetch(API_BASE+'/api/user/checkin',{method:'DELETE',headers:{'Content-Type':'application/json'},body:JSON.stringify({venueId})}).catch(()=>{});
     return 'unlit';
@@ -452,6 +583,7 @@ function applyCheckinToggle(venueId){
   const note = concerts.length ? concerts[0].tour : '';
   USER.checkins.push({venueId,artistId,date,note,_local:true});
   saveLocalCheckins();
+  _provCache = null; // V0.5.1：清空省份缓存，让下次 getProvinces() 重新计算
   STATS = computeStats();
   fetch(API_BASE+'/api/user/checkin',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({venueId,artistId,date,note})})
     .then(r=>r.ok?r.json():null)
@@ -567,7 +699,11 @@ function scheduleRender(){
     });
     provsTouched.forEach(ps=>updateProvinceInline(ps));
     updateHeroStatsInline();
-    if(document.getElementById('heroTicket')) renderHeroTicket();
+    // V0.5.1：Hero 票卡含随机数生成 + 多次 DOM 查询，非首屏关键路径，延迟到 idle 阶段执行
+    // 避免高频点击时阻塞主线程，影响场馆卡片动画
+    if(document.getElementById('heroTicket')){
+      deferRender(()=>renderHeroTicket());
+    }
     if(_pendingToast){ toast(_pendingToast.msg, _pendingToast.type); _pendingToast = null; }
   });
 }
@@ -644,13 +780,28 @@ function renderChinaMap(){
     path.addEventListener('mouseenter',()=>{
       tip.innerHTML = `<strong>${meta?meta.name:prov}</strong><span>${data?`${data.lit}/${data.total} 座场馆已点亮`:'暂无收录场馆'}</span>`;
       tip.classList.add('show');
+      // V0.5.1：mouseenter 时缓存 stage 矩形（位置在此后基本不变），避免 mousemove 每帧调用 getBoundingClientRect
+      _stageRect = stage.getBoundingClientRect();
     });
+    // V0.5.1：mousemove 用 rAF 节流 + transform:translate3d 替代 left/top
+    // 原 left/top 每次设置都会触发 layout reflow；translate3d 走合成层，无 reflow
+    // rAF 合并多次 mousemove 为一帧一次写入，进一步降低主线程压力
     path.addEventListener('mousemove',e=>{
-      const r = stage.getBoundingClientRect();
-      tip.style.left = (e.clientX - r.left + 14) + 'px';
-      tip.style.top = (e.clientY - r.top + 14) + 'px';
+      if(_tooltipRaf) return; // 已有挂起的渲染，丢弃中间事件
+      const cx = e.clientX, cy = e.clientY;
+      _tooltipRaf = requestAnimationFrame(()=>{
+        _tooltipRaf = 0;
+        const r = _stageRect;
+        if(!r) return;
+        const x = cx - r.left + 14;
+        const y = cy - r.top + 14;
+        tip.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+      });
     });
-    path.addEventListener('mouseleave',()=>tip.classList.remove('show'));
+    path.addEventListener('mouseleave',()=>{
+      tip.classList.remove('show');
+      if(_tooltipRaf){ cancelAnimationFrame(_tooltipRaf); _tooltipRaf = 0; }
+    });
     if(path.classList.contains('has-venues')){
       path.addEventListener('click',()=>{
         curProv = prov;
@@ -760,16 +911,16 @@ function renderBias(){
   const el = document.getElementById('biasList');
   if(!el) return;
   document.querySelectorAll('#danToggle button').forEach(b=>b.classList.toggle('active',+b.dataset.dan===curDan));
-  if(!USER.bias) USER.bias = {type:curDan, list:['jay']};
-  if(!Array.isArray(USER.bias.list) || USER.bias.list.length===0) USER.bias.list = ['jay'];
+  if(!USER.bias) USER.bias = {type:curDan, list:[]};
+  if(!Array.isArray(USER.bias.list)) USER.bias.list = [];
   const list = USER.bias.list;
   const show = list.slice(0,curDan);
+  // 渲染已选本命列表
   el.innerHTML = show.map((id,i)=>{
-    const a = ARTISTS.find(x=>x.id===id) || ARTISTS[0];
+    const a = ARTISTS.find(x=>x.id===id);
     if(!a) return '';
     const cnt = (USER.checkins||[]).filter(c=>c.artistId===id).length;
     const pct = show.length===1?100:Math.round(100*(show.length-i)/(show.length*(show.length+1)/2));
-    const canRemove = list.length > 1;
     return `<div class="bias-row" data-bias="${id}">
       <div class="bias-pic" style="background:${a.color}33;color:${a.color2};border:1px solid ${a.color}">${a.initial}</div>
       <div class="bias-info">
@@ -777,16 +928,19 @@ function renderBias(){
         <div class="bias-stat">看 ${cnt} 场 · 出道 ${a.debut}</div>
         <div class="bias-bar"><div class="bias-bar-fill" style="width:${pct}%"></div></div>
       </div>
-      ${canRemove?`<button class="bias-remove" data-remove="${id}" aria-label="移除${a.name}" title="移除">×</button>`:''}
+      <button class="bias-remove" data-remove="${id}" aria-label="移除${a.name}" title="移除">×</button>
     </div>`;
   }).join('');
-  // 本命不足 curDan 位时，展示可添加的歌手（真实添加交互）
+  // 本命不足 curDan 位时，展示可添加的歌手（首次进入未设置时展示全部 13 位）
   if(show.length < curDan){
-    const rest = ARTISTS.filter(a=>!show.includes(a.id)).slice(0,8);
+    const rest = ARTISTS.filter(a=>!show.includes(a.id));
+    const guideText = list.length === 0
+      ? `请选择你喜欢的歌手作为本命（当前${curDan===1?'单担':curDan===2?'双担':'三担'}，可选 ${curDan} 位）`
+      : `添加本命 · 还差 ${curDan-show.length} 位`;
     if(rest.length){
       el.insertAdjacentHTML('beforeend',
         `<div class="bias-add-row">
-          <div class="bias-add-label">添加本命 · 还差 ${curDan-show.length} 位</div>
+          <div class="bias-add-label">${guideText}</div>
           <div class="bias-add-chips">
             ${rest.map(a=>`<button class="bias-add-chip" data-add="${a.id}" style="background:${a.color}22;color:${a.color2};border:1px solid ${a.color}66">${a.initial} ${a.name}</button>`).join('')}
           </div>
@@ -913,18 +1067,22 @@ function renderIdCard(){
   const nameEl = document.getElementById('idName');
   const sinceEl = document.getElementById('idSince');
   if(!avatar && !nameEl && !sinceEl) return;
-  const list = (USER.bias && USER.bias.list) || ['jay'];
-  const a = ARTISTS.find(x=>x.id===list[0]) || ARTISTS[0];
+  const list = (USER.bias && Array.isArray(USER.bias.list)) ? USER.bias.list : [];
+  const a = list.length > 0 ? (ARTISTS.find(x=>x.id===list[0]) || null) : null;
   const since = USER.since || new Date().getFullYear().toString();
   const years = Math.max(0, new Date().getFullYear() - (+since));
   if(avatar){
-    avatar.textContent = a ? a.initial : '粉';
     if(a){
+      avatar.textContent = a.initial;
       avatar.style.background = `linear-gradient(135deg, ${a.color}, ${a.color2})`;
       avatar.style.boxShadow = `0 8px 20px -8px ${a.color}`;
+    } else {
+      avatar.textContent = '粉';
+      avatar.style.background = '';
+      avatar.style.boxShadow = '';
     }
   }
-  if(nameEl && a) nameEl.textContent = a.name;
+  if(nameEl) nameEl.textContent = a ? a.name : '尚未选择本命';
   if(sinceEl) sinceEl.textContent = `SINCE ${since} · 粉龄 ${years} 年`;
 }
 function openIdentityCard(){
@@ -953,9 +1111,9 @@ function renderIdentityCard(){
   const years = Math.max(0, new Date().getFullYear() - (+since));
   const nickname = USER.nickname || '追光者';
   const danType = (USER.bias && USER.bias.type) || 1;
-  const biases = ((USER.bias && USER.bias.list) || ['jay']).slice(0,danType)
+  const biases = ((USER.bias && Array.isArray(USER.bias.list)) ? USER.bias.list : []).slice(0,danType)
     .map(id=>{ const a=ARTISTS.find(x=>x.id===id); return a?a.name:id; })
-    .join(' / ') || '-';
+    .join(' / ') || '未设置';
   const skinA = ARTISTS.find(a=>a.id===USER.skin);
   const skinName = skinNames[USER.skin] || (skinA?skinA.name:'默认');
   const cntMap = {};
@@ -994,9 +1152,9 @@ function copyIdentityText(){
   const since = USER.since || new Date().getFullYear().toString();
   const years = Math.max(0, new Date().getFullYear() - (+since));
   const danType = (USER.bias && USER.bias.type) || 1;
-  const biases = ((USER.bias && USER.bias.list) || ['jay']).slice(0,danType)
+  const biases = ((USER.bias && Array.isArray(USER.bias.list)) ? USER.bias.list : []).slice(0,danType)
     .map(id=>{ const a=ARTISTS.find(x=>x.id===id); return a?a.name:id; })
-    .join('/') || '-';
+    .join('/') || '未设置';
   const text = `【余响 Encore · 粉丝身份卡】
 ${USER.nickname||'追光者'} · SINCE ${since} · 粉龄 ${years} 年
 等级：Lv.${cur.lv} ${cur.name}
@@ -1072,11 +1230,11 @@ document.addEventListener('click', e=>{
     renderShelf();
     return;
   }
-  // 单担/双担/三担切换
+  // 单担/双担/三担切换（担数切换时保留已选的前 N 位）
   const danBtn = target.closest('#danToggle button');
   if(danBtn){
     curDan = +danBtn.dataset.dan;
-    if(!USER.bias) USER.bias = {type:curDan, list:['jay']};
+    if(!USER.bias) USER.bias = {type:curDan, list:[]};
     USER.bias.type = curDan;
     saveLocalBias();
     renderBias();
@@ -1099,11 +1257,11 @@ document.addEventListener('click', e=>{
     }
     return;
   }
-  // 移除本命
+  // 移除本命（允许移除到空，引导用户重新选择）
   const removeBtn = target.closest('.bias-remove');
   if(removeBtn){
     const id = removeBtn.dataset.remove;
-    if(id && USER.bias && USER.bias.list.length > 1){
+    if(id && USER.bias && USER.bias.list.length > 0){
       USER.bias.list = USER.bias.list.filter(x=>x!==id);
       saveLocalBias();
       fetch(API_BASE+'/api/user/bias',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(USER.bias)}).catch(()=>{});
@@ -1128,6 +1286,25 @@ document.addEventListener('keydown', e=>{
    §16  初始化（首屏关键路径优先，非关键延迟渲染）
    ============================================================ */
 
+/* V0.5.1：场馆图片预加载
+ * 点亮/未点亮版图片都通过 new Image() 触发浏览器下载并存入缓存
+ * 这样首次点击切换时不会出现白屏等待（浏览器从缓存直接读取）
+ * 预加载失败（如图片缺失）由 img onerror 回退到 SVG 占位，不影响功能 */
+function preloadVenueImages(){
+  if(!VENUES || !VENUES.length) return;
+  // 使用 documentFragment 之外的轻量方式：仅创建 Image 对象触发下载，不插入 DOM
+  VENUES.forEach(v=>{
+    if(v.img){
+      const img = new Image();
+      img.src = v.img; // 点亮版图片
+    }
+    if(v.imgUnlit){
+      const imgUnlit = new Image();
+      imgUnlit.src = v.imgUnlit; // 未点亮版图片
+    }
+  });
+}
+
 async function init(){
   initTheme();
   injectInteractionStyles();
@@ -1147,6 +1324,10 @@ async function init(){
   loadLocalExpenses();
   curProv = VENUES[0] ? VENUES[0].provinceShort : null;
   curDan = USER.bias ? USER.bias.type : 1;
+
+  // V0.5.1：预加载所有场馆的点亮/未点亮图片，避免首次点击时白屏
+  // 放在数据加载后、首屏渲染前，使图片下载与首屏渲染并行
+  preloadVenueImages();
 
   // —— 首屏关键路径（同步渲染：header / hero / 当前页主体）——
   if(document.getElementById('heroStats')) renderHeroStats();

@@ -100,6 +100,30 @@
         "artistId": "jay",
         "date": "2025-09-19",
         "note": "嘉年华世界巡回演唱会·3场"
+      },
+      {
+        "venueId": "hk-central",
+        "artistId": "jay",
+        "date": "2023-05-12",
+        "note": "嘉年华·香港中环海滨"
+      },
+      {
+        "venueId": "mo-cotai",
+        "artistId": "gem",
+        "date": "2026-07-04",
+        "note": "I AM GLORIA 2.0·澳门金光综艺馆"
+      },
+      {
+        "venueId": "tw-arena",
+        "artistId": "davidtao",
+        "date": "2024-11-09",
+        "note": "Soul Power II·台北小巨蛋"
+      },
+      {
+        "venueId": "dl-tiyu",
+        "artistId": "joker",
+        "date": "2024-05-25",
+        "note": "天外来物·大连体育中心"
       }
     ],
     "collections": {

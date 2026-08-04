@@ -1,5 +1,5 @@
 /* ============================================
-   余响 Encore v0.5.0 · 舞台灯光设计系统
+   余响 Encore v0.6.0 · 舞台灯光设计系统
    设计语言：明暗双模 + 聚光灯光影 + 暖金强调
    重构：8px 网格 / 7 档字号 / 5 档圆角 / 4 档阴影 / 标准动效 / z-index 规范
    ============================================ */
@@ -513,10 +513,12 @@ html.dark .venue-card .toggle-hint{background:rgba(255,255,255,.08)}
 .cmp-stats{font-family:var(--mono);font-size:var(--fs-sm);color:var(--gold);border:1px solid var(--gold);background:var(--gold-soft);padding:5px 14px;border-radius:var(--r-full);white-space:nowrap}
 .china-map-stage{position:relative}
 .china-svg{display:block;width:100%;height:auto;max-height:540px;margin:0 auto}
+/* V0.5.1:cmp-prov transition 移除 filter,改用 fill/stroke/opacity（GPU 友好）
+   原 filter:drop-shadow + cmpGlow 动画会强制每帧重新栅格化所有 lit 省份，性能开销大 */
 .cmp-prov{
   fill:rgba(34,28,48,.12);
   stroke:rgba(34,28,48,.24);stroke-width:1;stroke-linejoin:round;
-  transition:fill var(--dur-slow) var(--ease-out),stroke var(--dur-slow) var(--ease-out),filter var(--dur-slow) var(--ease-out);
+  transition:fill var(--dur-slow) var(--ease-out),stroke var(--dur-slow) var(--ease-out),opacity var(--dur-slow) var(--ease-out);
 }
 .cmp-prov.no-venues{fill:rgba(34,28,48,.05);stroke:rgba(34,28,48,.16);stroke-dasharray:3 2.5}
 .cmp-prov.has-venues{cursor:pointer}
@@ -524,18 +526,18 @@ html.dark .venue-card .toggle-hint{background:rgba(255,255,255,.08)}
 .cmp-prov.sel{stroke:var(--neon-2);stroke-width:2}
 .cmp-prov.lit{
   fill:url(#cmpGoldGrad);
-  stroke:var(--gold);stroke-width:1.3;
-  filter:drop-shadow(0 1px 4px rgba(200,147,58,.55));
+  stroke:var(--gold);stroke-width:1.6;
   animation:cmpGlow 2.8s var(--ease-soft) infinite;
 }
-.cmp-prov.lit:hover{filter:drop-shadow(0 2px 8px rgba(200,147,58,.8))}
-@keyframes cmpGlow{0%,100%{filter:drop-shadow(0 1px 4px rgba(200,147,58,.45))}50%{filter:drop-shadow(0 2px 9px rgba(200,147,58,.75))}}
+@keyframes cmpGlow{0%,100%{opacity:.85}50%{opacity:1}}
 .cmp-tip{
   position:absolute;pointer-events:none;z-index:var(--z-dropdown);
   background:var(--ink);color:#fff;border-radius:var(--r-sm);
   padding:7px 11px;font-size:var(--fs-sm);line-height:1.4;
-  box-shadow:var(--shadow);opacity:0;transform:translateY(4px);
+  box-shadow:var(--shadow);opacity:0;transform:translate3d(0,4px,0);
   transition:opacity var(--dur-fast),transform var(--dur-fast);white-space:nowrap;
+  /* V0.5.1:tooltip 使用 transform 定位（JS 中通过 translate3d 设置）,避免 left/top 触发 reflow */
+  left:0;top:0;will-change:transform;
 }
 .cmp-tip.show{opacity:1;transform:none}
 .cmp-tip strong{display:block;font-weight:600}
@@ -784,11 +786,17 @@ html.dark .venue-card .toggle-hint{background:rgba(255,255,255,.08)}
    §14  Footer
    ============================================================ */
 footer{
-  padding:50px 0 40px;text-align:center;color:var(--ink-mute);
-  font-size:var(--fs-sm);border-top:1px solid var(--border);margin-top:40px;
+  padding:36px 24px 32px;text-align:center;color:var(--ink-soft);
+  font-size:var(--fs-sm);border-top:1px solid var(--border-faint);
+  background:var(--bg-2);margin-top:40px;
 }
 footer .ver{font-family:var(--mono);color:var(--gold)}
-.footer-sub{margin-top:6px}
+footer .footer-copy{
+  margin-top:10px;font-size:var(--fs-xs);color:var(--ink-mute);letter-spacing:.5px;
+}
+/* 暗色模式：CSS 变量已自动覆盖，此处显式声明保证一致性 */
+html.dark footer{background:var(--bg-2);border-top-color:var(--border-faint);color:var(--ink-soft)}
+html.dark footer .footer-copy{color:var(--ink-mute)}
 
 /* ============================================================
    §15  粉丝等级
@@ -937,8 +945,9 @@ html:not(.dark) .logo-icon.dark-only{display:none}
 /* ============================================================
    §20  暗色模式适配（地图/省份/图例）
    ============================================================ */
+/* V0.5.1:暗色模式下未点亮图片改用 opacity（GPU 合成层），避免 filter:brightness 重绘 */
 html.dark .venue-card:not(.lit){opacity:.7}
-html.dark .venue-art img.unlit{filter:brightness(.55) saturate(.4)}
+html.dark .venue-art img.unlit{opacity:.45}
 html.dark .cmp-prov{fill:rgba(255,255,255,.10);stroke:rgba(255,255,255,.20)}
 html.dark .cmp-prov.no-venues{fill:rgba(255,255,255,.04);stroke:rgba(255,255,255,.12)}
 html.dark .cmp-tip{background:var(--surface);color:var(--ink);border:1px solid var(--border)}
@@ -1004,6 +1013,7 @@ html.dark .lg-na i{background:rgba(255,255,255,.04);border:1px dashed rgba(255,2
   .logo-icon{width:22px;height:22px}
   .logo-en{display:none}
   .nav-actions{gap:6px}
+  footer{padding:28px 16px 24px}
 }
 
 /* ============================================================
