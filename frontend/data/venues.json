@@ -9,7 +9,7 @@
     "region": "华北",
     "type": "体育场",
     "capacity": 80000,
-    "img": "assets/venues/niac.jpg",
+    "img": "assets/venues/bj-niaocao.jpg",
     "art": "nest",
     "imgUnlit": "assets/venues/unlit/bj-niaocao.jpg"
   },
@@ -52,7 +52,7 @@
     "region": "华东",
     "type": "体育场",
     "capacity": 56000,
-    "img": "assets/venues/shanghai.jpg",
+    "img": "assets/venues/sh-stadium.jpg",
     "art": "bowl",
     "imgUnlit": "assets/venues/unlit/sh-stadium.jpg"
   },
@@ -94,7 +94,7 @@
     "region": "华东",
     "type": "体育场",
     "capacity": 80000,
-    "img": "assets/venues/hz-dalhua.jpg",
+    "img": "assets/venues/hz-lotus.jpg",
     "art": "lotus",
     "imgUnlit": "assets/venues/unlit/hz-lotus.jpg"
   },
@@ -122,7 +122,7 @@
     "region": "华南",
     "type": "体育场",
     "capacity": 60000,
-    "img": "assets/venues/shenzhen.jpg",
+    "img": "assets/venues/sz-dayun.jpg",
     "art": "dome",
     "imgUnlit": "assets/venues/unlit/sz-dayun.jpg"
   },
@@ -178,7 +178,7 @@
     "region": "西南",
     "type": "体育场",
     "capacity": 40000,
-    "img": "assets/venues/chengdu.jpg",
+    "img": "assets/venues/cd-donganhu.jpg",
     "art": "dome",
     "imgUnlit": "assets/venues/unlit/cd-donganhu.jpg"
   },
@@ -192,7 +192,7 @@
     "region": "华东",
     "type": "体育场",
     "capacity": 61000,
-    "img": "assets/venues/nanjing.jpg",
+    "img": "assets/venues/nj-aoti.jpg",
     "art": "dome",
     "imgUnlit": "assets/venues/unlit/nj-aoti.jpg"
   },

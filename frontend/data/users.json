@@ -18,10 +18,10 @@
         "note": "嘉年华"
       },
       {
-        "venueId": "sh-stadium",
+        "venueId": "sh-hongkou",
         "artistId": "jj",
         "date": "2023-08-19",
-        "note": "JJ20"
+        "note": "JJ20·虹口足球场"
       },
       {
         "venueId": "hz-lotus",
@@ -54,16 +54,16 @@
         "note": "首站"
       },
       {
-        "venueId": "bj-wukesong",
+        "venueId": "bj-niaocao",
         "artistId": "jj",
         "date": "2023-09-22",
-        "note": "JJ20"
+        "note": "JJ20·鸟巢"
       },
       {
-        "venueId": "bj-gongti",
+        "venueId": "bj-niaocao",
         "artistId": "jay",
-        "date": "2026-07-31",
-        "note": ""
+        "date": "2026-06-26",
+        "note": "嘉年华Ⅱ世界巡回演唱会·首登鸟巢·收官"
       },
       {
         "venueId": "xa-aoti",

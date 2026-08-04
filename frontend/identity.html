@@ -13,7 +13,7 @@
 
 <header>
   <div class="wrap nav">
-    <a href="index.html" class="logo"><img src="assets/icons/logo-light.jpg" class="logo-icon light-only" alt="余响"><img src="assets/icons/logo-dark.jpg" class="logo-icon dark-only" alt="余响">余响 <span class="logo-en">Encore</span></a>
+    <a href="index.html" class="logo"><img src="assets/icons/app-icon-v2-dust-light.jpg" class="logo-icon light-only" alt="余响"><img src="assets/icons/app-icon-v2-dust.jpg" class="logo-icon dark-only" alt="余响">余响 <span class="logo-en">Encore</span></a>
     <ul class="nav-links">
       <li><a href="index.html">首页</a></li>
       <li><a href="map.html">场馆地图</a></li>
@@ -21,6 +21,8 @@
       <li><a href="gallery.html">收藏展览</a></li>
       <li><a href="identity.html" class="active">粉丝身份</a></li>
       <li><a href="member.html">会员</a></li>
+      <li><a href="meet.html">见面</a></li>
+      <li><a href="expense.html">账单</a></li>
     </ul>
     <button class="nav-toggle" aria-label="菜单"><span></span><span></span><span></span></button>
     <div class="nav-actions">
@@ -39,13 +41,14 @@
         <h2>粉丝身份 <em>Identity</em></h2>
         <p>单担、双担、三担，搭配专属皮肤，定义你是怎样的粉丝。</p>
       </div>
+      <button class="btn btn-primary" onclick="openIdentityCard()">生成身份卡</button>
     </div>
     <div class="identity-grid reveal">
       <div class="id-card">
         <div class="id-head">
           <div class="id-avatar" id="idAvatar">星</div>
           <div>
-            <div class="id-name">你的本命</div>
+            <div class="id-name" id="idName">你的本命</div>
             <div class="id-since" id="idSince">SINCE 2021 · 粉龄 4 年</div>
           </div>
         </div>
@@ -98,10 +101,24 @@
 </div>
 
 <footer>
-  <div>余响 Encore · 演唱会足迹追踪 <span class="ver">v0.4</span></div>
+  <div>余响 Encore · 演唱会足迹追踪 <span class="ver">v0.5.0</span></div>
   <div class="footer-sub">数据来源：百科/票务/媒体公开信息 · 仅供产品演示</div>
 </footer>
 
+<div class="modal-backdrop" id="idCardModal" onclick="if(event.target===this)closeIdentityCard()" aria-hidden="true">
+  <div class="modal" role="dialog" aria-modal="true" aria-label="粉丝身份卡">
+    <button class="modal-close" onclick="closeIdentityCard()" aria-label="关闭">×</button>
+    <div class="modal-title">粉丝身份卡</div>
+    <div class="modal-subtitle">FAN IDENTITY CARD · 可复制分享</div>
+    <div class="modal-body">
+      <div class="idc-card" id="idCardBody"></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeIdentityCard()">关闭</button>
+      <button class="btn btn-primary" onclick="copyIdentityText()">复制文案</button>
+    </div>
+  </div>
+</div>
 <div class="toast" id="toast"><span class="ico"></span><span id="toastText"></span></div>
 <script src="app.js"></script>
 </body>

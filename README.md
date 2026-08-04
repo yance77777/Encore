@@ -4,7 +4,7 @@
 
 **演唱会足迹追踪 · 点亮你的每一站**
 
-[![Version](https://img.shields.io/badge/version-v0.4-gold?style=flat-square)](https://yance77777.github.io/Encore/)
+[![Version](https://img.shields.io/badge/version-v0.5.0-gold?style=flat-square)](https://yance77777.github.io/Encore/)
 [![License](https://img.shields.io/badge/license-MIT-blue?style=flat-square)](#)
 [![Live Demo](https://img.shields.io/badge/Live-GitHub%20Pages-brightgreen?style=flat-square)](https://yance77777.github.io/Encore/)
 [![Frontend](https://img.shields.io/badge/frontend-vanilla%20JS-orange?style=flat-square)](#)
@@ -17,7 +17,7 @@
 ---
 
 > 一款记录演唱会足迹、点亮场馆地图、收藏专辑与周边的粉丝向 App。
-> V0.4 引入明暗双模 UI 体系、场馆点亮/熄灭双向交互、品牌 ICON 与全专辑展览。
+> V0.5.0 大版本重构：数据微博核验、UI 设计系统重构、见面/消费新页面、身份页功能落地、62 张场馆双版图标、地图性能优化。
 
 ## ✨ 功能特性
 
@@ -129,13 +129,14 @@ Encore/
 ## 📝 版本管理（a.b.c 三位数体系）
 
 - **a（主版本）**：重大架构升级 / 跨平台发布 / 品牌变更（如 `v1.0.0`）
-- **b（次版本）**：新增功能模块 / 设计改版 / 数据结构调整（如 `v0.4` 明暗双模 + 交互升级）
+- **b（次版本）**：新增功能模块 / 设计改版 / 数据结构调整（如 `v0.5.0` 大版本重构 + 设计系统升级）
 - **c（修订版）**：Bug 修复 / 数据校验 / 图标补全 / 文案微调
 
 ## 📜 版本历史
 
 | 版本 | 日期 | 核心更新 |
 |------|------|----------|
+| **v0.5.0** | 2026-08-04 | 大版本重构 · 数据微博核验 · UI 设计系统 · 见面/消费新页面 · 身份页落地 · 62 张场馆双版图标 · 地图 rAF 性能优化 |
 | **v0.4** | 2026-08-03 | 明暗双模 UI · 场馆点亮/熄灭交互 · 品牌 ICON · 全专辑展览 · localStorage 持久化 |
 | v0.3.1 | 2026-08-02 | 31 座场馆图标全覆盖 · 数据完善 · 杭州大小莲花拆分 |
 | v0.3.0 | 2026-08-01 | UI 深度重构 · 舞台灯光暖白设计系统 · 响应式三档断点 |
