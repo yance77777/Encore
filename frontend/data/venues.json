@@ -772,19 +772,6 @@
     "art": "arena"
   },
   {
-    "id": "cq-stadium",
-    "name": "重庆奥体中心体育场",
-    "alias": "重庆奥林匹克体育中心",
-    "city": "重庆",
-    "province": "重庆",
-    "provinceShort": "重庆",
-    "type": "体育场",
-    "capacity": 0,
-    "img": "assets/venues/cq-stadium.jpg",
-    "imgUnlit": "assets/venues/unlit/cq-stadium.jpg",
-    "art": "arena"
-  },
-  {
     "id": "nj-ven",
     "name": "南京奥体中心",
     "alias": "南京奥林匹克体育中心",
@@ -1073,19 +1060,6 @@
     "art": "arena"
   },
   {
-    "id": "km-stadium2",
-    "name": "昆明拓东体育场",
-    "alias": "拓东体育场",
-    "city": "昆明",
-    "province": "云南",
-    "provinceShort": "云南",
-    "type": "体育场",
-    "capacity": 0,
-    "img": "assets/venues/km-stadium2.jpg",
-    "imgUnlit": "assets/venues/unlit/km-stadium2.jpg",
-    "art": "arena"
-  },
-  {
     "id": "ks-stadium",
     "name": "昆山体育中心体育场",
     "alias": "昆山体育中心体育场",
@@ -1330,19 +1304,6 @@
     "capacity": 0,
     "img": "assets/venues/zj-stadium.jpg",
     "imgUnlit": "assets/venues/unlit/zj-stadium.jpg",
-    "art": "arena"
-  },
-  {
-    "id": "wh-stadium2",
-    "name": "武汉新华路体育场",
-    "alias": "武汉新华路体育场",
-    "city": "武汉",
-    "province": "湖北",
-    "provinceShort": "湖北",
-    "type": "体育场",
-    "capacity": 0,
-    "img": "assets/venues/wh-stadium2.jpg",
-    "imgUnlit": "assets/venues/unlit/wh-stadium2.jpg",
     "art": "arena"
   },
   {
@@ -1921,19 +1882,6 @@
     "art": "arena"
   },
   {
-    "id": "zz-stadium3",
-    "name": "郑州奥体中心体育场",
-    "alias": "奥林匹克体育中心郑地体育场",
-    "city": "郑州",
-    "province": "河南",
-    "provinceShort": "河南",
-    "type": "体育场",
-    "capacity": 0,
-    "img": "assets/venues/zz-stadium3.jpg",
-    "imgUnlit": "assets/venues/unlit/zz-stadium3.jpg",
-    "art": "arena"
-  },
-  {
     "id": "qy-stadium",
     "name": "清远体育中心体育场",
     "alias": "清远体育中心体育场",
@@ -1944,19 +1892,6 @@
     "capacity": 0,
     "img": "assets/venues/qy-stadium.jpg",
     "imgUnlit": "assets/venues/unlit/qy-stadium.jpg",
-    "art": "arena"
-  },
-  {
-    "id": "szhou-stadium2",
-    "name": "苏州奥体中心体育场",
-    "alias": "苏州奥林匹克体育中心体育场",
-    "city": "苏州",
-    "province": "江苏",
-    "provinceShort": "江苏",
-    "type": "体育场",
-    "capacity": 0,
-    "img": "assets/venues/szhou-stadium2.jpg",
-    "imgUnlit": "assets/venues/unlit/szhou-stadium2.jpg",
     "art": "arena"
   },
   {
@@ -1996,19 +1931,6 @@
     "capacity": 0,
     "img": "assets/venues/hy-stadium.jpg",
     "imgUnlit": "assets/venues/unlit/hy-stadium.jpg",
-    "art": "arena"
-  },
-  {
-    "id": "sjz-stadium2",
-    "name": "石家庄河北奥体中心体育场",
-    "alias": "河北奥林匹克体育中心体育场",
-    "city": "石家庄",
-    "province": "河北",
-    "provinceShort": "河北",
-    "type": "体育场",
-    "capacity": 0,
-    "img": "assets/venues/sjz-stadium2.jpg",
-    "imgUnlit": "assets/venues/unlit/sjz-stadium2.jpg",
     "art": "arena"
   },
   {
@@ -2116,19 +2038,6 @@
     "art": "arena"
   },
   {
-    "id": "fs-gym2",
-    "name": "佛山岭南明珠体育馆",
-    "alias": "佛山岭南明珠体育馆",
-    "city": "佛山",
-    "province": "广东",
-    "provinceShort": "广东",
-    "type": "室内体育馆",
-    "capacity": 0,
-    "img": "assets/venues/fs-gym2.jpg",
-    "imgUnlit": "assets/venues/unlit/fs-gym2.jpg",
-    "art": "bowl"
-  },
-  {
     "id": "xa-expo",
     "name": "西安曲江国际会展中心",
     "alias": "西安曲江国际会展中心B4馆",
@@ -2153,19 +2062,6 @@
     "img": "assets/venues/fz-expo.jpg",
     "imgUnlit": "assets/venues/unlit/fz-expo.jpg",
     "art": "arena"
-  },
-  {
-    "id": "xm-gym2",
-    "name": "厦门嘉庚体育馆",
-    "alias": "厦门嘉庚体育馆",
-    "city": "厦门",
-    "province": "福建",
-    "provinceShort": "福建",
-    "type": "室内体育馆",
-    "capacity": 0,
-    "img": "assets/venues/xm-gym2.jpg",
-    "imgUnlit": "assets/venues/unlit/xm-gym2.jpg",
-    "art": "bowl"
   },
   {
     "id": "ot-gym3",
@@ -2205,19 +2101,6 @@
     "img": "assets/venues/ty-gym2.jpg",
     "imgUnlit": "assets/venues/unlit/ty-gym2.jpg",
     "art": "bowl"
-  },
-  {
-    "id": "ot-stadium6",
-    "name": "泉州海峡体育中心体育场",
-    "alias": "海峡体育场",
-    "city": "泉州",
-    "province": "福建",
-    "provinceShort": "福建",
-    "type": "体育场",
-    "capacity": 0,
-    "img": "assets/venues/ot-stadium6.jpg",
-    "imgUnlit": "assets/venues/unlit/ot-stadium6.jpg",
-    "art": "arena"
   },
   {
     "id": "cs2-stadium",

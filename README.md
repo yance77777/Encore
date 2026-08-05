@@ -4,7 +4,7 @@
 
 **演唱会足迹追踪 · 点亮你的每一站**
 
-[![Version](https://img.shields.io/badge/version-v0.7.1-gold?style=flat-square)](https://encore.yance777.com)
+[![Version](https://img.shields.io/badge/version-v0.8.0-gold?style=flat-square)](https://encore.yance777.com)
 [![Live](https://img.shields.io/badge/在线访问-encore.yance777.com-brightgreen?style=flat-square)](https://encore.yance777.com)
 [![Frontend](https://img.shields.io/badge/frontend-vanilla%20JS-orange?style=flat-square)](https://encore.yance777.com)
 [![License](https://img.shields.io/badge/license-MIT-blue?style=flat-square)](#license)
@@ -23,7 +23,7 @@
 | 模块 | 能力 |
 |------|------|
 | 🏠 首页 | 品牌入口 · 模块导航 · 全局数据一览 |
-| 🏟️ 场馆地图 | 204 座场馆中国地图可视化 · 点亮 / 熄灭双向切换 · 省份统计联动 |
+| 🏟️ 场馆地图 | 195 座场馆中国地图可视化 · 点亮 / 熄灭双向切换 · 省份统计联动 |
 | 🎤 巡演档案 | 1006 场演唱会记录 · 13 位歌手筛选 · 时间线展示 |
 | 💿 收藏展览 | 147 张专辑全展示 · 一键收藏 / 取消 · localStorage 持久化 |
 | 🎭 粉丝身份 | 个人主页 · 偏好歌手 · 主题皮肤（13 种歌手主题色） |
@@ -43,7 +43,7 @@
 
 ## 🏟️ 场馆覆盖
 
-204 座场馆覆盖全国 7 大地理区域 + 港澳台，60+ 座城市，所有场馆均配 Q 版图标双版本（点亮 / 未点亮）。
+195 座场馆覆盖全国 7 大地理区域 + 港澳台，60+ 座城市，所有场馆均配 Q 版图标双版本（点亮 / 未点亮）。
 
 ## 🎤 收录歌手
 
@@ -92,7 +92,7 @@ Encore/
 │   ├── app.js                 # 前端逻辑
 │   ├── style.css              # 样式系统
 │   ├── data/                  # JSON 数据
-│   │   ├── venues.json        # 场馆（204 座）
+│   │   ├── venues.json        # 场馆（195 座）
 │   │   ├── artists.json       # 歌手（13 位）
 │   │   ├── concerts.json      # 演唱会（1006 场）
 │   │   ├── users.json         # 用户数据

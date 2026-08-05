@@ -352,7 +352,7 @@
   {
     "artistId": "jay",
     "tour": "地表最强世界巡回演唱会",
-    "venueId": "cq-stadium",
+    "venueId": "cq-aoti",
     "city": "重庆",
     "date": "2017-05-13",
     "note": "2场",
@@ -682,7 +682,7 @@
   {
     "artistId": "jay",
     "tour": "魔天伦世界巡回演唱会",
-    "venueId": "cq-stadium",
+    "venueId": "cq-aoti",
     "city": "重庆",
     "date": "2013-11-02",
     "note": "1场",
@@ -852,7 +852,7 @@
   {
     "artistId": "jay",
     "tour": "魔天伦2.0世界巡回演唱会",
-    "venueId": "cq-stadium",
+    "venueId": "cq-aoti",
     "city": "重庆",
     "date": "2015-04-18",
     "note": "1场",
@@ -1162,7 +1162,7 @@
   {
     "artistId": "jay",
     "tour": "超时代世界巡回演唱会",
-    "venueId": "cq-stadium",
+    "venueId": "cq-aoti",
     "city": "重庆",
     "date": "2010-11-06",
     "note": "1场",
@@ -1462,7 +1462,7 @@
   {
     "artistId": "jay",
     "tour": "2007世界巡回演唱会",
-    "venueId": "cq-stadium",
+    "venueId": "cq-aoti",
     "city": "重庆",
     "date": "2008-05-24",
     "note": "1场·汶川地震慈善场",
@@ -1572,7 +1572,7 @@
   {
     "artistId": "jay",
     "tour": "2007世界巡回演唱会",
-    "venueId": "km-stadium2",
+    "venueId": "km-stadium",
     "city": "昆明",
     "date": "2008-11-29",
     "note": "1场",
@@ -2092,7 +2092,7 @@
   {
     "artistId": "jj",
     "tour": "圣所2.0世界巡回演唱会",
-    "venueId": "cq-stadium",
+    "venueId": "cq-aoti",
     "city": "重庆",
     "date": "2019-11-02",
     "note": "1场",
@@ -2152,7 +2152,7 @@
   {
     "artistId": "jj",
     "tour": "就是俊杰世界巡回演唱会",
-    "venueId": "wh-stadium2",
+    "venueId": "wh-stadium",
     "city": "武汉",
     "date": "2006-09-16",
     "note": "1场",
@@ -2242,7 +2242,7 @@
   {
     "artistId": "jj",
     "tour": "I AM世界巡回演唱会",
-    "venueId": "wh-stadium2",
+    "venueId": "wh-stadium",
     "city": "武汉",
     "date": "2010-11-06",
     "note": "1场",
@@ -2802,7 +2802,7 @@
   {
     "artistId": "jj",
     "tour": "JJ20世界巡回演唱会",
-    "venueId": "cq-stadium",
+    "venueId": "cq-aoti",
     "city": "重庆",
     "date": "2024-11-01",
     "note": "3场·收官",
@@ -3242,7 +3242,7 @@
   {
     "artistId": "mayday",
     "tour": "诺亚方舟世界巡回演唱会",
-    "venueId": "wh-stadium2",
+    "venueId": "wh-stadium",
     "city": "武汉",
     "date": "2012-05-05",
     "note": "1场",
@@ -3412,7 +3412,7 @@
   {
     "artistId": "mayday",
     "tour": "诺亚方舟世界巡回演唱会",
-    "venueId": "cq-stadium",
+    "venueId": "cq-aoti",
     "city": "重庆",
     "date": "2013-03-30",
     "note": "1场",
@@ -4212,7 +4212,7 @@
   {
     "artistId": "mayday",
     "tour": "好好好想见到你巡回演唱会",
-    "venueId": "cq-stadium",
+    "venueId": "cq-aoti",
     "city": "重庆",
     "date": "2023-09-22",
     "note": "3场",
@@ -4512,7 +4512,7 @@
   {
     "artistId": "zhangjie",
     "tour": "未·LIVE 开往1982",
-    "venueId": "cq-stadium",
+    "venueId": "cq-aoti",
     "city": "重庆",
     "date": "2024-06-28",
     "note": "3场",
@@ -5172,7 +5172,7 @@
   {
     "artistId": "joker",
     "tour": "万兽之王巡回演唱会",
-    "venueId": "cq-stadium",
+    "venueId": "cq-aoti",
     "city": "重庆",
     "date": "2026-06-26",
     "note": "6场",
@@ -5492,7 +5492,7 @@
   {
     "artistId": "silence",
     "tour": "十万伏特2.0巡回演唱会",
-    "venueId": "cq-stadium",
+    "venueId": "cq-aoti",
     "city": "重庆",
     "date": "2025-10-17",
     "note": "3场",
@@ -5672,7 +5672,7 @@
   {
     "artistId": "silence",
     "tour": "十万伏特巡回演唱会",
-    "venueId": "cq-stadium",
+    "venueId": "cq-aoti",
     "city": "重庆",
     "date": "2024-11-16",
     "note": "2场",
@@ -5832,7 +5832,7 @@
   {
     "artistId": "zhoushen",
     "tour": "9.29Hz世界巡回演唱会",
-    "venueId": "cq-stadium",
+    "venueId": "cq-aoti",
     "city": "重庆",
     "date": "2024-10-06",
     "note": "2场",
@@ -6032,7 +6032,7 @@
   {
     "artistId": "zhoushen",
     "tour": "深深的巡回演唱会",
-    "venueId": "cq-stadium",
+    "venueId": "cq-aoti",
     "city": "重庆",
     "date": "2026-05-30",
     "note": "2场",
@@ -6322,7 +6322,7 @@
   {
     "artistId": "gem",
     "tour": "I AM GLORIA世界巡回演唱会",
-    "venueId": "zz-stadium3",
+    "venueId": "zz-aoti",
     "city": "郑州",
     "date": "2024-06-29",
     "note": "2场",
@@ -6442,7 +6442,7 @@
   {
     "artistId": "gem",
     "tour": "I AM GLORIA世界巡回演唱会",
-    "venueId": "cq-stadium",
+    "venueId": "cq-aoti",
     "city": "重庆",
     "date": "2024-10-19",
     "note": "2场",
@@ -6452,7 +6452,7 @@
   {
     "artistId": "gem",
     "tour": "I AM GLORIA世界巡回演唱会",
-    "venueId": "szhou-stadium2",
+    "venueId": "szhou-aoti",
     "city": "苏州",
     "date": "2024-10-26",
     "note": "2场",
@@ -6562,7 +6562,7 @@
   {
     "artistId": "gem",
     "tour": "I AM GLORIA 2.0世界巡回演唱会",
-    "venueId": "sjz-stadium2",
+    "venueId": "sjz-stadium",
     "city": "石家庄",
     "date": "2025-06-14",
     "note": "2场",
@@ -6732,7 +6732,7 @@
   {
     "artistId": "gem",
     "tour": "I AM GLORIA 2.0世界巡回演唱会",
-    "venueId": "cq-stadium",
+    "venueId": "cq-aoti",
     "city": "重庆",
     "date": "2026-08-21",
     "note": "3场",
@@ -6952,7 +6952,7 @@
   {
     "artistId": "gem",
     "tour": "Queen of Hearts世界巡回演唱会",
-    "venueId": "fs-gym2",
+    "venueId": "fs-gym",
     "city": "佛山",
     "date": "2018-07-07",
     "note": "1场",
@@ -7032,7 +7032,7 @@
   {
     "artistId": "gem",
     "tour": "X.X.X. Live世界巡回演唱会",
-    "venueId": "fs-gym2",
+    "venueId": "fs-gym",
     "city": "佛山",
     "date": "2014-02-14",
     "note": "1场",
@@ -7162,7 +7162,7 @@
   {
     "artistId": "gem",
     "tour": "X.X.X. Live世界巡回演唱会",
-    "venueId": "xm-gym2",
+    "venueId": "xm-gym",
     "city": "厦门",
     "date": "2014-07-31",
     "note": "1场",
@@ -7502,7 +7502,7 @@
   {
     "artistId": "leehom",
     "tour": "MUSIC-MAN世界巡回演唱会",
-    "venueId": "ot-stadium6",
+    "venueId": "ot-stadium2",
     "city": "泉州",
     "date": "2010-02-07",
     "note": "1场",
@@ -7512,7 +7512,7 @@
   {
     "artistId": "leehom",
     "tour": "MUSIC-MAN世界巡回演唱会",
-    "venueId": "cq-stadium",
+    "venueId": "cq-aoti",
     "city": "重庆",
     "date": "2010-09-04",
     "note": "1场",
@@ -7812,7 +7812,7 @@
   {
     "artistId": "leehom",
     "tour": "MUSIC-MAN II火力全开世界巡回演唱会",
-    "venueId": "cq-stadium",
+    "venueId": "cq-aoti",
     "city": "重庆",
     "date": "2012-12-01",
     "note": "1场",
@@ -8632,7 +8632,7 @@
   {
     "artistId": "leehom",
     "tour": "最好的地方Ⅱ世界巡回演唱会",
-    "venueId": "szhou-stadium2",
+    "venueId": "szhou-aoti",
     "city": "苏州",
     "date": "2026-08-14",
     "note": "3场",
@@ -8652,7 +8652,7 @@
   {
     "artistId": "leehom",
     "tour": "最好的地方Ⅱ世界巡回演唱会",
-    "venueId": "cq-stadium",
+    "venueId": "cq-aoti",
     "city": "重庆",
     "date": "2026-09-12",
     "note": "2场",
@@ -8732,7 +8732,7 @@
   {
     "artistId": "davidtao",
     "tour": "Soul Power II 世界巡回演唱会",
-    "venueId": "cq-stadium",
+    "venueId": "cq-aoti",
     "city": "重庆",
     "date": "2024-09-15",
     "note": "2场",
@@ -8832,7 +8832,7 @@
   {
     "artistId": "davidtao",
     "tour": "Soul Power II PLUS世界巡回演唱会",
-    "venueId": "cq-stadium",
+    "venueId": "cq-aoti",
     "city": "重庆",
     "date": "2026-05-08",
     "note": "3场",
@@ -9012,7 +9012,7 @@
   {
     "artistId": "vae",
     "tour": "呼吸之野巡回演唱会",
-    "venueId": "cq-stadium",
+    "venueId": "cq-aoti",
     "city": "重庆",
     "date": "2024-09-15",
     "note": "1场",
@@ -9222,7 +9222,7 @@
   {
     "artistId": "vae",
     "tour": "安泊猜想巡回演唱会",
-    "venueId": "szhou-stadium2",
+    "venueId": "szhou-aoti",
     "city": "苏州",
     "date": "2026-10-04",
     "note": "2场",
@@ -9352,7 +9352,7 @@
   {
     "artistId": "lironghao",
     "tour": "黑马巡回演唱会",
-    "venueId": "sjz-stadium2",
+    "venueId": "sjz-stadium",
     "city": "石家庄",
     "date": "2025-06-28",
     "note": "1场·原4/12因天气延期",
@@ -9442,7 +9442,7 @@
   {
     "artistId": "lironghao",
     "tour": "黑马巡回演唱会",
-    "venueId": "cq-stadium",
+    "venueId": "cq-aoti",
     "city": "重庆",
     "date": "2025-11-01",
     "note": "1场",
@@ -9522,7 +9522,7 @@
   {
     "artistId": "lironghao",
     "tour": "黑马巡回演唱会",
-    "venueId": "szhou-stadium2",
+    "venueId": "szhou-aoti",
     "city": "苏州",
     "date": "2026-07-03",
     "note": "3场",
@@ -9642,7 +9642,7 @@
   {
     "artistId": "lironghao",
     "tour": "年少有为世界巡回演唱会",
-    "venueId": "xm-gym2",
+    "venueId": "xm-gym",
     "city": "厦门",
     "date": "2019-03-30",
     "note": "1场",
@@ -9872,7 +9872,7 @@
   {
     "artistId": "nic",
     "tour": "Evolution Nic Live进化巡回演唱会",
-    "venueId": "cq-stadium",
+    "venueId": "cq-aoti",
     "city": "重庆",
     "date": "2025-10-06",
     "note": "2场",
@@ -10002,7 +10002,7 @@
   {
     "artistId": "nic",
     "tour": "Evolution Nic Live进化巡回演唱会",
-    "venueId": "cq-stadium",
+    "venueId": "cq-aoti",
     "city": "重庆",
     "date": "2026-09-26",
     "note": "2场",

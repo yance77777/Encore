@@ -1,4 +1,4 @@
-/* 余响 Encore · 前端逻辑 v0.7.1（Task 11 深度优化版）
+/* 余响 Encore · 前端逻辑 v0.8.0（Task 11 深度优化版）
  * 多页面版本：按页面元素按需渲染
  * 数据源：后端 API（优先）→ 静态 JSON 文件（GitHub Pages 回退，只读）
  * V0.4：明暗主题切换 + 场馆点亮/熄灭双向交互 + localStorage 持久化
@@ -795,9 +795,12 @@ function renderChinaMap(){
    ============================================================ */
 
 function renderArtistFilter(){
+  // V0.8.0：巡演档案按歌手分级筛选，无"全部"选项，默认展示第一位歌手
+  if(curArtistFilter === 'all' || !ARTISTS.some(a=>a.id===curArtistFilter)){
+    curArtistFilter = ARTISTS[0] ? ARTISTS[0].id : 'all';
+  }
   const el = document.getElementById('artistFilter');
-  el.innerHTML = `<button class="af-chip ${curArtistFilter==='all'?'active':''}" data-id="all">全部</button>` +
-    ARTISTS.map(a=>`<button class="af-chip ${curArtistFilter===a.id?'active':''}" data-id="${a.id}">${a.name}</button>`).join('');
+  el.innerHTML = ARTISTS.map(a=>`<button class="af-chip ${curArtistFilter===a.id?'active':''}" data-id="${a.id}">${a.name}</button>`).join('');
   el.querySelectorAll('.af-chip').forEach(b=>b.onclick=()=>{
     curArtistFilter = b.dataset.id;
     renderArtistFilter();
@@ -1181,15 +1184,21 @@ function initNavToggle(){
   const toggle = document.querySelector('.nav-toggle');
   const links = document.querySelector('.nav-links');
   if(!toggle || !links) return;
-  toggle.addEventListener('click',()=>{
-    toggle.classList.toggle('open');
-    links.classList.toggle('open');
-  });
-  // 点击导航链接后自动收起
-  links.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{
+  const close = () => {
     toggle.classList.remove('open');
     links.classList.remove('open');
-  }));
+    document.body.classList.remove('no-scroll');
+  };
+  toggle.addEventListener('click',()=>{
+    const opening = !links.classList.contains('open');
+    toggle.classList.toggle('open', opening);
+    links.classList.toggle('open', opening);
+    document.body.classList.toggle('no-scroll', opening);
+  });
+  // 点击导航链接后自动收起
+  links.querySelectorAll('a').forEach(a=>a.addEventListener('click',close));
+  // V0.8.0：Escape 键关闭移动端菜单（键盘可达性）
+  document.addEventListener('keydown', e=>{ if(e.key === 'Escape') close(); });
 }
 
 /* ============================================================

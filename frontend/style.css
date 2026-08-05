@@ -1,5 +1,5 @@
 /* ============================================
-   余响 Encore v0.7.1 · 舞台灯光设计系统
+   余响 Encore v0.8.0 · 舞台灯光设计系统
    设计语言：明暗双模 + 聚光灯光影 + 暖金强调
    重构：8px 网格 / 7 档字号 / 5 档圆角 / 4 档阴影 / 标准动效 / z-index 规范
    ============================================ */
@@ -1369,3 +1369,54 @@ html.dark ::selection{background:rgba(232,184,85,.30);color:var(--ink)}
   .idc-lab{font-size:9px}
   .idc-stats>div{padding:8px 2px}
 }
+
+/* ============================================================
+   §33  V0.8.0 无障碍增强 + 打印 + 动效偏好（Web 设计规范）
+   ============================================================ */
+
+/* —— 动效减弱偏好：用户系统开启「减弱动态效果」时关闭动画/过渡 —— */
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  html{scroll-behavior:auto}
+  .reveal{opacity:1!important;transform:none!important}
+  .ticket-card{animation:none!important}
+}
+
+/* —— 全局滚动条（亮/暗双模统一）—— */
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--border-strong);border-radius:6px;border:2px solid var(--bg)}
+::-webkit-scrollbar-thumb:hover{background:var(--ink-mute)}
+html.dark ::-webkit-scrollbar-thumb{background:rgba(255,255,255,.16);border-color:var(--bg)}
+html.dark ::-webkit-scrollbar-thumb:hover{background:rgba(255,255,255,.28)}
+
+/* —— 打印样式：隐藏交互控件，内容白底黑字清晰输出 —— */
+@media print{
+  header,.nav-toggle,.nav-actions,.theme-toggle,.member-btn,footer,.toast,.map-canvas,.china-map-wrap{display:none!important}
+  *{background:transparent!important;box-shadow:none!important;color:#000!important;text-shadow:none!important}
+  body{font-size:12pt}
+  .wrap{max-width:100%;padding:0}
+  .tour-table-wrap{overflow:visible}
+  .tour-table th,.tour-table td{padding:6px 8px}
+  a[href]{text-decoration:underline}
+}
+
+/* —— 巡演表格斑马纹：1006 行长表格提升可读性 —— */
+.tour-table tbody tr:nth-child(even) td{background:rgba(34,28,48,.018)}
+html.dark .tour-table tbody tr:nth-child(even) td{background:rgba(255,255,255,.025)}
+
+/* —— 歌手筛选 chips 横向滚动（13 位歌手窄屏不换行溢出）—— */
+.artist-filter{overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:2px}
+.artist-filter::-webkit-scrollbar{display:none}
+.af-chip{flex-shrink:0}
+
+/* —— 表单占位符对比度（暗色模式可读性）—— */
+.input::placeholder,.select::placeholder,.textarea::placeholder{color:var(--ink-faint)}
+html.dark .input::placeholder,html.dark .select::placeholder,html.dark .textarea::placeholder{color:rgba(255,255,255,.38)}
+
+/* —— 移动端菜单展开时锁定背景滚动（配合 app.js 联动 body.no-scroll）—— */
+body.no-scroll{overflow:hidden}
+
+/* —— 键盘焦点可达：导航/筛选/卡片统一金色焦点环 —— */
+.nav-links a:focus-visible,.af-chip:focus-visible,.gtab:focus-visible,.skin-chip:focus-visible,
+.plan:focus-visible,.album-card:focus-visible,.venue-card:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:var(--r-sm)}
