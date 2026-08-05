@@ -1,4 +1,4 @@
-/* 余响 Encore · 前端逻辑 v0.6.0（Task 11 深度优化版）
+/* 余响 Encore · 前端逻辑 v0.6.1（Task 11 深度优化版）
  * 多页面版本：按页面元素按需渲染
  * 数据源：后端 API（优先）→ 静态 JSON 文件（GitHub Pages 回退，只读）
  * V0.4：明暗主题切换 + 场馆点亮/熄灭双向交互 + localStorage 持久化
@@ -300,26 +300,10 @@ function renderSkinRow(){
 }
 
 /* ============================================================
-   §7  交互反馈注入（按钮点击态 / 加载骨架）
+   §7  首屏加载骨架（感知性能优化）
    ============================================================ */
-
-// 一次性注入：为缺少 :active 反馈的可点击元素补充按压缩放反馈
-function injectInteractionStyles(){
-  if(document.getElementById('encore-interaction-styles')) return;
-  const s = document.createElement('style');
-  s.id = 'encore-interaction-styles';
-  s.textContent = `
-    .venue-card,.prov,.skin-chip,.bias-add-chip,.bias-remove,.plan-cta{cursor:pointer}
-    .venue-card{transition:transform .12s ease}
-    .venue-card:active{transform:scale(.985)}
-    .prov:active{transform:scale(.97)}
-    .skin-chip:active{transform:scale(.93)}
-    .bias-add-chip:active{transform:scale(.94)}
-    .bias-remove:active{transform:scale(.9)}
-    .plan-cta:active{transform:scale(.96)}
-  `;
-  document.head.appendChild(s);
-}
+/* V0.6：交互元素 :active 按压缩放反馈已收纳至 style.css §29，
+   不再运行时注入 <style>（原注入会覆盖 .venue-card 的 transition，导致 hover 变速） */
 
 // 首屏数据加载前在 heroStats 展示骨架屏，提升感知性能
 function showHeroSkeleton(){
@@ -472,7 +456,7 @@ function getVenueTooltipContent(venueId){
       const a = ARTISTS.find(x=>x.id===aid);
       const recs = byArtist[aid].sort((x,y)=>x.date.localeCompare(y.date))
         .map(c=>`${c.date.slice(0,4)} ${c.tour}`).join(' / ');
-      return `<span style="display:block">${a?a.name:aid} ${recs}</span>`;
+      return `<span>${a?a.name:aid} ${recs}</span>`;
     });
     return header + lines.join('');
   }
@@ -482,10 +466,10 @@ function getVenueTooltipContent(venueId){
     const recs = CONCERTS.filter(c=>c.venueId===venueId && c.artistId===aid)
       .sort((x,y)=>x.date.localeCompare(y.date));
     if(recs.length === 0){
-      return `<span style="display:block">该场馆暂无 ${a?a.name:aid} 演唱会记录</span>`;
+      return `<span>该场馆暂无 ${a?a.name:aid} 演唱会记录</span>`;
     }
     const recap = recs.map(c=>`${c.date.slice(0,4)} ${c.tour}`).join(' / ');
-    return `<span style="display:block">${a?a.name:aid} ${recap}</span>`;
+    return `<span>${a?a.name:aid} ${recap}</span>`;
   });
   return header + lines.join('');
 }
@@ -499,13 +483,7 @@ function ensureVenueTooltip(){
     tip = document.createElement('div');
     tip.id = 'venueTip';
     tip.className = 'cmp-tip venue-tip';
-    // 注入 venue-tip 样式覆盖（允许换行 + 限宽，因为 cmp-tip 默认 white-space:nowrap）
-    if(!document.getElementById('venue-tip-style')){
-      const s = document.createElement('style');
-      s.id = 'venue-tip-style';
-      s.textContent = '.venue-tip{white-space:normal;max-width:300px}.venue-tip span{display:block}';
-      document.head.appendChild(s);
-    }
+    // venue-tip 样式（允许换行 + 限宽）已在 style.css §8 定义，无需运行时注入
     const wrapper = grid.parentNode; // .map-canvas
     if(getComputedStyle(wrapper).position === 'static'){
       wrapper.style.position = 'relative';
@@ -1307,7 +1285,6 @@ function preloadVenueImages(){
 
 async function init(){
   initTheme();
-  injectInteractionStyles();
   showHeroSkeleton();
   try{
     await loadData();

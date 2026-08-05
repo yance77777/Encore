@@ -1,5 +1,5 @@
 /* ============================================
-   余响 Encore v0.6.0 · 舞台灯光设计系统
+   余响 Encore v0.6.1 · 舞台灯光设计系统
    设计语言：明暗双模 + 聚光灯光影 + 暖金强调
    重构：8px 网格 / 7 档字号 / 5 档圆角 / 4 档阴影 / 标准动效 / z-index 规范
    ============================================ */
@@ -25,6 +25,7 @@
   /* —— 色彩 · 品牌暖金系 —— */
   --gold:#c8933a;
   --gold-deep:#a8772a;
+  --gold-light:#f5c45e;
   --gold-soft:#f2e3c4;
   --gold-bg:rgba(200,147,58,.10);
   --gold-line:rgba(200,147,58,.32);
@@ -141,6 +142,7 @@ html.dark{
 
   --gold:#e8b855;
   --gold-deep:#c8933a;
+  --gold-light:#f5c45e;
   --gold-soft:#3a3220;
   --gold-bg:rgba(232,184,85,.10);
   --gold-line:rgba(232,184,85,.32);
@@ -243,7 +245,7 @@ html.dark header{background:rgba(19,19,31,.85)}
 .nav-links{display:flex;gap:26px;list-style:none;font-size:var(--fs-md)}
 .nav-links a{
   color:var(--ink-soft);text-decoration:none;
-  transition:color var(--dur-base);position:relative;padding:4px 0;
+  transition:color var(--dur-base) var(--ease-out);position:relative;padding:4px 0;
 }
 .nav-links a:hover{color:var(--ink)}
 .nav-links a.active{color:var(--ink);font-weight:600}
@@ -255,11 +257,11 @@ html.dark header{background:rgba(19,19,31,.85)}
   font-family:var(--sans);font-size:var(--fs-base);font-weight:600;
   color:#fff;background:var(--grad-brand);
   border:none;padding:9px 20px;border-radius:var(--r-full);cursor:pointer;
-  letter-spacing:.3px;transition:transform var(--dur-base),box-shadow var(--dur-base);
+  letter-spacing:.3px;transition:transform var(--dur-base) var(--ease-out),box-shadow var(--dur-base) var(--ease-out);
   box-shadow:0 6px 18px -8px rgba(200,147,58,.7);
 }
 .member-btn:hover{transform:translateY(-1px);box-shadow:0 10px 24px -8px rgba(200,147,58,.8)}
-.member-btn:active{transform:translateY(0)}
+.member-btn:active{transform:translateY(0) scale(.97)}
 
 /* 汉堡菜单按钮（880px以下显示） */
 .nav-toggle{
@@ -280,7 +282,7 @@ html.dark header{background:rgba(19,19,31,.85)}
   display:flex;align-items:center;justify-content:center;
   width:38px;height:38px;border-radius:50%;
   border:1px solid var(--border-strong);background:var(--surface);
-  cursor:pointer;transition:all var(--dur-base);flex-shrink:0;
+  cursor:pointer;transition:all var(--dur-base) var(--ease-out);flex-shrink:0;
   color:var(--ink-soft);font-size:16px;
 }
 .theme-toggle:hover{border-color:var(--gold);color:var(--gold);transform:rotate(15deg)}
@@ -440,18 +442,18 @@ section{padding:72px 0;position:relative}
   background:var(--bg-2);border:1px solid var(--border);border-radius:var(--r-md);
   padding:14px;cursor:pointer;transition:transform var(--dur-slow) var(--ease-out),box-shadow var(--dur-slow) var(--ease-out),border-color var(--dur-slow);position:relative;overflow:hidden;
 }
-.venue-card:hover{transform:translateY(-4px);border-color:var(--gold);box-shadow:var(--shadow)}
+.venue-card:hover{transform:translateY(-4px);border-color:var(--gold);box-shadow:var(--shadow-md)}
 .venue-card.lit{
   background:linear-gradient(160deg,var(--gold-soft),rgba(124,92,255,.08));
   border-color:rgba(200,147,58,.55);
 }
 .venue-art{
-  height:120px;border-radius:10px;margin-bottom:12px;
+  height:120px;border-radius:var(--r-sm);margin-bottom:12px;
   display:flex;align-items:center;justify-content:center;
   background:linear-gradient(160deg,var(--surface-2),var(--bg-2));
   position:relative;overflow:hidden;
 }
-.venue-art img{width:100%;height:100%;object-fit:cover;border-radius:10px;transition:transform var(--dur-slow),filter var(--dur-slow)}
+.venue-art img{width:100%;height:100%;object-fit:cover;border-radius:var(--r-sm);transition:transform var(--dur-slow),filter var(--dur-slow)}
 .venue-card:hover .venue-art img{transform:scale(1.06)}
 .venue-art img.unlit{filter:brightness(.7) saturate(.5)}
 .venue-card:hover .venue-art img.unlit{filter:brightness(.9) saturate(.7)}
@@ -542,11 +544,14 @@ html.dark .venue-card .toggle-hint{background:rgba(255,255,255,.08)}
 .cmp-tip.show{opacity:1;transform:none}
 .cmp-tip strong{display:block;font-weight:600}
 .cmp-tip span{font-family:var(--mono);font-size:10px;color:var(--gold-soft)}
+/* 场馆卡片 tooltip：复用 .cmp-tip，覆盖 nowrap 限制允许多行展示（原 V0.5 运行时注入 → V0.6 收纳） */
+.venue-tip{white-space:normal;max-width:300px}
+.venue-tip span{display:block}
 .china-map-legend{display:flex;gap:20px;justify-content:center;margin-top:16px;flex-wrap:wrap;position:relative}
 .china-map-legend .lg{display:inline-flex;align-items:center;gap:7px;font-size:var(--fs-xs);color:var(--ink-soft);font-family:var(--mono)}
 .china-map-legend .lg i{width:13px;height:13px;border-radius:3px;display:inline-block}
 .lg-off i{background:rgba(34,28,48,.12);border:1px solid rgba(34,28,48,.3)}
-.lg-on i{background:linear-gradient(160deg,#f5c45e,#c8933a);box-shadow:0 0 6px rgba(200,147,58,.6)}
+.lg-on i{background:linear-gradient(160deg,var(--gold-light),var(--gold));box-shadow:0 0 6px rgba(200,147,58,.6)}
 .lg-na i{background:rgba(34,28,48,.05);border:1px dashed rgba(34,28,48,.3)}
 
 /* ============================================================
@@ -556,7 +561,7 @@ html.dark .venue-card .toggle-hint{background:rgba(255,255,255,.08)}
 .af-chip{
   font-size:var(--fs-sm);padding:7px 16px;border-radius:var(--r-full);
   border:1px solid var(--border-strong);background:var(--surface);
-  color:var(--ink-soft);cursor:pointer;transition:all var(--dur-base);font-family:var(--sans);
+  color:var(--ink-soft);cursor:pointer;transition:all var(--dur-base) var(--ease-out);font-family:var(--sans);
 }
 .af-chip.active{
   background:var(--grad-brand);color:#fff;
@@ -579,7 +584,7 @@ html.dark .venue-card .toggle-hint{background:rgba(255,255,255,.08)}
   font-size:var(--fs-xs);letter-spacing:1px;color:var(--ink-mute);
   text-transform:uppercase;border-bottom:1px solid var(--border);
 }
-.tour-table td{padding:13px 16px;border-bottom:1px solid var(--border);color:var(--ink-soft)}
+.tour-table td{padding:14px 16px;border-bottom:1px solid var(--border);color:var(--ink-soft)}
 .tour-table tr{transition:background var(--dur-fast)}
 .tour-table tr:hover td{background:var(--surface-2)}
 .tour-table .artist-tag{display:inline-flex;align-items:center;gap:6px;font-weight:600;color:var(--ink)}
@@ -593,7 +598,7 @@ html.dark .venue-card .toggle-hint{background:rgba(255,255,255,.08)}
 .gtab{
   font-size:var(--fs-base);padding:9px 20px;border-radius:var(--r-full);
   border:1px solid var(--border-strong);background:var(--surface);
-  color:var(--ink-soft);cursor:pointer;transition:all var(--dur-base);font-family:var(--sans);
+  color:var(--ink-soft);cursor:pointer;transition:all var(--dur-base) var(--ease-out);font-family:var(--sans);
 }
 .gtab.active{
   background:var(--grad-brand);color:#fff;
@@ -607,7 +612,7 @@ html.dark .venue-card .toggle-hint{background:rgba(255,255,255,.08)}
   background:var(--surface);border:1px solid var(--border);border-radius:var(--r-md);
   overflow:hidden;cursor:pointer;transition:transform var(--dur-slow) var(--ease-out),box-shadow var(--dur-slow) var(--ease-out),border-color var(--dur-slow);box-shadow:var(--shadow-sm);
 }
-.item:hover{transform:translateY(-3px);border-color:var(--neon-2);box-shadow:var(--shadow)}
+.item:hover{transform:translateY(-3px);border-color:var(--neon-2);box-shadow:var(--shadow-md)}
 .item-cover{
   aspect-ratio:1;background:var(--bg-2);
   display:flex;align-items:center;justify-content:center;position:relative;
@@ -630,7 +635,7 @@ html.dark .venue-card .toggle-hint{background:rgba(255,255,255,.08)}
   overflow:hidden;cursor:pointer;transition:transform var(--dur-slow) var(--ease-out),box-shadow var(--dur-slow) var(--ease-out),border-color var(--dur-slow);box-shadow:var(--shadow-sm);
   position:relative;
 }
-.album-card:hover{transform:translateY(-4px);border-color:var(--gold);box-shadow:var(--shadow)}
+.album-card:hover{transform:translateY(-4px);border-color:var(--gold);box-shadow:var(--shadow-md)}
 .album-cover{
   aspect-ratio:1;background:var(--bg-2);
   display:flex;align-items:center;justify-content:center;position:relative;
@@ -682,7 +687,7 @@ html.dark .venue-card .toggle-hint{background:rgba(255,255,255,.08)}
 .dan-toggle button{
   font-size:var(--fs-sm);padding:7px 16px;border-radius:var(--r-full);border:none;
   background:transparent;color:var(--ink-soft);cursor:pointer;
-  transition:all var(--dur-base);font-family:var(--sans);
+  transition:all var(--dur-base) var(--ease-out);font-family:var(--sans);
 }
 .dan-toggle button.active{background:var(--grad-gold-neon);color:#fff;font-weight:600;box-shadow:0 4px 12px -6px rgba(200,147,58,.7)}
 .bias-list{display:flex;flex-direction:column;gap:14px}
@@ -698,8 +703,8 @@ html.dark .venue-card .toggle-hint{background:rgba(255,255,255,.08)}
 .bias-info{flex:1;min-width:0}
 .bias-name{font-size:var(--fs-md);font-weight:600}
 .bias-stat{font-size:var(--fs-xs);color:var(--ink-mute);font-family:var(--mono)}
-.bias-bar{height:5px;background:var(--surface-2);border-radius:3px;margin-top:8px;overflow:hidden}
-.bias-bar-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--neon-2));border-radius:3px;transition:width var(--dur-slower) var(--ease-out)}
+.bias-bar{height:5px;background:var(--surface-2);border-radius:4px;margin-top:8px;overflow:hidden}
+.bias-bar-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--neon-2));border-radius:4px;transition:width var(--dur-slower) var(--ease-out)}
 .skin-desc{font-size:var(--fs-base);color:var(--ink-soft);margin-bottom:18px}
 .skin-row{display:flex;gap:12px;flex-wrap:wrap}
 .skin-chip{
@@ -753,7 +758,7 @@ html.dark .venue-card .toggle-hint{background:rgba(255,255,255,.08)}
   width:100%;margin-top:26px;padding:13px;border-radius:var(--r-full);
   border:1px solid var(--border-strong);background:var(--surface);
   color:var(--ink);font-size:var(--fs-base);font-weight:600;cursor:pointer;
-  transition:all var(--dur-base);font-family:var(--sans);
+  transition:all var(--dur-base) var(--ease-out);font-family:var(--sans);
 }
 .plan-cta:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
 .plan.featured .plan-cta{
@@ -854,7 +859,7 @@ html.dark footer .footer-copy{color:var(--ink-mute)}
   content:'';position:absolute;top:0;left:0;right:0;height:3px;
   background:linear-gradient(90deg,var(--gold),var(--neon-2));opacity:0;transition:opacity var(--dur-slow);
 }
-.fs-card:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:rgba(200,147,58,.4)}
+.fs-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-md);border-color:rgba(200,147,58,.4)}
 .fs-card:hover::before{opacity:1}
 .fs-value{font-family:var(--serif);font-weight:700;font-size:32px;color:var(--ink);line-height:1.1}
 .fs-value.text{font-size:17px;font-family:var(--cn-serif)}
@@ -1229,6 +1234,13 @@ html.dark .lg-na i{background:rgba(255,255,255,.04);border:1px dashed rgba(255,2
 /* ============================================================
    §29  四态：反馈态（已在按钮 .btn:active / 卡片 hover 体现）
    ============================================================ */
+/* 交互元素按压反馈（V0.5 交互反馈注入 → V0.6 收纳至设计系统，避免运行时 <style> 注入覆盖 venue-card transition） */
+.venue-card:active{transform:scale(.985)}
+.prov:active{transform:scale(.97)}
+.skin-chip:active{transform:scale(.93)}
+.bias-add-chip:active{transform:scale(.94)}
+.bias-remove:active{transform:scale(.9)}
+.plan-cta:active{transform:scale(.96)}
 /* 点击涟漪（可加到任何 .btn / .card-interactive） */
 .tap-feedback{position:relative;overflow:hidden}
 .tap-feedback::after{

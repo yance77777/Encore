@@ -9,5 +9,8 @@ china_map_screenshot.png
 # Spec 文档（内部规划，不入库）
 .trae/
 
+# 版本存档（内部文档，不入库）
+V0存档.md
+
 # 本地用户数据（可选：如不想将用户数据推送到仓库则取消注释）
 # frontend/data/users.json

@@ -163,5 +163,7 @@
   {"artistId":"davidtao","tour":"Soul Power II 世界巡回演唱会","venueId":"tw-arena","city":"台北","date":"2024-11-09","note":"2场·台北小巨蛋·4度攻蛋","startDate":"2024-11-09","endDate":"2024-11-10"},
 
   {"artistId":"joker","tour":"天外来物世界巡回演唱会","venueId":"dl-tiyu","city":"大连","date":"2024-05-25","note":"2场·大连体育中心体育场","startDate":"2024-05-25","endDate":"2024-05-26"},
-  {"artistId":"joker","tour":"天外来物世界巡回演唱会","venueId":"qd-guoxin","city":"青岛","date":"2026-08-02","note":"2场·青岛国信体育场·巡演名存疑","verified":false,"startDate":"2026-08-02","endDate":"2026-08-03"}
+  {"artistId":"joker","tour":"天外来物世界巡回演唱会","venueId":"qd-guoxin","city":"青岛","date":"2026-08-02","note":"2场·青岛国信体育场·巡演名存疑","verified":false,"startDate":"2026-08-02","endDate":"2026-08-03"},
+
+  {"artistId":"jay","tour":"嘉年华世界巡回演唱会","venueId":"tw-dome","city":"台北","date":"2024-12-05","note":"4场·台北大巨蛋·首组登大巨蛋华语歌手","startDate":"2024-12-05","endDate":"2024-12-08"}
 ]

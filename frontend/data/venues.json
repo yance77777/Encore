@@ -521,5 +521,20 @@
     "img": "assets/venues/dl-tiyu.jpg",
     "art": "arena",
     "imgUnlit": "assets/venues/unlit/dl-tiyu.jpg"
+  },
+  {
+    "id": "tw-dome",
+    "name": "台北大巨蛋",
+    "alias": "大巨蛋",
+    "city": "台北",
+    "province": "台湾省",
+    "provinceShort": "台湾",
+    "region": "港澳台",
+    "type": "体育馆",
+    "capacity": 40000,
+    "img": "assets/venues/tw-dome.jpg",
+    "art": "dome",
+    "note": "2023年12月启用，台湾最大室内场馆，非对称穹顶，远雄集团BOT",
+    "imgUnlit": "assets/venues/unlit/tw-dome.jpg"
   }
 ]
