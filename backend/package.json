@@ -1,7 +1,7 @@
 {
   "name": "encore",
-  "version": "0.6.1",
-  "description": "余响 Encore v0.6.1 - 演唱会足迹追踪 App（前端 GitHub Pages + 后端本地/HF Space）",
+  "version": "0.7.0",
+  "description": "余响 Encore v0.7.0 - 演唱会足迹追踪 App（前端 GitHub Pages + 后端本地/HF Space）",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",

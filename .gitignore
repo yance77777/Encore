@@ -12,5 +12,9 @@ china_map_screenshot.png
 # 版本存档（内部文档，不入库）
 V0存档.md
 
+# Excel 备份文件
+*备份*.xlsx
+*_final.xlsx
+
 # 本地用户数据（可选：如不想将用户数据推送到仓库则取消注释）
 # frontend/data/users.json
