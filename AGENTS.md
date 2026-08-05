@@ -8,7 +8,7 @@ Encore (余响) is a concert-tracking app: vanilla HTML/CSS/JS frontend, Node.js
 - `backend/` — Express server (`server.js`) that serves the frontend, exposes JSON APIs, and reads/writes `frontend/data/users.json`.
 - `scripts/` — one-off converters (e.g. `convert_china_map.js`).
 - `.github/workflows/deploy.yml` — publishes `frontend/` to GitHub Pages on pushes to `main`.
-- `archive/` and `V0存档.md` — release history; `.trae/specs/<version>/` holds planning specs and checklists (gitignored).
+- `archive/` and `V0存档.md` — release history kept locally, not pushed to GitHub; `.trae/specs/<version>/` holds planning specs and checklists (gitignored).
 
 ## Build, Test, and Development Commands
 
