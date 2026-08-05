@@ -72,26 +72,6 @@
   {
     "artistId": "jay",
     "tour": "嘉年华世界巡回演唱会",
-    "venueId": "bj-niaocao",
-    "city": "新加坡",
-    "date": "2022-12-17",
-    "note": "2场",
-    "startDate": "2022-12-17",
-    "endDate": "2022-12-18"
-  },
-  {
-    "artistId": "jay",
-    "tour": "嘉年华世界巡回演唱会",
-    "venueId": "bj-niaocao",
-    "city": "马来西亚",
-    "date": "2023-01-15",
-    "note": "1场",
-    "startDate": "2023-01-15",
-    "endDate": "2023-01-15"
-  },
-  {
-    "artistId": "jay",
-    "tour": "嘉年华世界巡回演唱会",
     "venueId": "hk-central",
     "city": "香港",
     "date": "2023-05-05",
@@ -212,16 +192,6 @@
   {
     "artistId": "jay",
     "tour": "嘉年华世界巡回演唱会",
-    "venueId": "xm-bailu",
-    "city": "三亚",
-    "date": "2025-03-28",
-    "note": "3场",
-    "startDate": "2025-03-28",
-    "endDate": "2025-03-30"
-  },
-  {
-    "artistId": "jay",
-    "tour": "嘉年华世界巡回演唱会",
     "venueId": "nn-ven",
     "city": "南宁",
     "date": "2025-04-25",
@@ -338,36 +308,6 @@
     "note": "3场·时光机主题",
     "startDate": "2026-12-04",
     "endDate": "2026-12-06"
-  },
-  {
-    "artistId": "jay",
-    "tour": "嘉年华Ⅱ世界巡回演唱会",
-    "venueId": "xm-bailu",
-    "city": "三亚",
-    "date": "2026-12-18",
-    "note": "3场·阳光三亚主题",
-    "startDate": "2026-12-18",
-    "endDate": "2026-12-20"
-  },
-  {
-    "artistId": "jay",
-    "tour": "嘉年华Ⅱ世界巡回演唱会",
-    "venueId": "bj-niaocao",
-    "city": "新加坡",
-    "date": "2027-01-08",
-    "note": "3场·晴天主题",
-    "startDate": "2027-01-08",
-    "endDate": "2027-01-10"
-  },
-  {
-    "artistId": "jay",
-    "tour": "嘉年华Ⅱ世界巡回演唱会",
-    "venueId": "bj-niaocao",
-    "city": "吉隆坡",
-    "date": "2027-01-23",
-    "note": "1场·稻香主题",
-    "startDate": "2027-01-23",
-    "endDate": "2027-01-23"
   },
   {
     "artistId": "jay",
@@ -898,16 +838,6 @@
     "note": "6场",
     "startDate": "2014-11-19",
     "endDate": "2014-11-24"
-  },
-  {
-    "artistId": "jay",
-    "tour": "魔天伦2.0世界巡回演唱会",
-    "venueId": "bj-niaocao",
-    "city": "新加坡",
-    "date": "2014-12-27",
-    "note": "1场",
-    "startDate": "2014-12-27",
-    "endDate": "2014-12-27"
   },
   {
     "artistId": "jay",
@@ -1772,7 +1702,7 @@
   {
     "artistId": "jj",
     "tour": "杰伴2009世界巡回演唱会",
-    "venueId": "bj-gym2",
+    "venueId": "bj-gym",
     "city": "北京",
     "date": "2009-06-20",
     "note": "1场·终点",
@@ -1788,16 +1718,6 @@
     "note": "2场·首站",
     "startDate": "2018-03-17",
     "endDate": "2018-03-18"
-  },
-  {
-    "artistId": "jj",
-    "tour": "圣所世界巡回演唱会",
-    "venueId": "hz-xiaolianhua",
-    "city": "武汉",
-    "date": "2018-03-30",
-    "note": "2场",
-    "startDate": "2018-03-30",
-    "endDate": "2018-03-31"
   },
   {
     "artistId": "jj",
@@ -2212,32 +2132,12 @@
   {
     "artistId": "jj",
     "tour": "圣所2.0世界巡回演唱会",
-    "venueId": "bj-niaocao",
-    "city": "吉隆坡",
-    "date": "2019-12-07",
-    "note": "1场",
-    "startDate": "2019-12-07",
-    "endDate": "2019-12-07"
-  },
-  {
-    "artistId": "jj",
-    "tour": "圣所2.0世界巡回演唱会",
     "venueId": "fz-haixia",
     "city": "福州",
     "date": "2019-12-14",
     "note": "1场",
     "startDate": "2019-12-14",
     "endDate": "2019-12-14"
-  },
-  {
-    "artistId": "jj",
-    "tour": "圣所2.0世界巡回演唱会",
-    "venueId": "bj-niaocao",
-    "city": "新加坡",
-    "date": "2019-12-21",
-    "note": "2场·收官",
-    "startDate": "2019-12-21",
-    "endDate": "2019-12-22"
   },
   {
     "artistId": "jj",
@@ -2292,7 +2192,7 @@
   {
     "artistId": "jj",
     "tour": "I AM世界巡回演唱会",
-    "venueId": "bj-gym2",
+    "venueId": "bj-gym",
     "city": "北京",
     "date": "2010-08-21",
     "note": "1场·首站",
@@ -2412,7 +2312,7 @@
   {
     "artistId": "jj",
     "tour": "时线世界巡回演唱会",
-    "venueId": "bj-gym2",
+    "venueId": "bj-gym",
     "city": "北京",
     "date": "2013-09-28",
     "note": "1场",
@@ -2672,26 +2572,6 @@
   {
     "artistId": "jj",
     "tour": "JJ20世界巡回演唱会",
-    "venueId": "bj-niaocao",
-    "city": "新加坡",
-    "date": "2022-11-04",
-    "note": "2场·首站",
-    "startDate": "2022-11-04",
-    "endDate": "2022-11-05"
-  },
-  {
-    "artistId": "jj",
-    "tour": "JJ20世界巡回演唱会",
-    "venueId": "bj-niaocao",
-    "city": "吉隆坡",
-    "date": "2022-12-18",
-    "note": "1场",
-    "startDate": "2022-12-18",
-    "endDate": "2022-12-18"
-  },
-  {
-    "artistId": "jj",
-    "tour": "JJ20世界巡回演唱会",
     "venueId": "hk-central",
     "city": "香港",
     "date": "2023-03-17",
@@ -2928,26 +2808,6 @@
     "note": "3场·收官",
     "startDate": "2024-11-01",
     "endDate": "2024-11-03"
-  },
-  {
-    "artistId": "jj",
-    "tour": "JJ20 FINAL LAP世界巡回演唱会",
-    "venueId": "bj-niaocao",
-    "city": "新加坡",
-    "date": "2024-12-28",
-    "note": "2场·首站",
-    "startDate": "2024-12-28",
-    "endDate": "2024-12-29"
-  },
-  {
-    "artistId": "jj",
-    "tour": "JJ20 FINAL LAP世界巡回演唱会",
-    "venueId": "bj-niaocao",
-    "city": "吉隆坡",
-    "date": "2025-05-10",
-    "note": "1场",
-    "startDate": "2025-05-10",
-    "endDate": "2025-05-10"
   },
   {
     "artistId": "jj",
@@ -3268,16 +3128,6 @@
     "note": "1场",
     "startDate": "2009-12-26",
     "endDate": "2009-12-26"
-  },
-  {
-    "artistId": "mayday",
-    "tour": "DNA创造世界巡回演唱会",
-    "venueId": "bj-niaocao",
-    "city": "新加坡",
-    "date": "2010-04-17",
-    "note": "1场·创纪录·变形DNA无限放大版·华人乐团首登新加坡国家体育场",
-    "startDate": "2010-04-17",
-    "endDate": "2010-04-17"
   },
   {
     "artistId": "mayday",
@@ -3718,16 +3568,6 @@
     "note": "5场",
     "startDate": "2023-10-11",
     "endDate": "2023-10-15"
-  },
-  {
-    "artistId": "mayday",
-    "tour": "诺亚方舟10周年进化复刻限定版巡回演唱会",
-    "venueId": "bj-niaocao",
-    "city": "新加坡",
-    "date": "2024-01-13",
-    "note": "2场·收官",
-    "startDate": "2024-01-13",
-    "endDate": "2024-01-14"
   },
   {
     "artistId": "mayday",
@@ -4192,16 +4032,6 @@
   {
     "artistId": "mayday",
     "tour": "人生无限公司巡回演唱会",
-    "venueId": "bj-niaocao",
-    "city": "新加坡",
-    "date": "2018-06-02",
-    "note": "1场·返场",
-    "startDate": "2018-06-02",
-    "endDate": "2018-06-02"
-  },
-  {
-    "artistId": "mayday",
-    "tour": "人生无限公司巡回演唱会",
     "venueId": "sjz-stadium",
     "city": "石家庄",
     "date": "2018-06-23",
@@ -4288,26 +4118,6 @@
     "note": "3场·内地收官",
     "startDate": "2018-08-24",
     "endDate": "2018-08-26"
-  },
-  {
-    "artistId": "mayday",
-    "tour": "好好好想见到你巡回演唱会",
-    "venueId": "bj-niaocao",
-    "city": "新加坡",
-    "date": "2022-12-03",
-    "note": "1场",
-    "startDate": "2022-12-03",
-    "endDate": "2022-12-03"
-  },
-  {
-    "artistId": "mayday",
-    "tour": "好好好想见到你巡回演唱会",
-    "venueId": "bj-niaocao",
-    "city": "吉隆坡",
-    "date": "2023-02-11",
-    "note": "1场",
-    "startDate": "2023-02-11",
-    "endDate": "2023-02-11"
   },
   {
     "artistId": "mayday",
@@ -4502,16 +4312,6 @@
   {
     "artistId": "mayday",
     "tour": "回到那一天巡回演唱会",
-    "venueId": "bj-niaocao",
-    "city": "新加坡",
-    "date": "2025-01-11",
-    "note": "2场",
-    "startDate": "2025-01-11",
-    "endDate": "2025-01-12"
-  },
-  {
-    "artistId": "mayday",
-    "tour": "回到那一天巡回演唱会",
     "venueId": "tj-aoti",
     "city": "天津",
     "date": "2025-04-18",
@@ -4628,16 +4428,6 @@
     "note": "6场·5525+1",
     "startDate": "2025-12-05",
     "endDate": "2025-12-10"
-  },
-  {
-    "artistId": "mayday",
-    "tour": "回到那一天巡回演唱会",
-    "venueId": "bj-niaocao",
-    "city": "吉隆坡",
-    "date": "2026-01-31",
-    "note": "1场·5525+1",
-    "startDate": "2026-01-31",
-    "endDate": "2026-01-31"
   },
   {
     "artistId": "mayday",
@@ -5892,8 +5682,8 @@
   {
     "artistId": "silence",
     "tour": "罗曼前传世界巡回演唱会",
-    "venueId": "ot-ven4",
-    "city": "中国澳门",
+    "venueId": "mo-ven",
+    "city": "澳门",
     "date": "2026-02-27",
     "note": "2场·首站",
     "startDate": "2026-02-27",
@@ -5918,16 +5708,6 @@
     "note": "2场",
     "startDate": "2023-07-22",
     "endDate": "2023-07-23"
-  },
-  {
-    "artistId": "silence",
-    "tour": "世纪派对巡回演唱会",
-    "venueId": "hz-xiaolianhua",
-    "city": "武汉",
-    "date": "2023-08-26",
-    "note": "2场",
-    "startDate": "2023-08-26",
-    "endDate": "2023-08-27"
   },
   {
     "artistId": "silence",
@@ -5958,16 +5738,6 @@
     "note": "1场·生日场",
     "startDate": "2019-09-14",
     "endDate": "2019-09-14"
-  },
-  {
-    "artistId": "silence",
-    "tour": "银河漫游巡回演唱会",
-    "venueId": "hz-xiaolianhua",
-    "city": "武汉",
-    "date": "2019-12-21",
-    "note": "1场·收官",
-    "startDate": "2019-12-21",
-    "endDate": "2019-12-21"
   },
   {
     "artistId": "zhoushen",
@@ -6751,26 +6521,6 @@
   },
   {
     "artistId": "gem",
-    "tour": "I AM GLORIA世界巡回演唱会",
-    "venueId": "bj-niaocao",
-    "city": "吉隆坡",
-    "date": "2025-02-15",
-    "note": "1场",
-    "startDate": "2025-02-15",
-    "endDate": "2025-02-15"
-  },
-  {
-    "artistId": "gem",
-    "tour": "I AM GLORIA世界巡回演唱会",
-    "venueId": "bj-niaocao",
-    "city": "新加坡",
-    "date": "2025-03-01",
-    "note": "1场",
-    "startDate": "2025-03-01",
-    "endDate": "2025-03-01"
-  },
-  {
-    "artistId": "gem",
     "tour": "I AM GLORIA 2.0世界巡回演唱会",
     "venueId": "wz-stadium",
     "city": "温州",
@@ -6922,16 +6672,6 @@
   {
     "artistId": "gem",
     "tour": "I AM GLORIA 2.0世界巡回演唱会",
-    "venueId": "xm-bailu",
-    "city": "三亚",
-    "date": "2025-12-06",
-    "note": "2场",
-    "startDate": "2025-12-06",
-    "endDate": "2025-12-07"
-  },
-  {
-    "artistId": "gem",
-    "tour": "I AM GLORIA 2.0世界巡回演唱会",
     "venueId": "gz-aoti",
     "city": "广州",
     "date": "2025-12-26",
@@ -6958,26 +6698,6 @@
     "note": "3场",
     "startDate": "2026-05-01",
     "endDate": "2026-05-03"
-  },
-  {
-    "artistId": "gem",
-    "tour": "I AM GLORIA 2.0世界巡回演唱会",
-    "venueId": "bj-niaocao",
-    "city": "新加坡",
-    "date": "2026-05-23",
-    "note": "1场",
-    "startDate": "2026-05-23",
-    "endDate": "2026-05-23"
-  },
-  {
-    "artistId": "gem",
-    "tour": "I AM GLORIA 2.0世界巡回演唱会",
-    "venueId": "bj-niaocao",
-    "city": "吉隆坡",
-    "date": "2026-06-06",
-    "note": "1场",
-    "startDate": "2026-06-06",
-    "endDate": "2026-06-06"
   },
   {
     "artistId": "gem",
@@ -7552,16 +7272,6 @@
   {
     "artistId": "gem",
     "tour": "X.X.X. Live世界巡回演唱会",
-    "venueId": "mo-cotai",
-    "city": "拉斯维加斯",
-    "date": "2015-02-21",
-    "note": "1场",
-    "startDate": "2015-02-21",
-    "endDate": "2015-02-21"
-  },
-  {
-    "artistId": "gem",
-    "tour": "X.X.X. Live世界巡回演唱会",
     "venueId": "tw-arena",
     "city": "台北",
     "date": "2015-03-12",
@@ -7612,16 +7322,6 @@
   {
     "artistId": "gem",
     "tour": "X.X.X. Live世界巡回演唱会",
-    "venueId": "wh-wuhuan",
-    "city": "长春",
-    "date": "2015-07-10",
-    "note": "1场",
-    "startDate": "2015-07-10",
-    "endDate": "2015-07-10"
-  },
-  {
-    "artistId": "gem",
-    "tour": "X.X.X. Live世界巡回演唱会",
     "venueId": "dg-ven2",
     "city": "东莞",
     "date": "2015-07-18",
@@ -7658,16 +7358,6 @@
     "note": "1场·首站",
     "startDate": "2002-02-02",
     "endDate": "2002-02-02"
-  },
-  {
-    "artistId": "leehom",
-    "tour": "不可思议世界巡回演唱会",
-    "venueId": "bj-niaocao",
-    "city": "吉隆坡",
-    "date": "2002-07-13",
-    "note": "1场",
-    "startDate": "2002-07-13",
-    "endDate": "2002-07-13"
   },
   {
     "artistId": "leehom",
@@ -7732,16 +7422,6 @@
   {
     "artistId": "leehom",
     "tour": "盖世英雄世界巡回演唱会",
-    "venueId": "bj-niaocao",
-    "city": "吉隆坡",
-    "date": "2007-03-04",
-    "note": "1场",
-    "startDate": "2007-03-04",
-    "endDate": "2007-03-04"
-  },
-  {
-    "artistId": "leehom",
-    "tour": "盖世英雄世界巡回演唱会",
     "venueId": "nj-aoti",
     "city": "南京",
     "date": "2007-10-06",
@@ -7778,16 +7458,6 @@
     "note": "1场",
     "startDate": "2009-01-10",
     "endDate": "2009-01-10"
-  },
-  {
-    "artistId": "leehom",
-    "tour": "MUSIC-MAN世界巡回演唱会",
-    "venueId": "bj-niaocao",
-    "city": "吉隆坡",
-    "date": "2009-05-02",
-    "note": "1场",
-    "startDate": "2009-05-02",
-    "endDate": "2009-05-02"
   },
   {
     "artistId": "leehom",
@@ -8832,16 +8502,6 @@
   {
     "artistId": "leehom",
     "tour": "最好的地方巡回演唱会",
-    "venueId": "bj-wukesong",
-    "city": "重庆",
-    "date": "2025-09-05",
-    "note": "3场",
-    "startDate": "2025-09-05",
-    "endDate": "2025-09-07"
-  },
-  {
-    "artistId": "leehom",
-    "tour": "最好的地方巡回演唱会",
     "venueId": "xa-aoti",
     "city": "西安",
     "date": "2025-09-20",
@@ -8928,16 +8588,6 @@
     "note": "2场",
     "startDate": "2026-01-16",
     "endDate": "2026-01-17"
-  },
-  {
-    "artistId": "leehom",
-    "tour": "最好的地方巡回演唱会",
-    "venueId": "xm-bailu",
-    "city": "三亚",
-    "date": "2026-02-06",
-    "note": "3场·收官",
-    "startDate": "2026-02-06",
-    "endDate": "2026-02-08"
   },
   {
     "artistId": "leehom",
@@ -9592,7 +9242,7 @@
   {
     "artistId": "vae",
     "tour": "青年晚报巡回演唱会",
-    "venueId": "bj-gym2",
+    "venueId": "bj-gym",
     "city": "北京",
     "date": "2017-07-15",
     "note": "1场",
@@ -9628,16 +9278,6 @@
     "note": "1场·首站",
     "startDate": "2019-06-01",
     "endDate": "2019-06-01"
-  },
-  {
-    "artistId": "vae",
-    "tour": "寻宝游戏巡回演唱会",
-    "venueId": "hz-xiaolianhua",
-    "city": "武汉",
-    "date": "2019-06-08",
-    "note": "1场",
-    "startDate": "2019-06-08",
-    "endDate": "2019-06-08"
   },
   {
     "artistId": "vae",
@@ -10402,7 +10042,7 @@
   {
     "artistId": "nic",
     "tour": "Reborn Live巡回演唱会",
-    "venueId": "bj-gym2",
+    "venueId": "bj-gym",
     "city": "北京",
     "date": "2003-10-25",
     "note": "1场",

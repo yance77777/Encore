@@ -1,5 +1,5 @@
 /**
- * 余响 Encore · 后端服务 v0.7.0
+ * 余响 Encore · 后端服务 v0.7.1
  * 技术栈：Node.js + Express + JSON 文件存储
  * 数据存储：../frontend/data/*.json（种子数据只读）+ ../frontend/data/users.json（用户数据读写）
  * 本地运行：cd backend && npm start（前端从 frontend/ 目录提供）
@@ -217,7 +217,7 @@ app.get('/api/stats', (req, res) => {
 });
 
 app.listen(PORT, '0.0.0.0', () => {
-  console.log(`\n  余响 Encore v0.7.0 已启动`);
+  console.log(`\n  余响 Encore v0.7.1 已启动`);
   console.log(`  本地访问:  http://localhost:${PORT}`);
   console.log(`  数据存储:  ${DATA_DIR}`);
   console.log(`  用户数据:  ${USERS_FILE}\n`);

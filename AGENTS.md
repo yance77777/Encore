@@ -23,7 +23,7 @@ Encore (余响) is a concert-tracking app: vanilla HTML/CSS/JS frontend, Node.js
 - JS: camelCase functions/variables, UPPER_CASE constants, numbered section banners with Chinese comments (matching `app.js`).
 - CSS: reuse the design tokens and class system in `style.css`; do not create a parallel theme.
 - Data IDs: lowercase kebab-case venues (`bj-niaocao`), short artist IDs (`jay`, `jj`); image filenames match venue IDs (`assets/venues/<id>.jpg`, `assets/venues/unlit/<id>.jpg`).
-- Keep data files valid UTF-8 JSON and sync the version (`v0.7.0`) across `package.json`, `README.md`, and header comments when behavior changes.
+- Keep data files valid UTF-8 JSON and sync the version (`v0.7.1`) across `package.json`, `README.md`, and header comments when behavior changes.
 
 ## Testing Guidelines
 

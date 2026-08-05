@@ -1,4 +1,4 @@
-/* 余响 Encore · 前端逻辑 v0.7.0（Task 11 深度优化版）
+/* 余响 Encore · 前端逻辑 v0.7.1（Task 11 深度优化版）
  * 多页面版本：按页面元素按需渲染
  * 数据源：后端 API（优先）→ 静态 JSON 文件（GitHub Pages 回退，只读）
  * V0.4：明暗主题切换 + 场馆点亮/熄灭双向交互 + localStorage 持久化
@@ -420,7 +420,7 @@ function renderVenues(){
       <div class="venue-art">${art}</div>
       <div class="venue-name">${v.name}</div>
       <div class="venue-alias">${v.alias}</div>
-      <div class="venue-meta">${v.city} · ${v.type} · ${v.capacity>=10000?Math.floor(v.capacity/10000)+'万':v.capacity}座</div>
+      <div class="venue-meta">${v.city} · ${v.type}${v.capacity?` · ${v.capacity>=10000?Math.floor(v.capacity/10000)+'万':v.capacity}座`:''}</div>
       ${isLit&&artist?`<div class="lit-info">${artist.name} · ${checkin.date}</div>`:''}
     </div>`;
   }).join('');
