@@ -19,6 +19,3 @@ archive/
 
 # 本地用户数据（可选：如不想将用户数据推送到仓库则取消注释）
 # frontend/data/users.json
-
-# Vite 构建产物（由 GitHub Actions 构建后上传）
-frontend/dist/

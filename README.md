@@ -4,9 +4,9 @@
 
 **演唱会足迹追踪 · 点亮你的每一站**
 
-[![Version](https://img.shields.io/badge/version-v0.9.0-gold?style=flat-square)](https://encore.yance777.com)
+[![Version](https://img.shields.io/badge/version-v1.0.0-gold?style=flat-square)](https://encore.yance777.com)
 [![Live](https://img.shields.io/badge/在线访问-encore.yance777.com-brightgreen?style=flat-square)](https://encore.yance777.com)
-[![Frontend](https://img.shields.io/badge/frontend-React%2019-blue?style=flat-square)](https://encore.yance777.com)
+[![Frontend](https://img.shields.io/badge/frontend-Vue%203-purple?style=flat-square)](https://encore.yance777.com)
 [![License](https://img.shields.io/badge/license-MIT-blue?style=flat-square)](#license)
 
 🔗 **在线访问**：[https://encore.yance777.com](https://encore.yance777.com)
@@ -22,14 +22,14 @@
 
 | 模块 | 能力 |
 |------|------|
-| 🏠 首页 | 品牌入口 · 模块导航 · 全局数据一览 · 今日幸运签 / 换票根 |
+| 🏠 首页 | 品牌入口 · 模块导航 · 全局数据一览 |
 | 🏟️ 场馆地图 | 195 座场馆中国地图可视化 · 点亮 / 熄灭双向切换 · 省份统计联动 |
 | 🎤 巡演档案 | 1006 场演唱会记录 · 13 位歌手筛选 · 时间线展示 |
 | 💿 收藏展览 | 147 张专辑全展示 · 一键收藏 / 取消 · localStorage 持久化 |
 | 🎭 粉丝身份 | 个人主页 · 偏好歌手 · 主题皮肤（13 种歌手主题色） |
 | 👑 会员体系 | 套餐展示 · 权益对比 · 粉丝身份进阶 |
 | 🤝 见面 | 见面会记录 · 粉丝互动档案 |
-| 💰 账单 | 演唱会消费记账 · 多维度统计 · 消费占比环图 |
+| 💰 账单 | 演唱会消费记账 · 多维度统计 |
 
 ## 📊 数据统计
 
@@ -69,7 +69,7 @@
 
 | 层 | 技术 | 说明 |
 |----|------|------|
-| 前端 | React 19 + Vite（JSX 组件化） | 多页面构建 · 明暗双模 · 响应式适配 |
+| 前端 | Vue 3 组件化（HTML / CSS / JS） | 本地 vendor · 无构建 · GitHub Pages 即开即用 |
 | 后端 | Node.js + Express | JSON 文件存储 · 轻量部署 |
 | 数据 | JSON 文件 | 静态可读 · 易迁移 |
 | 部署 | GitHub Actions → Pages | 推送即上线 |
@@ -89,8 +89,8 @@ Encore/
 │   ├── member.html            # 会员体系
 │   ├── meet.html              # 见面
 │   ├── expense.html           # 账单
-│   ├── src/                   # React 源码（store / components / pages）
-│   ├── dist/                  # 构建产物（本地生成，不入库）
+│   ├── vue/                   # Vue 3 组件（store / components / pages）
+│   ├── vendor/                # 本地 Vue 3 运行时（ESM · MIT）
 │   ├── style.css              # 样式系统
 │   ├── data/                  # JSON 数据
 │   │   ├── venues.json        # 场馆（195 座）
@@ -103,25 +103,10 @@ Encore/
 │       └── venues/            # 场馆 Q 版图标 + unlit/
 ├── backend/                   # 后端服务
 │   └── server.js              # Express + JSON 文件存储
-├── scripts/                   # 工具脚本 / 冒烟测试
-├── package.json               # React + Vite 依赖与构建脚本
-├── vite.config.mjs            # Vite 多页面配置
+├── scripts/                   # 工具脚本
 ├── .github/workflows/         # 自动部署工作流
 └── README.md
 ```
-
-## 🚀 本地开发
-
-```bash
-npm install       # 安装依赖
-npm run dev       # Vite 开发服务器（http://localhost:5173）
-npm run build     # 构建到 frontend/dist
-npm run preview   # 本地预览构建产物
-cd backend && npm start   # 后端服务（优先托管 frontend/dist）
-node scripts/react_smoke_test.mjs   # 无头浏览器冒烟测试
-```
-
-GitHub Actions 会在推送到 `main` 时自动执行 `npm ci && npm run build` 并将 `frontend/dist` 发布到 Pages。
 
 ## 🌐 在线访问
 
