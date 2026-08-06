@@ -1420,3 +1420,157 @@ body.no-scroll{overflow:hidden}
 /* —— 键盘焦点可达：导航/筛选/卡片统一金色焦点环 —— */
 .nav-links a:focus-visible,.af-chip:focus-visible,.gtab:focus-visible,.skin-chip:focus-visible,
 .plan:focus-visible,.album-card:focus-visible,.venue-card:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:var(--r-sm)}
+
+/* ============================================================
+   §34  Vue 重构增量（v1.0.0）
+   —— 原 meet/expense 页面内联样式收纳 + 新趣味小组件样式
+   ============================================================ */
+
+/* —— 见面页（原 meet.html 内联样式） —— */
+.meet-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.meet-card{display:flex;flex-direction:column;align-items:center;text-align:center;min-height:340px}
+.meet-card .badge{margin-bottom:4px}
+.meet-num{display:flex;align-items:baseline;justify-content:center;gap:8px;line-height:1;margin:14px 0 6px;font-family:var(--serif);font-weight:700}
+.meet-num .num{font-size:var(--fs-display);font-style:italic;
+  background:var(--grad-gold-neon);-webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;color:transparent}
+.meet-num .unit{font-family:var(--cn-serif);font-size:clamp(20px,2.6vw,30px);font-weight:700;color:var(--gold);font-style:normal}
+.meet-num.expired .num{background:none;-webkit-background-clip:border-box;background-clip:border-box;
+  -webkit-text-fill-color:var(--ink-mute);color:var(--ink-mute)}
+.meet-sub{font-size:var(--fs-md);color:var(--ink-soft);margin-bottom:4px}
+.meet-date{font-family:var(--mono);font-size:var(--fs-sm);color:var(--ink-mute);letter-spacing:.3px}
+.meet-name{font-family:var(--cn-serif);font-size:var(--fs-lg);color:var(--ink);font-weight:600;margin-top:6px}
+.meet-card-foot{margin-top:auto;padding-top:24px;width:100%;display:flex;justify-content:center}
+.meet-empty{width:100%;padding:36px 24px}
+@media(max-width:960px){
+  .meet-grid{grid-template-columns:1fr;max-width:480px;margin:0 auto}
+}
+
+/* —— 账单页（原 expense.html 内联样式） —— */
+.exp-summary{display:flex;flex-direction:column;gap:28px}
+.exp-total-wrap{display:flex;flex-direction:column;gap:6px}
+.exp-total-label{font-family:var(--mono);font-size:var(--fs-xs);color:var(--ink-mute);letter-spacing:2px;text-transform:uppercase}
+.exp-total{font-family:var(--serif);font-weight:700;font-style:italic;font-size:var(--fs-display);color:var(--gold);line-height:1;letter-spacing:-1px}
+.exp-subtotals{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;padding-top:24px;border-top:1px solid var(--border)}
+.exp-subtotals .stat .num{font-size:var(--fs-h2)}
+.exp-subtotals .stat .num .unit{font-size:var(--fs-sm)}
+.exp-actions{display:flex;gap:12px;flex-wrap:wrap;padding-top:24px;border-top:1px solid var(--border)}
+.exp-list{display:flex;flex-direction:column;gap:16px}
+.exp-item{display:flex;justify-content:space-between;align-items:flex-start;gap:20px}
+.exp-item-main{flex:1;min-width:0}
+.exp-item-name{font-family:var(--cn-serif);font-size:var(--fs-lg);font-weight:700;color:var(--ink);margin-top:10px;word-break:break-word}
+.exp-item-date{font-family:var(--mono);font-size:var(--fs-sm);color:var(--ink-mute);margin-top:6px;letter-spacing:.3px}
+.exp-item-meta{font-size:var(--fs-sm);color:var(--ink-soft);margin-top:8px;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.exp-item-meta .ico{font-style:normal}
+.exp-item-side{text-align:right;display:flex;flex-direction:column;align-items:flex-end;gap:14px;flex-shrink:0}
+.exp-amount{font-family:var(--serif);font-weight:700;font-size:30px;color:var(--gold);line-height:1;letter-spacing:-.5px}
+.exp-empty{width:100%}
+@media(max-width:600px){
+  .exp-subtotals{grid-template-columns:1fr;gap:12px}
+  .exp-item{flex-direction:column;gap:14px}
+  .exp-item-side{flex-direction:row;align-items:center;justify-content:space-between;width:100%;text-align:left}
+}
+
+/* —— 首页票卡换票根 —— */
+.ticket-actions{margin-top:20px;text-align:center}
+@keyframes ticketFlip{
+  0%{transform:rotate(2.5deg) rotateY(0) scale(1)}
+  50%{transform:rotate(2.5deg) rotateY(180deg) scale(1.02)}
+  100%{transform:rotate(2.5deg) rotateY(360deg) scale(1)}
+}
+.ticket-card.flipping{animation:ticketFlip .36s var(--ease-soft)}
+
+/* —— 首页今日幸运签 —— */
+.fortune-card{margin-bottom:32px;overflow:hidden}
+.fortune-card::before{
+  content:'';position:absolute;top:-70px;right:-50px;width:220px;height:220px;border-radius:50%;
+  background:radial-gradient(circle,rgba(200,147,58,.14),transparent 70%);pointer-events:none;
+}
+.fortune-head{display:flex;align-items:flex-end;justify-content:space-between;gap:14px;margin-bottom:20px;position:relative}
+.fortune-head .tag{font-family:var(--mono);font-size:var(--fs-xs);letter-spacing:2px;color:var(--neon);text-transform:uppercase;margin-bottom:6px}
+.fortune-head h3{font-family:var(--cn-serif);font-size:var(--fs-h2);font-weight:700;letter-spacing:-.3px}
+.fortune-head h3 em{font-family:var(--serif);font-style:italic;font-weight:600;color:var(--gold)}
+.fortune-grid{display:grid;grid-template-columns:1fr auto 1fr;gap:24px;align-items:stretch;position:relative}
+.fortune-item{display:flex;flex-direction:column;align-items:flex-start;gap:10px;min-width:0}
+.fortune-label{font-family:var(--mono);font-size:var(--fs-xs);letter-spacing:1.5px;color:var(--ink-mute);text-transform:uppercase}
+.fortune-artist{display:flex;align-items:center;gap:12px;font-family:var(--cn-serif);font-size:var(--fs-h3);font-weight:700}
+.fortune-initial{
+  width:42px;height:42px;border-radius:var(--r-md);display:inline-flex;align-items:center;justify-content:center;
+  font-family:var(--cn-serif);font-weight:900;font-size:var(--fs-lg);color:#fff;flex-shrink:0;
+  box-shadow:0 8px 18px -8px rgba(34,28,48,.35);
+}
+.fortune-link{
+  border:none;background:none;padding:0;cursor:pointer;font-family:var(--sans);font-size:var(--fs-sm);
+  color:var(--gold);border-bottom:1px dashed var(--gold);line-height:1.4;transition:color var(--dur-base);
+}
+.fortune-link:hover{color:var(--neon);border-color:var(--neon)}
+.fortune-venue{font-family:var(--cn-serif);font-size:var(--fs-h3);font-weight:700;color:var(--ink)}
+.fortune-meta{font-size:var(--fs-sm);color:var(--ink-soft);font-family:var(--mono)}
+.fortune-divider{width:1px;background:var(--border-strong)}
+@media(max-width:760px){
+  .fortune-grid{grid-template-columns:1fr}
+  .fortune-divider{width:100%;height:1px}
+}
+
+/* —— 地图页足迹进度条 —— */
+.map-progress{
+  display:flex;flex-direction:column;gap:12px;margin-bottom:28px;padding:18px 24px;
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);box-shadow:var(--shadow-sm);
+}
+.mp-row{display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:center}
+.mp-label{font-size:var(--fs-sm);color:var(--ink-soft);white-space:nowrap}
+.mp-bar{height:8px;background:var(--surface-2);border-radius:4px;overflow:hidden}
+.mp-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--gold),var(--neon-2));transition:width 1s var(--ease-out)}
+.mp-num{font-family:var(--mono);font-size:var(--fs-sm);color:var(--gold);white-space:nowrap}
+@media(max-width:520px){
+  .mp-row{grid-template-columns:1fr;gap:6px}
+  .mp-num{justify-self:end}
+}
+
+/* —— 巡演档案摘要 —— */
+.tour-summary{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px}
+.ts-chip{
+  font-family:var(--mono);font-size:var(--fs-sm);color:var(--gold);
+  background:var(--gold-soft);border:1px solid var(--gold-line);
+  padding:6px 14px;border-radius:var(--r-full);
+}
+
+/* —— 收藏进度环 —— */
+.collection-ring{display:flex;align-items:center;gap:16px}
+.collection-ring svg{width:104px;height:104px;flex-shrink:0}
+.cr-bg{fill:none;stroke:var(--border-strong);stroke-width:7}
+.cr-fg{
+  fill:none;stroke:url(#crGrad);stroke-width:7;stroke-linecap:round;
+  transform:rotate(-90deg);transform-origin:center;transition:stroke-dashoffset 1s var(--ease-out);
+}
+.cr-num{font-family:var(--serif);font-weight:700;font-size:26px;fill:var(--ink);text-anchor:middle}
+.cr-lab{font-family:var(--mono);font-size:9px;fill:var(--ink-mute);text-anchor:middle}
+.cr-meta{display:flex;flex-direction:column;gap:4px}
+.cr-label{font-family:var(--cn-serif);font-size:var(--fs-md);font-weight:700;color:var(--ink)}
+.cr-total{font-size:var(--fs-sm);color:var(--ink-soft);font-family:var(--mono)}
+@media(max-width:520px){
+  .collection-ring{flex-direction:column;gap:8px;align-items:flex-start}
+}
+
+/* —— 专辑已收藏角标（原内联样式收纳） —— */
+.album-collected-badge{
+  position:absolute;top:8px;left:8px;font-size:9px;font-family:var(--mono);color:#fff;
+  background:linear-gradient(100deg,var(--gold),var(--neon-2));padding:2px 8px;border-radius:4px;z-index:2;
+}
+
+/* —— 账单占比环图 —— */
+.exp-donut-wrap{padding-top:24px;border-top:1px solid var(--border)}
+.exp-donut{display:flex;align-items:center;gap:32px;flex-wrap:wrap}
+.exp-donut svg{width:180px;height:180px;flex-shrink:0}
+.dn-bg{fill:none;stroke:var(--surface-2);stroke-width:7}
+.dn-seg{fill:none;stroke-width:7;transform:rotate(-90deg);transform-origin:center;transition:opacity var(--dur-base)}
+.dn-seg:hover{opacity:.75}
+.dn-num{font-family:var(--serif);font-weight:700;font-size:18px;fill:var(--ink);text-anchor:middle}
+.dn-lab{font-family:var(--mono);font-size:9px;fill:var(--ink-mute);text-anchor:middle}
+.exp-donut-legend{display:flex;flex-direction:column;gap:10px;min-width:180px}
+.dn-legend-item{display:flex;align-items:center;gap:10px;font-size:var(--fs-sm);color:var(--ink-soft)}
+.dn-legend-item i{width:10px;height:10px;border-radius:3px;flex-shrink:0}
+.dn-legend-item b{font-family:var(--mono);font-weight:600;color:var(--ink);margin-left:auto;white-space:nowrap}
+@media(max-width:520px){
+  .exp-donut{flex-direction:column;align-items:flex-start}
+}

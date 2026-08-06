@@ -4,9 +4,9 @@
 
 **演唱会足迹追踪 · 点亮你的每一站**
 
-[![Version](https://img.shields.io/badge/version-v0.8.0-gold?style=flat-square)](https://encore.yance777.com)
+[![Version](https://img.shields.io/badge/version-v1.0.0-gold?style=flat-square)](https://encore.yance777.com)
 [![Live](https://img.shields.io/badge/在线访问-encore.yance777.com-brightgreen?style=flat-square)](https://encore.yance777.com)
-[![Frontend](https://img.shields.io/badge/frontend-vanilla%20JS-orange?style=flat-square)](https://encore.yance777.com)
+[![Frontend](https://img.shields.io/badge/frontend-Vue%203-purple?style=flat-square)](https://encore.yance777.com)
 [![License](https://img.shields.io/badge/license-MIT-blue?style=flat-square)](#license)
 
 🔗 **在线访问**：[https://encore.yance777.com](https://encore.yance777.com)
@@ -69,7 +69,7 @@
 
 | 层 | 技术 | 说明 |
 |----|------|------|
-| 前端 | 原生 HTML / CSS / JS | 零框架 · 零构建 · 即开即用 |
+| 前端 | Vue 3 组件化（HTML / CSS / JS） | 本地 vendor · 无构建 · GitHub Pages 即开即用 |
 | 后端 | Node.js + Express | JSON 文件存储 · 轻量部署 |
 | 数据 | JSON 文件 | 静态可读 · 易迁移 |
 | 部署 | GitHub Actions → Pages | 推送即上线 |
@@ -89,7 +89,8 @@ Encore/
 │   ├── member.html            # 会员体系
 │   ├── meet.html              # 见面
 │   ├── expense.html           # 账单
-│   ├── app.js                 # 前端逻辑
+│   ├── vue/                   # Vue 3 组件（store / components / pages）
+│   ├── vendor/                # 本地 Vue 3 运行时（ESM · MIT）
 │   ├── style.css              # 样式系统
 │   ├── data/                  # JSON 数据
 │   │   ├── venues.json        # 场馆（195 座）
