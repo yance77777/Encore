@@ -1832,7 +1832,7 @@
   {
     "artistId": "jj",
     "tour": "圣所世界巡回演唱会",
-    "venueId": "dg-ven",
+    "venueId": "dg-ven2",
     "city": "东莞",
     "date": "2018-09-15",
     "note": "1场",
@@ -3122,7 +3122,7 @@
   {
     "artistId": "mayday",
     "tour": "DNA创造世界巡回演唱会",
-    "venueId": "cs-expo2",
+    "venueId": "cs-expo",
     "city": "长沙",
     "date": "2009-12-26",
     "note": "1场",
@@ -4012,7 +4012,7 @@
   {
     "artistId": "mayday",
     "tour": "人生无限公司巡回演唱会",
-    "venueId": "tj-gym",
+    "venueId": "tj-aoti",
     "city": "天津",
     "date": "2018-04-29",
     "note": "2场",
@@ -6812,7 +6812,7 @@
   {
     "artistId": "gem",
     "tour": "Queen of Hearts世界巡回演唱会",
-    "venueId": "cs-expo2",
+    "venueId": "cs-expo",
     "city": "长沙",
     "date": "2017-05-20",
     "note": "1场",
@@ -6932,7 +6932,7 @@
   {
     "artistId": "gem",
     "tour": "Queen of Hearts世界巡回演唱会",
-    "venueId": "dg-ven",
+    "venueId": "dg-ven2",
     "city": "东莞",
     "date": "2018-05-26",
     "note": "1场",
@@ -8072,7 +8072,7 @@
   {
     "artistId": "leehom",
     "tour": "龙的传人2060巡回演唱会",
-    "venueId": "dg-ven",
+    "venueId": "dg-ven2",
     "city": "东莞",
     "date": "2018-05-05",
     "note": "1场",
