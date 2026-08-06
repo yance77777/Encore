@@ -1,5 +1,5 @@
 /**
- * 余响 Encore · 后端服务 v0.8.0
+ * 余响 Encore · 后端服务 v0.9.0
  * 技术栈：Node.js + Express + JSON 文件存储
  * 数据存储：../frontend/data/*.json（种子数据只读）+ ../frontend/data/users.json（用户数据读写）
  * 本地运行：cd backend && npm start（前端从 frontend/ 目录提供）
@@ -17,9 +17,12 @@ const ROOT_DIR = path.join(__dirname, '..');
 const FRONTEND_DIR = path.join(ROOT_DIR, 'frontend');
 const DATA_DIR = path.join(FRONTEND_DIR, 'data');
 const USERS_FILE = path.join(DATA_DIR, 'users.json');
+// React/Vite 构建产物目录（存在时优先托管，否则回退到源码目录便于开发）
+const BUILD_DIR = path.join(FRONTEND_DIR, 'dist');
+const STATIC_DIR = fs.existsSync(path.join(BUILD_DIR, 'index.html')) ? BUILD_DIR : FRONTEND_DIR;
 
 app.use(express.json());
-app.use(express.static(FRONTEND_DIR));
+app.use(express.static(STATIC_DIR));
 
 /* ============ CORS（GitHub Pages 前端跨域调用）============ */
 const ALLOWED_ORIGINS = [

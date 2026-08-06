@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>收藏展览 · 余响 Encore</title>
-<meta name="description" content="余响 Encore 收藏展览——歌手专辑全展示，一键收藏/取消，localStorage 持久化。">
+<meta name="description" content="余响 Encore 收藏展览——歌手专辑全展示，一键收藏 / 取消，localStorage 持久化。">
 <link rel="icon" href="assets/icons/app-icon-v2-dust.jpg" type="image/jpeg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,57 +12,7 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-<header>
-  <div class="wrap nav">
-    <a href="index.html" class="logo"><img src="assets/icons/app-icon-v2-dust-light.jpg" class="logo-icon light-only" alt="余响"><img src="assets/icons/app-icon-v2-dust.jpg" class="logo-icon dark-only" alt="余响">余响 <span class="logo-en">Encore</span></a>
-    <ul class="nav-links">
-      <li><a href="index.html">首页</a></li>
-      <li><a href="map.html">场馆地图</a></li>
-      <li><a href="tours.html">巡演档案</a></li>
-      <li><a href="gallery.html" class="active">收藏展览</a></li>
-      <li><a href="identity.html">粉丝身份</a></li>
-      <li><a href="meet.html">见面</a></li>
-      <li><a href="expense.html">账单</a></li>
-      <li><a href="member.html">会员</a></li>
-    </ul>
-    <button class="nav-toggle" aria-label="菜单"><span></span><span></span><span></span></button>
-    <div class="nav-actions">
-      <button class="theme-toggle" onclick="toggleTheme()" aria-label="切换主题"><span class="icon-moon">🌙</span><span class="icon-sun">☀</span></button>
-      <button class="member-btn" onclick="location.href='member.html'">开通会员</button>
-    </div>
-  </div>
-</header>
-
-<div class="wrap">
-
-  <section id="gallery">
-    <div class="sec-head reveal">
-      <div>
-        <div class="tag">03 / Collection</div>
-        <h2>收藏展览馆 <em>Archive</em></h2>
-        <p>拍下你的实体专辑与周边，拼成一面属于你的展览墙。</p>
-      </div>
-    </div>
-    <div class="reveal">
-      <div class="gallery-tabs" id="gTabs">
-        <button class="gtab active" data-type="all-albums">全部专辑</button>
-        <button class="gtab" data-type="album">我的专辑</button>
-        <button class="gtab" data-type="single">单曲</button>
-        <button class="gtab" data-type="merch">周边</button>
-      </div>
-      <div class="shelf" id="shelf"></div>
-    </div>
-  </section>
-
-</div>
-
-<footer>
-  <div>余响 Encore · 演唱会足迹追踪 <span class="ver">v0.8.0</span></div>
-  <div class="footer-copy">© 2026 余响 Encore All rights reserved</div>
-</footer>
-
-<div class="toast" id="toast"><span class="ico"></span><span id="toastText"></span></div>
-<script src="app.js"></script>
+<div id="root"></div>
+<script type="module" src="./src/pages/gallery.jsx"></script>
 </body>
 </html>
