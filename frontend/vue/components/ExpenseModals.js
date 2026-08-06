@@ -18,7 +18,13 @@ export default {
   },
   watch: {
     mode(val) {
-      if (val === 'add') this.resetForm();
+      if (val === 'add') {
+        this.resetForm();
+        this.$nextTick(() => {
+          const el = document.getElementById('fName');
+          if (el) el.focus();
+        });
+      }
       if (val === 'delete') this.pendingDeleteId = this.deleteId;
     }
   },
@@ -95,7 +101,7 @@ export default {
   template: `
     <div>
       <!-- 添加消费 -->
-      <div class="modal-backdrop" :class="{ open: mode === 'add' }" @click.self="closeAll">
+      <div class="modal-backdrop" :class="{ open: mode === 'add' }" :aria-hidden="mode === 'add' ? 'false' : 'true'" @click.self="closeAll">
         <div class="modal">
           <button class="modal-close" aria-label="关闭" @click="closeAll">×</button>
           <div class="modal-title">添加消费记录</div>
@@ -150,7 +156,7 @@ export default {
       </div>
 
       <!-- 删除单条 -->
-      <div class="modal-backdrop" :class="{ open: mode === 'delete' }" @click.self="closeAll">
+      <div class="modal-backdrop" :class="{ open: mode === 'delete' }" :aria-hidden="mode === 'delete' ? 'false' : 'true'" @click.self="closeAll">
         <div class="modal modal-sm">
           <div class="modal-title">删除记录</div>
           <div class="modal-body">确定要删除这条消费记录吗？此操作不可撤销。</div>
@@ -162,7 +168,7 @@ export default {
       </div>
 
       <!-- 清空全部 -->
-      <div class="modal-backdrop" :class="{ open: mode === 'clear' }" @click.self="closeAll">
+      <div class="modal-backdrop" :class="{ open: mode === 'clear' }" :aria-hidden="mode === 'clear' ? 'false' : 'true'" @click.self="closeAll">
         <div class="modal modal-sm">
           <div class="modal-title">清空全部记录</div>
           <div class="modal-body">确定要清空所有消费记录吗？此操作不可撤销，数据将无法恢复。</div>

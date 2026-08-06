@@ -235,8 +235,6 @@ export function toggleCheckin(venueId) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ venueId, artistId, date, note })
     })
-      .then((r) => (r.ok ? r.json() : null))
-      .then((d) => { if (d && d.user) store.user = d.user; })
       .catch(() => {});
   }
   store.stats = computeStats();

@@ -6,7 +6,7 @@ import ExpenseSummary from '../components/ExpenseSummary.js';
 import ExpenseList from '../components/ExpenseList.js';
 import ExpenseModals from '../components/ExpenseModals.js';
 import { reveal } from '../directives.js';
-import { initApp } from '../store.js';
+import { store, initApp } from '../store.js';
 
 const ExpensePage = {
   name: 'ExpensePage',
@@ -17,6 +17,9 @@ const ExpensePage = {
       deleteId: ''
     };
   },
+  computed: {
+    store() { return store; }
+  },
   methods: {
     openDelete(id) {
       this.deleteId = id;
@@ -24,7 +27,7 @@ const ExpensePage = {
     }
   },
   template: `
-    <app-shell active="expense">
+    <app-shell active="expense" :loading="!store.loaded" :error="!!store.error">
       <div class="wrap">
         <section id="expense">
           <section-head

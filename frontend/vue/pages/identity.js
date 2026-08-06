@@ -9,7 +9,7 @@ import FanStats from '../components/FanStats.js';
 import Achievements from '../components/Achievements.js';
 import IdentityCardModal from '../components/IdentityCardModal.js';
 import { reveal } from '../directives.js';
-import { initApp } from '../store.js';
+import { store, initApp } from '../store.js';
 
 const IdentityPage = {
   name: 'IdentityPage',
@@ -20,8 +20,11 @@ const IdentityPage = {
   data() {
     return { modalOpen: false };
   },
+  computed: {
+    store() { return store; }
+  },
   template: `
-    <app-shell active="identity">
+    <app-shell active="identity" :loading="!store.loaded" :error="!!store.error">
       <div class="wrap">
         <section id="identity" class="identity-section">
           <section-head

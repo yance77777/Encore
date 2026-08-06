@@ -19,7 +19,7 @@ export default {
   },
   template: `
     <div class="member-cards" v-reveal>
-      <div v-for="m in modules" :key="m.href" class="plan" @click="go(m.href)">
+      <div v-for="m in modules" :key="m.href" class="plan" role="button" tabindex="0" @click="go(m.href)" @keydown.enter.prevent="go(m.href)" @keydown.space.prevent="go(m.href)">
         <div class="plan-name">{{ m.en }}</div>
         <div class="plan-cn">{{ m.name }}</div>
         <p style="color:var(--ink-soft);font-size:13px;margin-bottom:20px">{{ m.desc }}</p>

@@ -34,7 +34,11 @@ export default {
           :class="{ active: a.id === active }"
           :data-id="a.id"
           :style="{ background: 'linear-gradient(160deg,' + a.color + ',' + a.color + '55)' }"
+          role="button"
+          tabindex="0"
           @click="apply(a.id)"
+          @keydown.enter.prevent="apply(a.id)"
+          @keydown.space.prevent="apply(a.id)"
         >{{ a.en.slice(0, 6) }}</div>
       </div>
       <div class="theme-preview">

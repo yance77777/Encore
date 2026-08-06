@@ -5,13 +5,16 @@ import SectionHead from '../components/SectionHead.js';
 import CollectionRing from '../components/CollectionRing.js';
 import GalleryShelf from '../components/GalleryShelf.js';
 import { reveal } from '../directives.js';
-import { initApp } from '../store.js';
+import { store, initApp } from '../store.js';
 
 const GalleryPage = {
   name: 'GalleryPage',
   components: { AppShell, SectionHead, CollectionRing, GalleryShelf },
+  computed: {
+    store() { return store; }
+  },
   template: `
-    <app-shell active="gallery">
+    <app-shell active="gallery" :loading="!store.loaded" :error="!!store.error">
       <div class="wrap">
         <section id="gallery">
           <section-head

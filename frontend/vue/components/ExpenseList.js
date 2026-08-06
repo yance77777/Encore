@@ -5,10 +5,6 @@ import { fmtAmount, fmtDate } from '../utils.js';
 export default {
   name: 'ExpenseList',
   emits: ['add', 'delete'],
-  methods: {
-    fmtAmount,
-    fmtDate
-  },
   computed: {
     store() { return store; },
     sorted() {
@@ -19,6 +15,8 @@ export default {
     }
   },
   methods: {
+    fmtAmount,
+    fmtDate,
     typeMeta(type) {
       const map = {
         meet: { label: '见面', badge: 'badge-meet' },

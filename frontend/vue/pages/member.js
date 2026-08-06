@@ -4,13 +4,16 @@ import AppShell from '../components/AppShell.js';
 import SectionHead from '../components/SectionHead.js';
 import MemberPlans from '../components/MemberPlans.js';
 import { reveal } from '../directives.js';
-import { initApp } from '../store.js';
+import { store, initApp } from '../store.js';
 
 const MemberPage = {
   name: 'MemberPage',
   components: { AppShell, SectionHead, MemberPlans },
+  computed: {
+    store() { return store; }
+  },
   template: `
-    <app-shell active="member">
+    <app-shell active="member" :loading="!store.loaded" :error="!!store.error">
       <div class="wrap">
         <section id="member" class="member-section">
           <section-head

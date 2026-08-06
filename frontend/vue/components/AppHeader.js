@@ -53,12 +53,12 @@ export default {
           <img src="assets/icons/app-icon-v2-dust.jpg" class="logo-icon dark-only" alt="余响">
           余响 <span class="logo-en">Encore</span>
         </a>
-        <ul class="nav-links" :class="{ open }">
+        <ul class="nav-links" :class="{ open }" id="nav-links">
           <li v-for="nav in navs" :key="nav.key">
             <a :href="nav.href" :class="{ active: nav.key === active }" @click="closeNav">{{ nav.name }}</a>
           </li>
         </ul>
-        <button class="nav-toggle" :class="{ open }" aria-label="菜单" @click="toggleNav">
+        <button class="nav-toggle" :class="{ open }" aria-label="菜单" :aria-expanded="open ? 'true' : 'false'" aria-controls="nav-links" @click="toggleNav">
           <span></span><span></span><span></span>
         </button>
         <div class="nav-actions">

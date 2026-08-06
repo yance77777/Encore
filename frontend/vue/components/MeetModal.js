@@ -18,7 +18,13 @@ export default {
   },
   watch: {
     open(val) {
-      if (val) this.populate();
+      if (val) {
+        this.populate();
+        this.$nextTick(() => {
+          const el = document.getElementById('meetDateInput');
+          if (el) el.focus();
+        });
+      }
     }
   },
   mounted() {
@@ -64,7 +70,7 @@ export default {
     }
   },
   template: `
-    <div class="modal-backdrop" :class="{ open }" @click.self="close">
+    <div class="modal-backdrop" :class="{ open }" :aria-hidden="open ? 'false' : 'true'" @click.self="close">
       <div class="modal">
         <button class="modal-close" aria-label="关闭" @click="close">×</button>
         <div class="modal-title">{{ title }}</div>

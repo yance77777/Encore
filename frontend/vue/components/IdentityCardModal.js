@@ -76,7 +76,7 @@ ${d.nickname} · SINCE ${d.since} · 粉龄 ${d.years} 年
     }
   },
   template: `
-    <div class="modal-backdrop" :class="{ open }" aria-hidden="true" @click.self="close">
+    <div class="modal-backdrop" :class="{ open }" :aria-hidden="open ? 'false' : 'true'" @click.self="close">
       <div class="modal" role="dialog" aria-modal="true" aria-label="粉丝身份卡">
         <button class="modal-close" aria-label="关闭" @click="close">×</button>
         <div class="modal-title">粉丝身份卡</div>

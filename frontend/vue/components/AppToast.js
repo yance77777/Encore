@@ -16,6 +16,6 @@ export default {
     }
   },
   template: `
-    <div class="toast" :class="toastClass"><span class="ico"></span><span>{{ store.toast.msg }}</span></div>
+    <div class="toast" :class="toastClass" role="status" aria-live="polite"><span class="ico"></span><span>{{ store.toast.msg }}</span></div>
   `
 };

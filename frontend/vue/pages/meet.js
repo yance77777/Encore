@@ -5,7 +5,7 @@ import SectionHead from '../components/SectionHead.js';
 import MeetCountdown from '../components/MeetCountdown.js';
 import MeetModal from '../components/MeetModal.js';
 import { reveal } from '../directives.js';
-import { initApp } from '../store.js';
+import { store, initApp } from '../store.js';
 
 const MeetPage = {
   name: 'MeetPage',
@@ -16,6 +16,9 @@ const MeetPage = {
       target: 'last'
     };
   },
+  computed: {
+    store() { return store; }
+  },
   methods: {
     openModal(target) {
       this.target = target;
@@ -23,7 +26,7 @@ const MeetPage = {
     }
   },
   template: `
-    <app-shell active="meet">
+    <app-shell active="meet" :loading="!store.loaded" :error="!!store.error">
       <div class="wrap">
         <section id="meet" class="meet-section">
           <section-head

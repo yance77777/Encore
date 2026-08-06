@@ -15,7 +15,7 @@ Encore (余响) is a concert-tracking app: Vue 3 component-based frontend, Node.
 - `cd backend && npm install` — install Express.
 - `npm start` (or `npm run dev`) — run the server at `http://localhost:3000`; the frontend is served from `frontend/`.
 - Vue 模块为原生 ES Modules，无构建步骤；页面需通过后端或任意 HTTP 服务访问。
-- 冒烟测试：先启动后端，再运行 `node scripts/vue_smoke_test.mjs`（自动调用无头 Chrome 逐页验证并截图）。
+- 冒烟测试：先启动后端，再运行 `node scripts/vue_smoke_test.mjs`（自动调用无头 Chrome 逐页验证并截图；测试会拦截 `/api/user/*` 写请求，不会污染 `users.json`）。
 - No build step: pushing to `main` triggers the Pages workflow.
 
 ## Coding Style & Naming Conventions

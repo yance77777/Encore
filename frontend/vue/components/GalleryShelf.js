@@ -66,7 +66,11 @@ export default {
           :key="al.artistId + '-' + al.name"
           class="album-card"
           :class="{ collected: al.collected }"
+          role="button"
+          tabindex="0"
           @click="toggle(al.artistId, al.name, al.year)"
+          @keydown.enter.prevent="toggle(al.artistId, al.name, al.year)"
+          @keydown.space.prevent="toggle(al.artistId, al.name, al.year)"
         >
           <div class="album-cover">
             <div v-html="albumSvg(al)"></div>
@@ -88,7 +92,7 @@ export default {
             <div class="item-sub">{{ itemArtist(it) ? itemArtist(it).name : '' }} · {{ it.year || '' }}</div>
           </div>
         </div>
-        <div class="item item-add" @click="add()">
+        <div class="item item-add" role="button" tabindex="0" @click="add()" @keydown.enter.prevent="add()" @keydown.space.prevent="add()">
           <div class="item-cover"><div class="plus">+</div></div>
           <div class="item-info"><div class="item-title">添加</div><div class="item-sub">拍下你的收藏</div></div>
         </div>

@@ -5,9 +5,6 @@ import { daysBetween, formatDateCN, todayStr } from '../utils.js';
 export default {
   name: 'MeetCountdown',
   emits: ['open'],
-  methods: {
-    formatDateCN
-  },
   computed: {
     store() { return store; },
     last() { return store.meetDates.lastMeet || null; },
@@ -22,6 +19,7 @@ export default {
     }
   },
   methods: {
+    formatDateCN,
     open(target) {
       this.$emit('open', target);
     }

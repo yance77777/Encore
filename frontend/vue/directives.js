@@ -8,6 +8,10 @@ export const reveal = {
       el.classList.add('in');
       return;
     }
+    if (!window.IntersectionObserver) {
+      el.classList.add('in');
+      return;
+    }
     const io = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {

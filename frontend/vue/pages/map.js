@@ -7,13 +7,16 @@ import MapProgress from '../components/MapProgress.js';
 import ProvinceList from '../components/ProvinceList.js';
 import VenueGrid from '../components/VenueGrid.js';
 import { reveal } from '../directives.js';
-import { initApp } from '../store.js';
+import { store, initApp } from '../store.js';
 
 const MapPage = {
   name: 'MapPage',
   components: { AppShell, SectionHead, ChinaMap, MapProgress, ProvinceList, VenueGrid },
+  computed: {
+    store() { return store; }
+  },
   template: `
-    <app-shell active="map">
+    <app-shell active="map" :loading="!store.loaded" :error="!!store.error">
       <div class="wrap">
         <section id="map">
           <section-head

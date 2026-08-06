@@ -3,13 +3,16 @@ import { createApp } from '../../vendor/vue.esm-browser.prod.js';
 import AppShell from '../components/AppShell.js';
 import TourArchive from '../components/TourArchive.js';
 import { reveal } from '../directives.js';
-import { initApp } from '../store.js';
+import { store, initApp } from '../store.js';
 
 const ToursPage = {
   name: 'ToursPage',
   components: { AppShell, TourArchive },
+  computed: {
+    store() { return store; }
+  },
   template: `
-    <app-shell active="tours">
+    <app-shell active="tours" :loading="!store.loaded" :error="!!store.error">
       <div class="wrap">
         <tour-archive />
       </div>

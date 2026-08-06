@@ -32,7 +32,11 @@ export default {
         class="prov"
         :class="{ lit: p.lit > 0, active: p.short === store.curProv }"
         :data-prov="p.short"
+        role="button"
+        tabindex="0"
         @click="select(p)"
+        @keydown.enter.prevent="select(p)"
+        @keydown.space.prevent="select(p)"
       >
         <div class="prov-name"><span class="pin"></span>{{ p.province }}</div>
         <div class="prov-count">{{ p.lit }}/{{ p.total }}</div>

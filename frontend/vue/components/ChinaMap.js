@@ -107,10 +107,14 @@ export default {
               :d="p.d"
               :data-prov="p.short"
               :class="provClass(p)"
+              role="button"
+              :tabindex="p.data ? 0 : -1"
               @mouseenter="onEnter(p, $event)"
               @mousemove="onMove"
               @mouseleave="onLeave"
               @click="onClick(p)"
+              @keydown.enter.prevent="onClick(p)"
+              @keydown.space.prevent="onClick(p)"
             >
               <title>{{ p.name }}{{ p.data ? ' · ' + p.data.lit + '/' + p.data.total : '' }}</title>
             </path>

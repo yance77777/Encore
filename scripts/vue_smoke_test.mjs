@@ -27,6 +27,18 @@ const PAGES = [
   { file: 'expense.html', markers: ['.exp-summary', '.exp-donut', '.exp-list, .exp-empty'] }
 ];
 
+// 屏蔽对后端用户数据的写请求，避免冒烟测试污染 frontend/data/users.json
+const STUB_FETCH_SOURCE = `(() => {
+  const origFetch = window.fetch.bind(window);
+  window.fetch = (input, init) => {
+    const url = typeof input === 'string' ? input : (input && input.url) || '';
+    if (init && init.method && init.method !== 'GET' && url.indexOf('/api/user/') >= 0) {
+      return Promise.resolve({ ok: true, json: () => Promise.resolve({ ok: true }) });
+    }
+    return origFetch(input, init);
+  };
+})();`;
+
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 class CDP {
@@ -153,6 +165,7 @@ async function main() {
       await cdp.send('Runtime.enable', {}, sessionId);
       await cdp.send('Log.enable', {}, sessionId);
       await cdp.send('Network.enable', {}, sessionId);
+      await cdp.send('Page.addScriptToEvaluateOnNewDocument', { source: STUB_FETCH_SOURCE }, sessionId);
 
       const onException = (msg) => {
         if (msg.sessionId !== sessionId) return;
@@ -219,7 +232,10 @@ async function main() {
             document.querySelector('.theme-toggle').click();
             const dark = document.documentElement.classList.contains('dark');
             document.querySelector('.ticket-actions button').click();
-            return { dark };
+            const fortuneBefore = document.querySelector('.fortune-artist').textContent;
+            const fortuneBtn = document.querySelector('.fortune-head .btn-secondary');
+            if (fortuneBtn) fortuneBtn.click();
+            return { dark, fortuneChanged: fortuneBefore !== document.querySelector('.fortune-artist').textContent };
           })()`);
         } else if (page.file === 'map.html') {
           interaction = await evalIn(cdp, sessionId, `(function(){
@@ -252,10 +268,19 @@ async function main() {
           interaction = await evalIn(cdp, sessionId, `(function(){
             const chip = document.querySelector('.skin-chip');
             if (chip) chip.click();
+            const addChipCount = document.querySelectorAll('.bias-add-chip').length;
+            const addChip = document.querySelector('.bias-add-chip');
+            if (addChip) addChip.click();
             const btn = document.querySelector('.sec-head .btn-primary');
             if (btn) btn.click();
             return new Promise(function(resolve){
-              setTimeout(function(){ resolve({ modalOpen: document.querySelector('.modal-backdrop.open') !== null }); }, 400);
+              setTimeout(function(){
+                resolve({
+                  modalOpen: document.querySelector('.modal-backdrop.open') !== null,
+                  biasRows: document.querySelectorAll('.bias-row').length,
+                  addChipCount
+                });
+              }, 400);
             });
           })()`);
         } else if (page.file === 'member.html') {
@@ -271,7 +296,33 @@ async function main() {
             const btn = document.querySelector('.meet-card .btn-primary, .meet-card .btn-secondary');
             if (btn) btn.click();
             return new Promise(function(resolve){
-              setTimeout(function(){ resolve({ modalOpen: document.querySelector('.modal-backdrop.open') !== null }); }, 400);
+              setTimeout(function(){
+                const date = document.getElementById('meetDateInput');
+                const name = document.getElementById('meetNameInput');
+                if (date) {
+                  date.value = '2026-08-20';
+                  date.dispatchEvent(new Event('input', { bubbles: true }));
+                  date.dispatchEvent(new Event('change', { bubbles: true }));
+                }
+                if (name) {
+                  name.value = '测试见面';
+                  name.dispatchEvent(new Event('input', { bubbles: true }));
+                }
+                const saveBtn = Array.from(document.querySelectorAll('.modal-footer .btn-primary')).find(function(b){ return b.textContent.indexOf('保存') >= 0; });
+                if (saveBtn) saveBtn.click();
+                setTimeout(function(){
+                  const filled = document.querySelectorAll('.meet-num .num').length;
+                  const editBtn = document.querySelector('.meet-card .btn-secondary');
+                  if (editBtn) editBtn.click();
+                  setTimeout(function(){
+                    const clearBtn = Array.from(document.querySelectorAll('.modal-footer .btn-ghost')).find(function(b){ return b.textContent.indexOf('清除') >= 0; });
+                    if (clearBtn) clearBtn.click();
+                    setTimeout(function(){
+                      resolve({ filled, cleared: !document.querySelector('.meet-num') });
+                    }, 300);
+                  }, 300);
+                }, 300);
+              }, 300);
             });
           })()`);
         } else if (page.file === 'expense.html') {
@@ -279,7 +330,38 @@ async function main() {
             const btn = document.querySelector('.exp-actions .btn-primary');
             if (btn) btn.click();
             return new Promise(function(resolve){
-              setTimeout(function(){ resolve({ modalOpen: document.querySelector('.modal-backdrop.open') !== null }); }, 400);
+              setTimeout(function(){
+                const name = document.getElementById('fName');
+                const amount = document.getElementById('fAmount');
+                const date = document.getElementById('fDate');
+                if (name) {
+                  name.value = '测试消费';
+                  name.dispatchEvent(new Event('input', { bubbles: true }));
+                }
+                if (amount) {
+                  amount.value = '520';
+                  amount.dispatchEvent(new Event('input', { bubbles: true }));
+                }
+                if (date) {
+                  date.value = '2026-08-06';
+                  date.dispatchEvent(new Event('input', { bubbles: true }));
+                  date.dispatchEvent(new Event('change', { bubbles: true }));
+                }
+                const form = document.querySelector('.modal-backdrop.open form');
+                if (form) form.requestSubmit();
+                setTimeout(function(){
+                  const itemCount = document.querySelectorAll('.exp-item').length;
+                  const delBtn = document.querySelector('.exp-item .btn-icon');
+                  if (delBtn) delBtn.click();
+                  setTimeout(function(){
+                    const confirmBtn = Array.from(document.querySelectorAll('.modal-footer .btn-primary')).find(function(b){ return b.textContent.indexOf('删除') >= 0; });
+                    if (confirmBtn) confirmBtn.click();
+                    setTimeout(function(){
+                      resolve({ itemCount, afterDelete: document.querySelectorAll('.exp-item').length });
+                    }, 300);
+                  }, 300);
+                }, 400);
+              }, 300);
             });
           })()`);
         }
@@ -288,7 +370,27 @@ async function main() {
       }
 
       await screenshot(cdp, sessionId, page.file.replace('.html', ''));
-      summary.push({ page: page.file, title, appHtml, markers, visual, interaction, errors });
+
+      // 移动端 390px 布局检查
+      await cdp.send('Emulation.setDeviceMetricsOverride', {
+        width: 390,
+        height: 844,
+        deviceScaleFactor: 1,
+        mobile: true
+      }, sessionId);
+      await sleep(600);
+      const mobile = await evalIn(cdp, sessionId, `(function(){
+        const toggle = document.querySelector('.nav-toggle');
+        return {
+          overflowX: document.documentElement.scrollWidth > window.innerWidth,
+          navToggleVisible: toggle ? getComputedStyle(toggle).display !== 'none' : false,
+          viewport: window.innerWidth
+        };
+      })()`);
+      await screenshot(cdp, sessionId, page.file.replace('.html', '') + '-mobile');
+      await cdp.send('Emulation.clearDeviceMetricsOverride', {}, sessionId);
+
+      summary.push({ page: page.file, title, appHtml, markers, visual, mobile, interaction, errors });
 
       await cdp.send('Target.closeTarget', { targetId });
     }

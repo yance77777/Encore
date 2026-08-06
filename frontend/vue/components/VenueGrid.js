@@ -56,13 +56,11 @@ export default {
         unlighting: this.animatingId === id && !this.isLit(id)
       };
     },
-    artHtml(v) {
-      if (v._broken) return venueSVG[v.art] || venueSVG.dome;
-      const isLit = this.isLit(v.id);
-      const src = isLit ? v.img : (v.imgUnlit || v.img);
-      if (src) {
-        return `<img src="${src}" alt="${v.name}" class="${isLit ? 'lit' : 'unlit'}">`;
-      }
+    imgFor(v) {
+      if (v._broken) return '';
+      return this.isLit(v.id) ? v.img : (v.imgUnlit || v.img);
+    },
+    svgFor(v) {
       return venueSVG[v.art] || venueSVG.dome;
     },
     onImgError(v) {
@@ -159,10 +157,17 @@ export default {
           :key="v.id"
           :class="cardClass(v.id)"
           :data-id="v.id"
+          role="button"
+          tabindex="0"
           @click="toggle(v.id)"
+          @keydown.enter.prevent="toggle(v.id)"
+          @keydown.space.prevent="toggle(v.id)"
         >
           <div v-if="!isLit(v.id)" class="toggle-hint">点击点亮</div>
-          <div class="venue-art" v-html="artHtml(v)"></div>
+          <div class="venue-art">
+            <img v-if="imgFor(v)" :src="imgFor(v)" :alt="v.name" :class="isLit(v.id) ? 'lit' : 'unlit'" @error="onImgError(v)">
+            <div v-else v-html="svgFor(v)"></div>
+          </div>
           <div class="venue-name">{{ v.name }}</div>
           <div class="venue-alias">{{ v.alias }}</div>
           <div class="venue-meta">{{ v.city }} · {{ v.type }}{{ v.capacity ? ' · ' + (v.capacity >= 10000 ? Math.floor(v.capacity / 10000) + '万' : v.capacity) + '座' : '' }}</div>

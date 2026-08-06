@@ -48,17 +48,27 @@ export default {
   beforeUnmount() {
     if (this.io) this.io.disconnect();
   },
+  watch: {
+    'cards.length'(len) {
+      if (len && !this.animated && this.inViewport()) this.runAnimation();
+    }
+  },
   methods: {
+    inViewport() {
+      const r = this.$el.getBoundingClientRect();
+      return r.top < window.innerHeight && r.bottom > 0;
+    },
+    runAnimation() {
+      this.animated = true;
+      this.$nextTick(() => {
+        const nums = this.$el.querySelectorAll('.fs-value:not(.text)');
+        nums.forEach((el) => animateValue(el, el.dataset.target));
+      });
+    },
     setupObserver() {
       this.io = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting && !this.animated) {
-            this.animated = true;
-            this.$nextTick(() => {
-              const nums = this.$el.querySelectorAll('.fs-value:not(.text)');
-              nums.forEach((el) => animateValue(el, el.dataset.target));
-            });
-          }
+          if (entry.isIntersecting && !this.animated && this.cards.length) this.runAnimation();
         });
       }, { threshold: 0.12 });
       this.io.observe(this.$el);
